@@ -2,7 +2,11 @@
 
 Technical showcase website of the Aroma Pacífico pilot, the 2026 update of the coffee traceability pilot for Cauca, Huila and Tolima.
 
-The site is in Spanish and shows in detail what the defense could not cover: the 2020 legacy and what changes, an explorer of the 22 architecture diagrams, the four architecture decisions, no-signal operation, drones and event-driven inference, infrastructure as code, cost, observability and the design system. It is plain HTML, CSS and JavaScript with no build step and no external requests.
+The site is in Spanish and presents the complete proposal, the target state with everything decided, built and delivered: the 2020 legacy and what changes, an explorer of the 22 architecture diagrams, the four architecture decisions, no-signal operation, drones and event-driven inference, infrastructure as code, cost, observability and the design system. It is plain HTML, CSS and JavaScript with no build step and no external requests.
+
+Four sections go deep: costs (the full A23 breakdown with a normal and harvest month toggle and Infracost in CI), governance (landing zone, identities, the 28 pc-iac rules and how CI enforces each, review gates, the decision log), the 100-hour plan (B01 to B13 by role, week, module and stack split, dependencies and deliverables, plus the whole-project effort) and infrastructure as code (module catalog by tag, stacks, the pipeline from pull request to plan to approval, and the plan-only scope). Their figures come from the current `main` of the Aroma repositories and from the project planning workbook.
+
+The site is built mobile first: it is tested at 360, 390, 768, 1024 and 1440 px, wide tables scroll inside their own container, tap targets are at least 44 px, and the diagram viewer works with touch (pinch, drag, swipe or buttons). The home page loads only lazy WebP thumbnails; the viewer opens a 1600 px WebP and loads the full PNG or the SVG only on request.
 
 ## Layout
 
@@ -13,7 +17,7 @@ aroma-pacifico-web/
 |-- app.js                  interactions: explorer, lightbox, toggles
 |-- diagrams.js             catalog of the 22 diagrams with captions and boxes
 |-- DIAGRAM_INVENTORY.md    one row per diagram with its source and box IDs
-|-- assets/diagrams/        sanitized SVG, PNG preview and WebP thumbnail per diagram
+|-- assets/diagrams/        per diagram: sanitized SVG, full PNG, WebP view (1600 px) and WebP thumbnail (720 px)
 |-- tokens/ components/     copied unchanged from aroma-pacifico-design-system
 |-- brand/ icons/           copied unchanged from aroma-pacifico-design-system
 |-- scripts/
@@ -35,7 +39,7 @@ python3 -m http.server 8000
 python3 -I scripts/sync-diagrams.py ../aroma-pacifico-diagrams
 ```
 
-The script copies each PNG, writes a sanitized SVG (the embedded draw.io source, the dark-mode style block and two literal strings flagged by the publication scan are removed or reworded) and a WebP thumbnail. The diagrams repository is read only.
+The script copies each PNG, writes a sanitized SVG (the embedded draw.io source, the dark-mode style block and two literal strings flagged by the publication scan are removed or reworded), a 1600 px WebP view for the lightbox and a 720 px WebP thumbnail for the gallery. The diagrams repository is read only.
 
 ## Publication scan
 

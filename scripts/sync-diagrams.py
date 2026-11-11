@@ -9,7 +9,9 @@ For every SVG and PNG export listed in the diagrams README this script:
     "content" attribute), the dark-mode style block, and three literal strings
     that the publication scan flags (a service ARN, a token audience host name)
     are removed or reworded, so the public tree has no hit for the scan;
-  * writes a WebP thumbnail for the gallery cards;
+  * writes a WebP thumbnail for the gallery cards (720 px) and a WebP view for the
+    lightbox (1600 px), so the home page and the viewer stay light on mobile; the
+    full PNG and the SVG load only when the visitor asks for them;
   * prints the manifest (id, size, byte counts) used by DIAGRAM_INVENTORY.md.
 
 The source repository is read only and is never modified.
@@ -69,6 +71,7 @@ def main() -> int:
     source = Path(sys.argv[1])
     out = Path(__file__).resolve().parent.parent / "assets" / "diagrams"
     (out / "thumbs").mkdir(parents=True, exist_ok=True)
+    (out / "view").mkdir(parents=True, exist_ok=True)
     manifest = []
     for folder, name in CATALOG:
         diagram_id = name if name.startswith(folder) else f"{folder}-{name}"
@@ -84,6 +87,11 @@ def main() -> int:
             background = Image.new("RGBA", thumb.size, (255, 255, 255, 255))
             background.alpha_composite(thumb)
             background.convert("RGB").save(out / "thumbs" / f"{diagram_id}.webp", "WEBP", quality=80, method=6)
+            view = image.convert("RGBA")
+            view.thumbnail((1600, 4000))
+            backdrop = Image.new("RGBA", view.size, (255, 255, 255, 255))
+            backdrop.alpha_composite(view)
+            backdrop.convert("RGB").save(out / "view" / f"{diagram_id}.webp", "WEBP", quality=82, method=6)
         manifest.append({
             "id": diagram_id,
             "source": f"{folder}/{name}",
@@ -91,6 +99,7 @@ def main() -> int:
             "svg_kb": (out / f"{diagram_id}.svg").stat().st_size // 1024,
             "png_kb": (out / f"{diagram_id}.png").stat().st_size // 1024,
             "thumb_kb": (out / "thumbs" / f"{diagram_id}.webp").stat().st_size // 1024,
+            "view_kb": (out / "view" / f"{diagram_id}.webp").stat().st_size // 1024,
         })
     print(json.dumps(manifest, indent=2))
     return 0
