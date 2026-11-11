@@ -1840,323 +1840,83 @@
 <th scope="col">Caja</th>
 <th scope="col">Entregado</th>
 </tr></thead><tbody>
-<tr 4>
-<td>B</td>
-<td class="num">0</td>
-<td>1</td>
-<td> </td>
-<td>R</td>
-<td>e</td>
-<td>p</td>
-<td>o</td>
-<td>s</td>
-<td>i</td>
-<td>t</td>
-<td>o</td>
-<td>r</td>
-<td>i</td>
-<td>o</td>
-<td>s</td>
-<td> </td>
-<td>d</td>
-<td>e</td>
-<td> </td>
-<td>I</td>
-<td>a</td>
-<td>C</td>
+<tr>
+<td>B01 Repositorios de IaC</td>
+<td class="num">4</td>
+<td>D01</td>
+<td>Estructura inicial de módulos, ambientes y pipelines; <code>main</code> protegida con flujo de pull request; README con requisitos y comandos base; referencias a las cajas D01 a D13 y carpeta <code>release-notes/</code>.</td>
 </tr>
-<tr 6>
-<td>B</td>
-<td class="num">0</td>
-<td>2</td>
-<td> </td>
-<td>E</td>
-<td>s</td>
-<td>t</td>
-<td>a</td>
-<td>d</td>
-<td>o</td>
-<td> </td>
-<td>r</td>
-<td>e</td>
-<td>m</td>
-<td>o</td>
-<td>t</td>
-<td>o</td>
+<tr>
+<td>B02 Estado remoto</td>
+<td class="num">6</td>
+<td>D02</td>
+<td>Estado remoto sin estado local para el trabajo compartido, separado por ambiente (al menos <code>qa</code> y <code>pdn</code>); el backend bloquea y ningún secreto vive en archivos del repositorio.</td>
 </tr>
-<tr 6>
-<td>B</td>
-<td class="num">0</td>
-<td>3</td>
-<td> </td>
-<td>V</td>
-<td>a</td>
-<td>r</td>
-<td>i</td>
-<td>a</td>
-<td>b</td>
-<td>l</td>
-<td>e</td>
-<td>s</td>
-<td> </td>
-<td>y</td>
-<td> </td>
-<td>s</td>
-<td>e</td>
-<td>c</td>
-<td>r</td>
-<td>e</td>
-<td>t</td>
-<td>o</td>
-<td>s</td>
+<tr>
+<td>B03 Variables y secretos</td>
+<td class="num">6</td>
+<td>D03</td>
+<td>Variables separadas para <code>qa</code> y <code>pdn</code>; secretos inyectados desde un mecanismo fuera del repositorio; el estado sin secretos en texto plano; ejemplo de variables no sensibles y guía de uso.</td>
 </tr>
-<tr 10>
-<td>B</td>
-<td class="num">0</td>
-<td>4</td>
-<td> </td>
-<td>M</td>
-<td>ó</td>
-<td>d</td>
-<td>u</td>
-<td>l</td>
-<td>o</td>
-<td> </td>
-<td>d</td>
-<td>e</td>
-<td> </td>
-<td>r</td>
-<td>e</td>
-<td>d</td>
+<tr>
+<td>B04 Módulo de red</td>
+<td class="num">10</td>
+<td>D04</td>
+<td>Subredes mínimas de ingesta de telemetría, objetos del dron, aplicación, datos, almacenamiento de objetos, administración y consulta pública; un CIDR por ambiente y salidas reutilizables. El plan de <code>qa</code> no se solapa con 10.41.0.0/16, 10.42.0.0/16 ni 10.43.0.0/16 y <code>pdn</code> tiene su propio bloque.</td>
 </tr>
-<tr 6>
-<td>B</td>
-<td class="num">0</td>
-<td>5</td>
-<td> </td>
-<td>A</td>
-<td>s</td>
-<td>o</td>
-<td>c</td>
-<td>i</td>
-<td>a</td>
-<td>c</td>
-<td>i</td>
-<td>ó</td>
-<td>n</td>
-<td> </td>
-<td>d</td>
-<td>e</td>
-<td> </td>
-<td>u</td>
-<td>n</td>
-<td> </td>
-<td>c</td>
-<td>e</td>
-<td>n</td>
-<td>t</td>
-<td>r</td>
-<td>o</td>
+<tr>
+<td>B05 Asociación de un centro</td>
+<td class="num">6</td>
+<td>D05</td>
+<td>Asociación parametrizada para un solo centro por ejecución, dentro del bloque de su departamento; no instancia los tres centros ni nada en Buenaventura; el plan expone los recursos del enlace entre la nube y el centro.</td>
 </tr>
-<tr 10>
-<td>B</td>
-<td class="num">0</td>
-<td>6</td>
-<td> </td>
-<td>M</td>
-<td>ó</td>
-<td>d</td>
-<td>u</td>
-<td>l</td>
-<td>o</td>
-<td> </td>
-<td>d</td>
-<td>e</td>
-<td> </td>
-<td>s</td>
-<td>e</td>
-<td>g</td>
-<td>u</td>
-<td>r</td>
-<td>i</td>
-<td>d</td>
-<td>a</td>
-<td>d</td>
+<tr>
+<td>B06 Módulo de seguridad</td>
+<td class="num">10</td>
+<td>D06</td>
+<td>Los seis roles de la arquitectura, MFA en los tres roles obligatorios, cifrado en reposo y conexiones seguras, y revocación de la identidad de un nodo de finca o de un kit de dron perdido. La pila de <code>qa</code> y <code>pdn</code> publica los identificadores que leen B07, B09 y B10.</td>
 </tr>
-<tr 8>
-<td>B</td>
-<td class="num">0</td>
-<td>7</td>
-<td> </td>
-<td>R</td>
-<td>e</td>
-<td>g</td>
-<td>l</td>
-<td>a</td>
-<td>s</td>
-<td> </td>
-<td>d</td>
-<td>e</td>
-<td> </td>
-<td>f</td>
-<td>i</td>
-<td>r</td>
-<td>e</td>
-<td>w</td>
-<td>a</td>
-<td>l</td>
-<td>l</td>
+<tr>
+<td>B07 Reglas de firewall</td>
+<td class="num">8</td>
+<td>D07</td>
+<td>Reglas para telemetría, objetos del dron, administración y consulta pública, con reglas permanentes y temporales distinguidas por nombre o metadatos y sin invitados en segmentos internos. El plan de <code>qa</code> refleja solo las aperturas que justifica la tabla de política.</td>
 </tr>
-<tr 8>
-<td>B</td>
-<td class="num">0</td>
-<td>8</td>
-<td> </td>
-<td>M</td>
-<td>ó</td>
-<td>d</td>
-<td>u</td>
-<td>l</td>
-<td>o</td>
-<td> </td>
-<td>d</td>
-<td>e</td>
-<td> </td>
-<td>f</td>
-<td>i</td>
-<td>n</td>
-<td>c</td>
-<td>a</td>
+<tr>
+<td>B08 Módulo de finca</td>
+<td class="num">8</td>
+<td>D08</td>
+<td>Una finca patrón con parámetros reutilizables, sin 200 fincas ni hardware físico, con puntos de conexión para la ingesta con almacenar y reenviar y sin modelar el firmware; se asocia al ambiente sin duplicar lógica.</td>
 </tr>
-<tr 10>
-<td>B</td>
-<td class="num">0</td>
-<td>9</td>
-<td> </td>
-<td>I</td>
-<td>n</td>
-<td>g</td>
-<td>e</td>
-<td>s</td>
-<td>t</td>
-<td>a</td>
-<td> </td>
-<td>d</td>
-<td>e</td>
-<td> </td>
-<td>t</td>
-<td>e</td>
-<td>l</td>
-<td>e</td>
-<td>m</td>
-<td>e</td>
-<td>t</td>
-<td>r</td>
-<td>í</td>
-<td>a</td>
+<tr>
+<td>B09 Ingesta de telemetría</td>
+<td class="num">10</td>
+<td>D09</td>
+<td>Solo el patrón aprobado en el ADR-003, con alcance y exclusiones documentados; sus entradas y salidas encajan con el ambiente patrón y su plan se genera sin secretos en el repositorio.</td>
 </tr>
-<tr 8>
-<td>B</td>
-<td class="num">1</td>
-<td>0</td>
-<td> </td>
-<td>F</td>
-<td>u</td>
-<td>n</td>
-<td>c</td>
-<td>i</td>
-<td>ó</td>
-<td>n</td>
-<td> </td>
-<td>d</td>
-<td>e</td>
-<td> </td>
-<td>i</td>
-<td>n</td>
-<td>f</td>
-<td>e</td>
-<td>r</td>
-<td>e</td>
-<td>n</td>
-<td>c</td>
-<td>i</td>
-<td>a</td>
+<tr>
+<td>B10 Función de inferencia</td>
+<td class="num">8</td>
+<td>D10</td>
+<td>Disparador por evento, permiso de lectura, invocación y escritura del resultado con marca de tiempo, confianza e identificador del objeto de origen; con reintentos y cola de fallos, y sin cómputo persistente esperando objetos.</td>
 </tr>
-<tr 8>
-<td>B</td>
-<td class="num">1</td>
-<td>1</td>
-<td> </td>
-<td>C</td>
-<td>I</td>
-<td> </td>
-<td>c</td>
-<td>o</td>
-<td>n</td>
-<td> </td>
-<td>p</td>
-<td>l</td>
-<td>a</td>
-<td>n</td>
-<td> </td>
-<td>e</td>
-<td>j</td>
-<td>e</td>
-<td>c</td>
-<td>u</td>
-<td>t</td>
-<td>a</td>
-<td>b</td>
-<td>l</td>
-<td>e</td>
+<tr>
+<td>B11 CI con plan ejecutable</td>
+<td class="num">8</td>
+<td>D11</td>
+<td>Validaciones básicas y plan guardado como evidencia revisable para <code>qa</code> y para la pila de carga, dentro del desarrollo basado en tronco y los pull requests.</td>
 </tr>
-<tr 8>
-<td>B</td>
-<td class="num">1</td>
-<td>2</td>
-<td> </td>
-<td>C</td>
-<td>D</td>
-<td> </td>
-<td>c</td>
-<td>o</td>
-<td>n</td>
-<td> </td>
-<td>a</td>
-<td>p</td>
-<td>r</td>
-<td>o</td>
-<td>b</td>
-<td>a</td>
-<td>c</td>
-<td>i</td>
-<td>ó</td>
-<td>n</td>
+<tr>
+<td>B12 CD con aprobación</td>
+<td class="num">8</td>
+<td>D12</td>
+<td>Promoción de <code>qa</code> a <code>pdn</code> con aprobación manual obligatoria antes de producción, evidencia de quién aprobó y cuándo, y documentación de cómo notificar y cómo revertir.</td>
 </tr>
-<tr 6>
-<td>B</td>
-<td class="num">1</td>
-<td>3</td>
-<td> </td>
-<td>P</td>
-<td>l</td>
-<td>a</td>
-<td>n</td>
-<td> </td>
-<td>f</td>
-<td>i</td>
-<td>n</td>
-<td>a</td>
-<td>l</td>
-<td> </td>
-<td>v</td>
-<td>a</td>
-<td>l</td>
-<td>i</td>
-<td>d</td>
-<td>a</td>
-<td>d</td>
-<td>o</td>
+<tr>
+<td>B13 Plan final validado</td>
+<td class="num">6</td>
+<td>D13</td>
+<td>Plan ejecutable del ambiente patrón de punta a punta; cierre con el alcance implementado, las exclusiones y los pasos de ejecución; validación de que no hay secretos en repositorios ni en el estado, con la evidencia mapeada a D01 a D13.</td>
 </tr>
 </tbody></table></div>
 <h3 id="plan-gantt" class="reveal" style="margin-top: var(--ap-space-6)">Vista por persona y por día</h3>

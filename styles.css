@@ -469,3 +469,6 @@ tr[hidden] { display: none; }
 .tag { max-width: 100%; }
 .slo-card .tag { white-space: normal; border-radius: var(--ap-radius-md); padding-top: 4px; padding-bottom: 4px; line-height: 1.3; }
 th code, .swatch code { font-size: 13px; }
+@media (min-width: 600px) and (max-width: 1380px) {
+  .site-nav.open { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--ap-space-1); }
+}
