@@ -25,6 +25,6 @@ if [ -n "${FORBIDDEN_TERMS:-}" ]; then
 fi
 # External URLs: only the organization, the SVG namespace and the diagrams tool FAQ are allowed.
 urls=$(grep -rIEoh --exclude-dir=.git --exclude-dir=_site 'https?://[A-Za-z0-9./_-]+' . | sort -u \
-  | grep -Ev '^https?://(github\.com/aroma-pacifico(/|$)|www\.w3\.org/|www\.drawio\.com/|www\.conventionalcommits\.org/|localhost$)' | grep -Ev '^https:///s/X+' || true)
+  | grep -Ev '^https?://(github\.com/aroma-pacifico/aroma-pacifico-terraform-modules(\.git)?(/|$)|www\.w3\.org/|www\.drawio\.com/|www\.conventionalcommits\.org/|localhost$)' | grep -Ev '^https:///s/X+' || true)
 if [ -n "$urls" ]; then echo "FAIL: external URLs outside the allowlist"; echo "$urls" | head -20; fail=1; else echo "ok:   external URLs"; fi
 exit "$fail"

@@ -176,47 +176,32 @@
   });
   selectFunction('telemetry');
 
-  /* ---------- Environment plan and cost toggle ---------- */
+  /* ---------- Environment plan toggle (stack plans against the emulator) ---------- */
   const envData = {
-    qa: { add: 163, note: '# ejemplo qa: sin asociación de centro de acopio', text: 'Ambiente <strong>qa</strong>: 163 recursos por crear, 0 por cambiar y 0 por destruir.' },
-    pdn: { add: 167, note: '# ejemplo pdn con la asociación de un centro (+4 recursos)', text: 'Ambiente <strong>pdn</strong>: 167 recursos por crear, 0 por cambiar y 0 por destruir. Son los 163 de la pila más los 4 de la asociación de un centro de acopio.' }
-  };
-  const monthData = {
-    normal: { label: 'Factura mensual de AWS, mes normal', value: 558.94 },
-    harvest: { label: 'Factura mensual de AWS, mes de cosecha', value: 573.75 }
+    qa: { network: 163, security: 31, workload: 44 },
+    pdn: { network: 167, security: 31, workload: 44 }
   };
   let currentEnv = 'qa';
-  let currentMonth = 'normal';
   const renderEnv = () => {
     const env = envData[currentEnv];
-    qs('[data-plan-line]').innerHTML = `Plan: <span class="hl">${env.add} to add</span>, 0 to change, 0 to destroy.`;
-    qs('[data-plan-note]').textContent = env.note;
-    qs('[data-plan-text]').innerHTML = env.text;
+    const name = (label) => label.padEnd(10, ' ');
+    qs('[data-plan-network]').innerHTML = `${name('network')}Plan: <span class="hl">${env.network} to add</span>, 0 to change, 0 to destroy.`;
+    qs('[data-plan-security]').innerHTML = `${name('security')}Plan: <span class="hl">${env.security} to add</span>, 0 to change, 0 to destroy.`;
+    qs('[data-plan-workload]').innerHTML = `${name('workload')}Plan: <span class="hl">${env.workload} to add</span>, 0 to change, 0 to destroy.`;
+    qs('[data-plan-total]').textContent = env.network + env.security + env.workload;
     qs('[data-env-name]').textContent = currentEnv;
-    qs('[data-cost-label]').textContent = monthData[currentMonth].label;
-    qs('[data-cost-value]').textContent = money(monthData[currentMonth].value);
+    qs('[data-plan-text]').innerHTML = currentEnv === 'qa'
+      ? 'Ambiente <strong>qa</strong>: 0 por cambiar y 0 por destruir en las tres pilas. La pila de estado no tiene cifra documentada.'
+      : 'Ambiente <strong>pdn</strong>: la pila de red suma 4 recursos por la asociación de un centro de acopio (163 + 4 = 167). 0 por cambiar y 0 por destruir.';
   };
   qsa('[data-env-value]').forEach((button) => button.addEventListener('click', () => {
     currentEnv = button.dataset.envValue;
     qsa('[data-env-value]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
     renderEnv();
   }));
-  qsa('[data-month-value]').forEach((button) => button.addEventListener('click', () => {
-    currentMonth = button.dataset.monthValue;
-    qsa('[data-month-value]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
-    renderEnv();
-  }));
   renderEnv();
 
-  /* ---------- 100 hour plan by role (iac-plan-100h, section 4.1) ---------- */
-  const roles = [
-    { role: 'SR1', hours: 27 }, { role: 'SR2', hours: 26 }, { role: 'JR2', hours: 23 }, { role: 'JR1', hours: 22 }
-  ];
-  qs('[data-roles]').innerHTML = roles.map((item) => `
-    <div class="role-row"><b>${item.role}</b><div class="bar" role="img" aria-label="${item.role}: ${item.hours} horas"><i style="width:${(item.hours / 30) * 100}%"></i></div><output>${item.hours} h</output></div>`).join('')
-    + `<div class="role-row"><b>Total</b><div class="bar" role="img" aria-label="98 horas reservadas de 100"><i style="width:98%"></i></div><output>98 h</output></div>`;
-
-  /* ---------- Cost bars (pilot cost document, section 1) ---------- */
+  /* ---------- Cost bars (pilot cost document A23) ---------- */
   const costDomains = [
     { name: 'Hardware de fincas (200 fincas, 400 nodos)', normal: 920.00, harvest: 920.00, annual: 85040.00 },
     { name: 'Centros de acopio (3 sitios)', normal: 645.00, harvest: 645.00, annual: 16290.00 },
@@ -228,18 +213,116 @@
     harvest: { label: 'Total mensual, mes de cosecha', value: 10638.75 },
     annual: { label: 'Total anualizado del piloto', value: 153346.52 }
   };
+  const cloudServices = [
+    { name: 'Route 53 Resolver entrante', normal: 182.70, harvest: 182.70 },
+    { name: 'AWS Transit Gateway', normal: 110.50, harvest: 110.50 },
+    { name: 'AWS Site-to-Site VPN', normal: 109.50, harvest: 109.50 },
+    { name: 'Observabilidad y telemetría', normal: 60.72, harvest: 60.72 },
+    { name: 'Endpoints de VPC (interfaz)', normal: 58.90, harvest: 58.90 },
+    { name: 'Amazon S3 y AWS KMS', normal: 15.80, harvest: 15.80 },
+    { name: 'Notificaciones al caficultor (SMS y push)', normal: 4.95, harvest: 14.85 },
+    { name: 'AWS WAF', normal: 9.15, harvest: 9.15 },
+    { name: 'Amazon DynamoDB (bajo demanda)', normal: 4.83, harvest: 4.83 },
+    { name: 'Amazon CloudFront', normal: 1.40, harvest: 1.40 },
+    { name: 'Cómputo orientado a eventos e IA', normal: 0.30, harvest: 5.21 },
+    { name: 'AWS IoT Core', normal: 0.19, harvest: 0.19 }
+  ];
+  const barRows = (items, value, formatter) => {
+    const max = Math.max(...items.map(value));
+    return items.map((item) => `
+      <div class="cost-row"><span>${item.name}</span><div class="bar" aria-hidden="true"><i style="width:${(value(item) / max) * 100}%"></i></div><output>${formatter(value(item))}</output></div>`).join('');
+  };
+  const cloudBars = qs('[data-cloud-bars]');
+  cloudBars.classList.add('cost-bars', 'cost-bars--cloud');
   const renderCost = (mode) => {
-    const max = Math.max(...costDomains.map((item) => item[mode]));
-    qs('[data-cost-bars]').innerHTML = costDomains.map((item) => `
-      <div class="cost-row"><span>${item.name}</span><div class="bar" aria-hidden="true"><i style="width:${(item[mode] / max) * 100}%"></i></div><output>${money(item[mode])}</output></div>`).join('');
+    qs('[data-cost-bars]').innerHTML = barRows(costDomains, (item) => item[mode], (v) => money(v));
     qs('[data-cost-total-label]').textContent = costTotals[mode].label;
     qs('[data-cost-total]').textContent = money(costTotals[mode].value);
+    const cloudValue = mode === 'harvest'
+      ? (item) => item.harvest
+      : mode === 'annual' ? (item) => 8 * item.normal + 4 * item.harvest : (item) => item.normal;
+    cloudBars.innerHTML = barRows(cloudServices, cloudValue, (v) => money(v));
   };
   qsa('[data-cm]').forEach((button) => button.addEventListener('click', () => {
     qsa('[data-cm]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
     renderCost(button.dataset.cm);
   }));
   renderCost('normal');
+
+  /* ---------- Project effort by iteration (planning workbook, cut 2026-11-11) ---------- */
+  const effort = [
+    { name: 'Fase 0 - Decisiones', est: 32, exe: 32.0 },
+    { name: 'Fase 1 - Arquitectura', est: 112, exe: 112.0 },
+    { name: 'Sprint 1 - IaC semana 1', est: 50, exe: 39.8 },
+    { name: 'Sprint 2 - IaC semana 2', est: 48, exe: 32.2 },
+    { name: 'Cierre - Entrega', est: 56, exe: 51.2 }
+  ];
+  const effortBars = qs('[data-effort-bars]');
+  effortBars.classList.add('cost-bars', 'cost-bars--effort');
+  const hours = (v) => `${new Intl.NumberFormat('es-CO', { minimumFractionDigits: v % 1 ? 1 : 0, maximumFractionDigits: 1 }).format(v)} h`;
+  const renderEffort = (mode) => {
+    effortBars.innerHTML = barRows(effort, (item) => item[mode], hours);
+    qs('[data-effort-label]').textContent = mode === 'est' ? 'Total de horas estimadas' : 'Total de horas ejecutadas';
+    qs('[data-effort-total]').textContent = mode === 'est' ? '298 h' : '267,2 h';
+  };
+  qsa('[data-em]').forEach((button) => button.addEventListener('click', () => {
+    qsa('[data-em]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+    renderEffort(button.dataset.em);
+  }));
+  renderEffort('est');
+
+  /* ---------- Sortable and filterable 100 hour plan table ---------- */
+  const planTable = qs('#plan-table');
+  const planBody = qs('tbody', planTable);
+  let planRole = 'all';
+  const planRows = () => qsa('tr', planBody);
+  const updatePlanCount = () => {
+    const rows = planRows().filter((row) => !row.hidden);
+    const total = rows.reduce((sum, row) => sum + Number(row.dataset.hours), 0);
+    qs('[data-plan-count]').textContent = `${rows.length} partes, ${total} horas`;
+  };
+  qsa('[data-pr]').forEach((button) => button.addEventListener('click', () => {
+    planRole = button.dataset.pr;
+    qsa('[data-pr]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+    planRows().forEach((row) => { row.hidden = planRole !== 'all' && row.dataset.role !== planRole; });
+    updatePlanCount();
+  }));
+  qsa('[data-sort-col]', planTable).forEach((button) => button.addEventListener('click', () => {
+    const column = Number(button.dataset.sortCol);
+    const th = button.closest('th');
+    const next = th.getAttribute('aria-sort') === 'ascending' ? 'descending' : 'ascending';
+    qsa('th', planTable).forEach((item) => item.setAttribute('aria-sort', 'none'));
+    th.setAttribute('aria-sort', next);
+    const key = (row) => row.dataset.sortvals.split('|')[column];
+    const rows = planRows().sort((a, b) => key(a).localeCompare(key(b), 'es', { numeric: true }) * (next === 'ascending' ? 1 : -1));
+    rows.forEach((row) => planBody.appendChild(row));
+  }));
+  updatePlanCount();
+
+  /* ---------- Browsable table of the 28 pc-iac rules ---------- */
+  const rulesBody = qs('#rules-table tbody');
+  let ruleType = 'all';
+  let ruleQuery = '';
+  const applyRules = () => {
+    let shown = 0;
+    qsa('tr', rulesBody).forEach((row) => {
+      const matchType = ruleType === 'all' || row.dataset.ruleType === ruleType;
+      const text = `${row.dataset.ruleText} ${row.textContent.toLowerCase()}`;
+      const matchQuery = !ruleQuery || text.includes(ruleQuery);
+      row.hidden = !(matchType && matchQuery);
+      if (!row.hidden) shown += 1;
+    });
+    qs('[data-rule-count]').textContent = `${shown} de 28 reglas`;
+  };
+  qsa('[data-rt]').forEach((button) => button.addEventListener('click', () => {
+    ruleType = button.dataset.rt;
+    qsa('[data-rt]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+    applyRules();
+  }));
+  qs('[data-rule-search]').addEventListener('input', (event) => {
+    ruleQuery = event.target.value.trim().toLowerCase();
+    applyRules();
+  });
 
   /* ---------- Error budget calculator ---------- */
   const validInput = qs('[data-valid-events]');

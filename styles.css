@@ -64,7 +64,7 @@ code { background: var(--ap-color-surface-sunken); padding: 1px 6px; border-radi
   font: inherit; font-weight: 700; cursor: pointer;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1380px) {
   .menu-button { display: inline-flex; }
   .site-nav {
     display: none; position: absolute; left: 0; right: 0; top: 100%;
@@ -396,3 +396,61 @@ details.rule-group ul { margin: 0; padding: 0 var(--ap-space-4) var(--ap-space-4
 .section--dark code { background: rgba(255, 255, 255, 0.16); color: var(--ap-color-text-inverse); }
 .section--dark .ap-field__label, .section--dark .ap-field__label-meta { color: var(--ap-color-text-inverse); }
 .section--dark .metric code { background: var(--ap-color-surface-sunken); color: var(--ap-color-text-primary); }
+
+/* ---------- Deep sections: costs, governance, plan, IaC ---------- */
+.chip-nav { display: flex; flex-wrap: wrap; gap: var(--ap-space-2); margin: 0 0 var(--ap-space-6); }
+.chip-link {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--ap-space-4);
+  border: 2px solid var(--ap-color-border-strong); border-radius: var(--ap-radius-pill);
+  background: var(--ap-color-surface-default); color: var(--ap-color-text-primary);
+  font-size: 15px; font-weight: 600; text-decoration: none;
+}
+.chip-link:hover { background: var(--ap-color-brand-primary-50); color: var(--ap-color-brand-primary-900); }
+#costos h3, #gobernanza h3, #plan h3, #iac h3 { margin: var(--ap-space-6) 0 var(--ap-space-3); scroll-margin-top: 88px; }
+#costos .table-wrap, #gobernanza .table-wrap, #plan .table-wrap, #iac .table-wrap { margin-bottom: var(--ap-space-4); }
+#costos .card + .table-wrap, #plan .card + .table-wrap { margin-top: var(--ap-space-4); }
+td code, th code { white-space: normal; }
+.table-wrap table { min-width: 560px; }
+.ds-grid .table-wrap table, #plan .grid-2 .table-wrap table { min-width: 0; }
+.grid-2 > .table-wrap { margin-bottom: 0; }
+.sort-btn { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font: inherit; text-transform: inherit; letter-spacing: inherit; color: inherit; min-height: 32px; }
+.sort-btn:focus-visible { outline: 3px solid var(--ap-color-border-focus); outline-offset: 2px; }
+th[aria-sort="ascending"] .sort-btn::after { content: "\25B2"; font-size: 10px; }
+th[aria-sort="descending"] .sort-btn::after { content: "\25BC"; font-size: 10px; }
+th[aria-sort="none"] .sort-btn::after { content: "\21C5"; font-size: 12px; opacity: 0.6; }
+.rules-tools { display: flex; flex-wrap: wrap; gap: var(--ap-space-4) var(--ap-space-5); align-items: end; margin-bottom: var(--ap-space-3); }
+.rules-tools .field-inline { display: grid; gap: var(--ap-space-1); }
+.text-input {
+  min-height: 44px; min-width: 260px; padding: 0 var(--ap-space-3); border: 2px solid var(--ap-color-border-strong); border-radius: var(--ap-radius-md);
+  background: var(--ap-color-surface-default); color: var(--ap-color-text-primary); font: inherit; font-size: 15px;
+}
+@media (max-width: 480px) { .text-input { min-width: 0; width: 100%; } .rules-tools .field-inline { width: 100%; } }
+.tag--a { background: var(--ap-color-hue-green-100); border-color: var(--ap-color-hue-green-500); color: var(--ap-color-hue-green-800); }
+.tag--p { background: var(--ap-color-hue-blue-100); border-color: var(--ap-color-hue-blue-500); color: var(--ap-color-hue-blue-800); }
+.tag--r { background: var(--ap-color-hue-amber-100); border-color: var(--ap-color-hue-amber-500); color: var(--ap-color-hue-amber-700); }
+.ap-badge--no-state { background: var(--ap-color-neutral-100); border-color: var(--ap-color-neutral-600); color: var(--ap-color-neutral-900); }
+#plan-table td:nth-child(10) .ap-badge, #plan-table td:nth-child(10) { white-space: nowrap; }
+tr[hidden] { display: none; }
+.flow--wrap .flow-node { flex: 1 1 170px; }
+.gantt { border: 2px solid var(--ap-color-border-subtle); border-radius: var(--ap-radius-lg); background: var(--ap-color-surface-default); overflow-x: auto; }
+.gantt-row { display: grid; grid-template-columns: 56px repeat(10, minmax(96px, 1fr)) 64px; min-width: 1120px; border-bottom: 1px solid var(--ap-color-border-subtle); }
+.gantt-row:last-child { border-bottom: 0; }
+.gantt-head span { background: var(--ap-color-surface-subtle); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ap-color-text-secondary); padding: var(--ap-space-2); }
+.gantt-role { display: grid; place-items: center; font-family: var(--ap-font-family-mono); padding: var(--ap-space-2); }
+.gantt-cell { display: flex; flex-direction: column; gap: 4px; padding: var(--ap-space-2); border-left: 1px solid var(--ap-color-border-subtle); min-height: 72px; justify-content: center; }
+.gantt-cell--empty { color: var(--ap-color-neutral-600); align-items: center; }
+.gantt-total { display: grid; place-items: center; font-weight: 700; border-left: 1px solid var(--ap-color-border-subtle); font-variant-numeric: tabular-nums; }
+.gantt-chip { font-style: normal; font-size: 13px; padding: 4px var(--ap-space-2); border-radius: var(--ap-radius-sm); border: 2px solid; }
+.gantt-chip--SR1, .gantt-role--SR1 { background: var(--ap-color-brand-primary-100); border-color: var(--ap-color-brand-primary-700); color: var(--ap-color-brand-primary-900); }
+.gantt-chip--SR2, .gantt-role--SR2 { background: var(--ap-color-hue-blue-100); border-color: var(--ap-color-hue-blue-500); color: var(--ap-color-hue-blue-800); }
+.gantt-chip--JR1, .gantt-role--JR1 { background: var(--ap-color-hue-amber-100); border-color: var(--ap-color-hue-amber-500); color: var(--ap-color-hue-amber-700); }
+.gantt-chip--JR2, .gantt-role--JR2 { background: var(--ap-color-hue-green-100); border-color: var(--ap-color-hue-green-500); color: var(--ap-color-hue-green-800); }
+.gantt-role { border-right: 0; font-weight: 700; }
+.cost-row--cloud { grid-template-columns: minmax(150px, 280px) 1fr minmax(96px, auto); }
+@media (max-width: 560px) { .cost-row--cloud { grid-template-columns: 1fr auto; } }
+.cost-bars--cloud .cost-row .bar i { background: var(--ap-color-brand-primary-700); }
+.cost-bars--cloud .cost-row:nth-child(n) .bar i { background: var(--ap-color-brand-primary-700); }
+.cost-bars--effort .cost-row .bar i { background: var(--ap-color-brand-primary-700); }
+.cost-bars--effort .cost-row:nth-child(n) .bar i { background: var(--ap-color-brand-primary-700); }
+#rules-table td:first-child code, #plan-table td:first-child code { white-space: nowrap; }
+.tag { white-space: nowrap; }
