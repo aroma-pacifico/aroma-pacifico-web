@@ -1,0 +1,251 @@
+[
+  {
+    "slug": "complete-architecture",
+    "title": "Arquitectura completa (ejecución)",
+    "category": "complete",
+    "boxes": [
+      "D01",
+      "D02",
+      "D03",
+      "D04",
+      "D05",
+      "D06",
+      "D07",
+      "D08",
+      "D09",
+      "D10",
+      "D11",
+      "D12",
+      "D13"
+    ]
+  },
+  {
+    "slug": "complete-architecture-iac",
+    "title": "Arquitectura completa (trazabilidad IaC)",
+    "category": "complete",
+    "boxes": [
+      "D01",
+      "D02",
+      "D03",
+      "D04",
+      "D05",
+      "D06",
+      "D07",
+      "D08",
+      "D09",
+      "D10",
+      "D11",
+      "D12",
+      "D13"
+    ]
+  },
+  {
+    "slug": "accounts-landing-zone",
+    "title": "Landing zone, controles y auditoría",
+    "category": "accounts",
+    "boxes": [
+      "D02",
+      "D03",
+      "D04",
+      "D06",
+      "D09"
+    ]
+  },
+  {
+    "slug": "network-addressing-plan",
+    "title": "Plan de direccionamiento",
+    "category": "network",
+    "boxes": [
+      "D04",
+      "D05"
+    ]
+  },
+  {
+    "slug": "network-collection-center",
+    "title": "Patrón de red del centro de acopio",
+    "category": "network",
+    "boxes": [
+      "D04",
+      "D05",
+      "D07"
+    ]
+  },
+  {
+    "slug": "network-connectivity",
+    "title": "Conectividad de punta a punta",
+    "category": "network",
+    "boxes": [
+      "D04",
+      "D05",
+      "D06",
+      "D07",
+      "D08",
+      "D09",
+      "D10"
+    ]
+  },
+  {
+    "slug": "network-no-signal-sequence",
+    "title": "Operación sin señal y alerta de cultivo",
+    "category": "network",
+    "boxes": [
+      "D09",
+      "D10"
+    ]
+  },
+  {
+    "slug": "security-firewall-policy",
+    "title": "Política de firewall perimetral y en la nube",
+    "category": "security",
+    "boxes": [
+      "D04",
+      "D05",
+      "D07"
+    ]
+  },
+  {
+    "slug": "security-identity-and-access",
+    "title": "Identidad y acceso",
+    "category": "security",
+    "boxes": [
+      "D02",
+      "D06",
+      "D08",
+      "D09"
+    ]
+  },
+  {
+    "slug": "security-revocation-sequence",
+    "title": "Revocación de credenciales",
+    "category": "security",
+    "boxes": [
+      "D06",
+      "D08"
+    ]
+  },
+  {
+    "slug": "flows-drone-fumigation-sequence",
+    "title": "Secuencia de fumigación con dron",
+    "category": "flows",
+    "boxes": [
+      "D04",
+      "D06",
+      "D08",
+      "D09",
+      "D10"
+    ]
+  },
+  {
+    "slug": "flows-drone-state-machines",
+    "title": "Máquinas de estado del dron",
+    "category": "flows",
+    "boxes": [
+      "D06",
+      "D09",
+      "D10"
+    ]
+  },
+  {
+    "slug": "flows-farm-monitoring-sequence",
+    "title": "Monitoreo de finca y alertas",
+    "category": "flows",
+    "boxes": [
+      "D06",
+      "D08",
+      "D09",
+      "D10"
+    ]
+  },
+  {
+    "slug": "flows-inference-functions",
+    "title": "Funciones de inferencia orientadas a eventos",
+    "category": "flows",
+    "boxes": [
+      "D06",
+      "D09",
+      "D10"
+    ]
+  },
+  {
+    "slug": "flows-sack-and-trip-sequence",
+    "title": "Custodia de saco y viaje",
+    "category": "flows",
+    "boxes": [
+      "D04",
+      "D05",
+      "D06",
+      "D07"
+    ]
+  },
+  {
+    "slug": "flows-sack-states",
+    "title": "Estados del saco",
+    "category": "flows",
+    "boxes": [
+      "D04",
+      "D05",
+      "D06"
+    ]
+  },
+  {
+    "slug": "pipelines-ingestion-and-flight-objects",
+    "title": "Ingesta de telemetría y objetos de vuelo",
+    "category": "pipelines",
+    "boxes": [
+      "D08",
+      "D09",
+      "D10"
+    ]
+  },
+  {
+    "slug": "pipelines-platform-pipeline",
+    "title": "Pipeline CI/CD de la plataforma",
+    "category": "pipelines",
+    "boxes": [
+      "D01",
+      "D02",
+      "D03",
+      "D04",
+      "D05",
+      "D06",
+      "D08",
+      "D10",
+      "D11",
+      "D12",
+      "D13"
+    ]
+  },
+  {
+    "slug": "legacy-2020",
+    "title": "Legado 2020: conservar, retirar, reemplazar",
+    "category": "legacy",
+    "boxes": [
+      "D01",
+      "D03",
+      "D04",
+      "D05",
+      "D06",
+      "D08",
+      "D09",
+      "D10"
+    ]
+  },
+  {
+    "slug": "data-paths-telemetry",
+    "title": "Ruta de datos: telemetría",
+    "category": "data-paths",
+    "boxes": []
+  },
+  {
+    "slug": "data-paths-transporter-position",
+    "title": "Ruta de datos: posición del transportador",
+    "category": "data-paths",
+    "boxes": []
+  },
+  {
+    "slug": "data-paths-drone-objects",
+    "title": "Ruta de datos: objetos del dron",
+    "category": "data-paths",
+    "boxes": []
+  }
+]
