@@ -1,8 +1,8 @@
 # aroma-pacifico-web
 
-Technical showcase website of the Aroma Pacífico pilot, the 2026 update of the coffee traceability pilot for Cauca, Huila and Tolima.
+Website with the technical solution of the Aroma Pacífico project, the 2026 update of the coffee traceability pilot for Cauca, Huila and Tolima, in detail.
 
-The site is in Spanish and presents the complete proposal, the target state with everything decided, built and delivered: the 2020 legacy and what changes, an explorer of the 22 architecture diagrams, the four architecture decisions, no-signal operation, drones and event-driven inference, infrastructure as code, cost, observability and the design system. It is plain HTML, CSS and JavaScript with no build step and no external requests.
+The site is in Spanish and presents the full technical solution of the project in detail: the 2020 legacy and what changes, an explorer of the 22 architecture diagrams, the four architecture decisions, no-signal operation, drones and event-driven inference, infrastructure as code, cost, observability and the design system. It is plain HTML, CSS and JavaScript with no build step and no external requests.
 
 Four sections go deep: costs (the full A23 breakdown with a normal and harvest month toggle and Infracost in CI), governance (landing zone, identities, the 28 pc-iac rules and how CI enforces each, review gates, the decision log), the 100-hour plan (B01 to B13 by role, week, module and stack split, dependencies and deliverables, plus the whole-project effort) and infrastructure as code (module catalog by tag, stacks, the pipeline from pull request to plan to approval, and the plan-only scope). Their figures come from the current `main` of the Aroma repositories and from the project planning workbook.
 
@@ -57,4 +57,4 @@ FORBIDDEN_TERMS='term-one|term-two' bash scripts/publication-scan.sh
 
 ## Sources and rules
 
-Every figure comes from the current `main` of the Aroma repositories; the case statement in `aroma-pacifico-architecture` is the only source of requirements. Private repositories are named on the site but never linked. Governance follows [`AGENTS.md`](AGENTS.md).
+Every figure comes from the current `main` of the Aroma repositories; the case statement in `aroma-pacifico-architecture` is the only source of requirements. Only the public modules repository is linked; the other components of the project are described by role, without links. Governance follows [`AGENTS.md`](AGENTS.md).

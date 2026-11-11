@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aroma Pacífico | Propuesta técnica completa del piloto de trazabilidad 2026</title>
-  <meta name="description" content="Propuesta técnica completa del piloto de trazabilidad de café en Cauca, Huila y Tolima (2026): arquitectura, decisiones, operación sin señal, drones, infraestructura como código, costos y observabilidad.">
+  <title>Aroma Pacífico | La solución técnica del piloto de trazabilidad de café 2026</title>
+  <meta name="description" content="La solución técnica del proyecto Aroma Pacífico, el piloto de trazabilidad de café en Cauca, Huila y Tolima (2026), en detalle: arquitectura, decisiones, operación sin señal, drones, infraestructura como código, costos y observabilidad.">
   <meta name="theme-color" content="#0A3A41">
   <link rel="icon" type="image/svg+xml" href="brand/isotype.svg">
   <link rel="stylesheet" href="tokens/tokens.css">
@@ -42,7 +42,7 @@
       <div class="wrap">
         <span class="hero-kicker">Piloto 2026 · Cauca, Huila y Tolima</span>
         <h1 id="hero-title">Del grano al comprador, <em>con rastro.</em></h1>
-        <p class="hero-lede">Un piloto de trazabilidad de café que sigue funcionando donde no hay señal. Esta es la propuesta completa: la arquitectura, las decisiones, la infraestructura como código, los costos, la gobernanza y la evidencia que las respalda.</p>
+        <p class="hero-lede">Un piloto de trazabilidad de café que sigue funcionando donde no hay señal. La solución técnica del proyecto Aroma Pacífico, en detalle: la arquitectura, las decisiones, la infraestructura como código, los costos, la gobernanza y la evidencia que las respalda.</p>
         <div class="hero-actions">
           <a class="ap-button ap-button--primary ap-button--large" href="#arquitectura">Explorar la arquitectura</a>
           <a class="ap-button ap-button--secondary ap-button--large" href="#iac">Ver la infraestructura</a>
@@ -68,7 +68,7 @@
         </div>
 
         <blockquote class="quote reveal">«Se conserva el requisito que siga vigente y se reemplaza el supuesto de conectividad.»
-          <footer class="note">Enunciado del caso, que es la única fuente de requisitos. Su texto en español prevalece sobre cualquier traducción.</footer>
+          <footer class="note">Enunciado del caso, fuente de los requisitos del piloto. Su texto en español prevalece sobre cualquier traducción.</footer>
         </blockquote>
 
         <div class="seg reveal" role="group" aria-label="Resaltar decisión sobre el legado" data-legacy-filter>
@@ -199,7 +199,7 @@
             <header><h3>ADR-003 · Terraform, estado remoto y módulo patrón</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Decidido</span></span></header>
             <dl>
               <div><dt>Decisión</dt><dd>Terraform como herramienta. Un estado en S3 por ambiente, cifrado, versionado y con bloqueo nativo (<code>use_lockfile</code>), con una llave de estado por dominio.</dd></div>
-              <div><dt>Repositorios</dt><dd>Módulos reutilizables en un repositorio público, consumidos por etiqueta SemVer. Pilas raíz, variables y pipelines en un repositorio privado.</dd></div>
+              <div><dt>Repositorios</dt><dd>Módulos reutilizables en un repositorio público, consumidos por etiqueta SemVer. Pilas raíz, variables y pipelines en el componente de infraestructura del proyecto.</dd></div>
               <div><dt>Módulo patrón</dt><dd>La ingesta de telemetría es el único módulo patrón del Epic 6.</dd></div>
               <div><dt>Sin secretos</dt><dd>La integración continua entra a AWS por federación OIDC de GitHub; no existe ninguna llave estática.</dd></div>
             </dl>
@@ -214,7 +214,7 @@
             </dl>
           </article>
         </div>
-        <p class="note reveal" style="margin-top: var(--ap-space-4)">Los ADR viven en el repositorio privado <code>aroma-pacifico-architecture</code>. Este sitio los resume; no los cita en forma textual.</p>
+        <p class="note reveal" style="margin-top: var(--ap-space-4)">Los ADR se mantienen junto a los documentos de diseño, en el componente «Arquitectura y decisiones» del proyecto.</p>
       </div>
     </section>
 
@@ -1920,7 +1920,7 @@
 </tr>
 </tbody></table></div>
 <h3 id="plan-gantt" class="reveal" style="margin-top: var(--ap-space-6)">Vista por persona y por día</h3>
-<p class="reveal">Cada persona trabaja una parte a la vez, con un máximo de 5 horas por día y 25 por semana. Las celdas muestran la parte y las horas de ese día; el color es el rol. El calendario nominal parte del lunes 2026-11-09.</p>
+<p class="reveal">Cada persona trabaja una parte a la vez, con un máximo de 5 horas por día y 25 por semana. Las celdas muestran la parte y las horas de ese día; el color es el rol. El calendario parte del lunes 2026-11-09.</p>
 <div class="gantt reveal" role="table" aria-label="Horas por persona y por día"><div class="gantt-row gantt-head" role="row"><span role="columnheader">Rol</span>
 <span role="columnheader">Día 1</span>
 <span role="columnheader">Día 2</span>
@@ -1984,7 +1984,7 @@
 </div>
 <p class="note reveal">La ruta crítica pasa por B01, B02, B03, B04b, B11a, B12 y B13 (4 + 6 + 6 + 4 + 5 + 8 + 3 = 36 horas); como cada persona hace una parte a la vez, dos cadenas de 38 horas sin holgura fijan el cierre en la hora 3 del día 8. El colchón de calendario hasta el final del día 10 (hora 50) es de 12 horas hábiles, es decir 2,4 días.</p>
 <h3 id="plan-esfuerzo" class="reveal" style="margin-top: var(--ap-space-6)">Esfuerzo de todo el proyecto por iteración</h3>
-<p class="reveal">Del libro de planeación del proyecto: 42 tareas y 298 horas, de las cuales 98 son de IaC (el carril B de la bolsa de 100 horas). Cada iteración tiene su objetivo, y el diseño y las decisiones preceden al código.</p>
+<p class="reveal">Del plan de trabajo del proyecto: 42 tareas y 298 horas, de las cuales 98 son de IaC (el carril B de la bolsa de 100 horas). Cada iteración tiene su objetivo, y el diseño y las decisiones preceden al código.</p>
 <div class="card reveal">
           <div class="seg" role="group" aria-label="Medida del esfuerzo" data-effort-mode style="margin-bottom: var(--ap-space-4)">
             <button type="button" aria-pressed="true" data-em="est">Horas</button>
@@ -2026,7 +2026,7 @@
 </tr>
 <tr>
 <td>Cierre - Entrega</td>
-<td>Observabilidad, costos, sistema de diseño, presentación y ajustes transversales</td>
+<td>Observabilidad, costos, sistema de diseño, comunicación del proyecto y ajustes transversales</td>
 <td class="num">8</td>
 <td class="num">56</td>
 </tr>
@@ -2250,7 +2250,7 @@
 </tbody></table></div>
 <p class="note reveal">Cada módulo sigue la estructura de pc-iac-001 (archivos obligatorios, un directorio <code>sample/</code> y pruebas en <code>tests/</code>), no declara bloques <code>provider</code> ni <code>backend</code> y recibe un prefijo de nombre. El repositorio es público porque nada en él es específico de un ambiente ni secreto: no contiene identificadores de cuenta, ARN, nombres de host internos ni datos de clientes, y así el pipeline privado lo descarga por HTTPS sin llave de despliegue.</p>
 <h3 id="iac-pilas" class="reveal" style="margin-top: var(--ap-space-6)">Pilas y cómo consumen los módulos</h3>
-<p class="reveal">Las pilas raíz están en el repositorio privado de infraestructura, una por dominio, con una llave de estado por pila dentro del bucket cifrado, versionado y con bloqueo nativo de cada ambiente. Cada pila declara <code>backend "s3" {}</code> vacío y recibe el bucket, la llave y el cifrado al hacer <code>init</code>, desde el archivo del ambiente.</p>
+<p class="reveal">Las pilas raíz están en el componente de infraestructura del proyecto, una por dominio, con una llave de estado por pila dentro del bucket cifrado, versionado y con bloqueo nativo de cada ambiente. Cada pila declara <code>backend "s3" {}</code> vacío y recibe el bucket, la llave y el cifrado al hacer <code>init</code>, desde el archivo del ambiente.</p>
 <div class="table-wrap reveal" tabindex="0" role="region" aria-label="Pilas raíz"><table class="">
 <caption>Pilas raíz</caption><thead><tr>
 <th scope="col">Pila</th>
@@ -2524,20 +2524,20 @@
             <span class="eyebrow">Evidencia</span>
             <h2 id="evi-title">Dónde está cada cosa.</h2>
           </div>
-          <p>Solo el repositorio de módulos de Terraform es público y se enlaza aquí. Los demás son privados y se nombran, sin enlace.</p>
+          <p>El código reutilizable está en un repositorio público. El resto del proyecto se organiza en estos componentes.</p>
         </div>
 
         <div class="grid grid-2">
           <div class="card repo reveal"><div><code>aroma-pacifico-terraform-modules</code><p class="note" style="margin:0">Módulos de referencia versionados, con pruebas y ejemplos.</p></div><a class="ap-button ap-button--primary" href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules">Abrir en GitHub</a></div>
-          <div class="card repo reveal"><div><code>aroma-pacifico-architecture</code><p class="note" style="margin:0">Enunciado, log de decisiones, ADR, documentos de diseño, plan de 100 horas, observabilidad y costos.</p></div><span class="tag">privado</span></div>
-          <div class="card repo reveal"><div><code>aroma-pacifico-diagrams</code><p class="note" style="margin:0">Fuentes Draw.io y exportaciones SVG y PNG de los 22 diagramas.</p></div><span class="tag">privado</span></div>
-          <div class="card repo reveal"><div><code>aroma-pacifico-infrastructure</code><p class="note" style="margin:0">Pilas raíz de Terraform, variables por ambiente y workflows de solo plan.</p></div><span class="tag">privado</span></div>
-          <div class="card repo reveal"><div><code>aroma-pacifico-design-system</code><p class="note" style="margin:0">Tokens, componentes, marca e iconos de las tres aplicaciones.</p></div><span class="tag">privado</span></div>
-          <div class="card repo reveal"><div><code>aroma-pacifico-presentation</code><p class="note" style="margin:0">Presentación y guion de exposición del piloto.</p></div><span class="tag">privado</span></div>
-          <div class="card repo reveal"><div><code>aroma-pacifico-roadmap</code><p class="note" style="margin:0">Backlog del piloto: tareas A01 a A25, B01 a B13 y G01.</p></div><span class="tag">privado</span></div>
-          <div class="card repo reveal"><div><code>aroma-pacifico-ai-agents</code><p class="note" style="margin:0">Reglas canónicas, estándares y reglas pc-iac.</p></div><span class="tag">privado</span></div>
+          <div class="card repo reveal"><div><strong>Arquitectura y decisiones</strong><p class="note" style="margin:0">Enunciado, log de decisiones, ADR, documentos de diseño, plan de 100 horas, observabilidad y costos.</p></div></div>
+          <div class="card repo reveal"><div><strong>Diagramas</strong><p class="note" style="margin:0">Fuentes Draw.io y exportaciones SVG y PNG de los 22 diagramas.</p></div></div>
+          <div class="card repo reveal"><div><strong>Infraestructura</strong><p class="note" style="margin:0">Pilas raíz de Terraform, variables por ambiente y workflows de solo plan.</p></div></div>
+          <div class="card repo reveal"><div><strong>Sistema de diseño</strong><p class="note" style="margin:0">Tokens, componentes, marca e iconos de las tres aplicaciones.</p></div></div>
+          <div class="card repo reveal"><div><strong>Comunicación del proyecto</strong><p class="note" style="margin:0">Materiales para comunicar el proyecto y sus resultados.</p></div></div>
+          <div class="card repo reveal"><div><strong>Plan y backlog</strong><p class="note" style="margin:0">Backlog del piloto: tareas A01 a A25, B01 a B13 y G01.</p></div></div>
+          <div class="card repo reveal"><div><strong>Reglas y estándares</strong><p class="note" style="margin:0">Reglas canónicas, estándares y reglas pc-iac.</p></div></div>
         </div>
-        <p class="note reveal" style="margin-top: var(--ap-space-4)">Este sitio no contiene identificadores de cuenta, ARN, nombres de host, correos, tokens ni nombres de personas: el trabajo se atribuye solo a roles. Las cifras de costo y de recuperación son objetivos de diseño o aritmética sobre las cifras del caso; ninguna es una medición.</p>
+        <p class="note reveal" style="margin-top: var(--ap-space-4)">Las cifras de costo y de recuperación son objetivos de diseño o aritmética sobre las cifras del caso; ninguna es una medición.</p>
       </div>
     </section>
   </main>
@@ -2546,7 +2546,7 @@
     <div class="wrap">
       <div>
         <img src="brand/logo-negative.svg" alt="Aroma Pacífico">
-        <p>Propuesta técnica completa del piloto de trazabilidad de café 2026 en Cauca, Huila y Tolima: arquitectura, decisiones, infraestructura como código, costos y gobernanza.</p>
+        <p>La solución técnica del proyecto Aroma Pacífico, el piloto de trazabilidad de café 2026 en Cauca, Huila y Tolima: arquitectura, decisiones, infraestructura como código, costos y gobernanza.</p>
       </div>
       <p><a href="#top">Volver al inicio</a></p>
     </div>
