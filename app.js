@@ -176,47 +176,32 @@
   });
   selectFunction('telemetry');
 
-  /* ---------- Environment plan and cost toggle ---------- */
+  /* ---------- Environment plan toggle (stack plans against the emulator) ---------- */
   const envData = {
-    qa: { add: 163, note: '# ejemplo qa: sin asociación de centro de acopio', text: 'Ambiente <strong>qa</strong>: 163 recursos por crear, 0 por cambiar y 0 por destruir.' },
-    pdn: { add: 167, note: '# ejemplo pdn con la asociación de un centro (+4 recursos)', text: 'Ambiente <strong>pdn</strong>: 167 recursos por crear, 0 por cambiar y 0 por destruir. Son los 163 de la pila más los 4 de la asociación de un centro de acopio.' }
-  };
-  const monthData = {
-    normal: { label: 'Factura mensual de AWS, mes normal', value: 558.94 },
-    harvest: { label: 'Factura mensual de AWS, mes de cosecha', value: 573.75 }
+    qa: { network: 163, security: 31, workload: 44 },
+    pdn: { network: 167, security: 31, workload: 44 }
   };
   let currentEnv = 'qa';
-  let currentMonth = 'normal';
   const renderEnv = () => {
     const env = envData[currentEnv];
-    qs('[data-plan-line]').innerHTML = `Plan: <span class="hl">${env.add} to add</span>, 0 to change, 0 to destroy.`;
-    qs('[data-plan-note]').textContent = env.note;
-    qs('[data-plan-text]').innerHTML = env.text;
+    const name = (label) => label.padEnd(10, ' ');
+    qs('[data-plan-network]').innerHTML = `${name('network')}Plan: <span class="hl">${env.network} to add</span>, 0 to change, 0 to destroy.`;
+    qs('[data-plan-security]').innerHTML = `${name('security')}Plan: <span class="hl">${env.security} to add</span>, 0 to change, 0 to destroy.`;
+    qs('[data-plan-workload]').innerHTML = `${name('workload')}Plan: <span class="hl">${env.workload} to add</span>, 0 to change, 0 to destroy.`;
+    qs('[data-plan-total]').textContent = env.network + env.security + env.workload;
     qs('[data-env-name]').textContent = currentEnv;
-    qs('[data-cost-label]').textContent = monthData[currentMonth].label;
-    qs('[data-cost-value]').textContent = money(monthData[currentMonth].value);
+    qs('[data-plan-text]').innerHTML = currentEnv === 'qa'
+      ? 'Ambiente <strong>qa</strong>: 0 por cambiar y 0 por destruir en las tres pilas.'
+      : 'Ambiente <strong>pdn</strong>: la pila de red suma 4 recursos por la asociación de un centro de acopio (163 + 4 = 167). 0 por cambiar y 0 por destruir.';
   };
   qsa('[data-env-value]').forEach((button) => button.addEventListener('click', () => {
     currentEnv = button.dataset.envValue;
     qsa('[data-env-value]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
     renderEnv();
   }));
-  qsa('[data-month-value]').forEach((button) => button.addEventListener('click', () => {
-    currentMonth = button.dataset.monthValue;
-    qsa('[data-month-value]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
-    renderEnv();
-  }));
   renderEnv();
 
-  /* ---------- 100 hour plan by role (iac-plan-100h, section 4.1) ---------- */
-  const roles = [
-    { role: 'SR1', hours: 27 }, { role: 'SR2', hours: 26 }, { role: 'JR2', hours: 23 }, { role: 'JR1', hours: 22 }
-  ];
-  qs('[data-roles]').innerHTML = roles.map((item) => `
-    <div class="role-row"><b>${item.role}</b><div class="bar" role="img" aria-label="${item.role}: ${item.hours} horas"><i style="width:${(item.hours / 30) * 100}%"></i></div><output>${item.hours} h</output></div>`).join('')
-    + `<div class="role-row"><b>Total</b><div class="bar" role="img" aria-label="98 horas reservadas de 100"><i style="width:98%"></i></div><output>98 h</output></div>`;
-
-  /* ---------- Cost bars (pilot cost document, section 1) ---------- */
+  /* ---------- Cost bars (pilot cost document A23) ---------- */
   const costDomains = [
     { name: 'Hardware de fincas (200 fincas, 400 nodos)', normal: 920.00, harvest: 920.00, annual: 85040.00 },
     { name: 'Centros de acopio (3 sitios)', normal: 645.00, harvest: 645.00, annual: 16290.00 },
@@ -228,18 +213,116 @@
     harvest: { label: 'Total mensual, mes de cosecha', value: 10638.75 },
     annual: { label: 'Total anualizado del piloto', value: 153346.52 }
   };
+  const cloudServices = [
+    { name: 'Route 53 Resolver entrante', normal: 182.70, harvest: 182.70 },
+    { name: 'AWS Transit Gateway', normal: 110.50, harvest: 110.50 },
+    { name: 'AWS Site-to-Site VPN', normal: 109.50, harvest: 109.50 },
+    { name: 'Observabilidad y telemetría', normal: 60.72, harvest: 60.72 },
+    { name: 'Endpoints de VPC (interfaz)', normal: 58.90, harvest: 58.90 },
+    { name: 'Amazon S3 y AWS KMS', normal: 15.80, harvest: 15.80 },
+    { name: 'Notificaciones al caficultor (SMS y push)', normal: 4.95, harvest: 14.85 },
+    { name: 'AWS WAF', normal: 9.15, harvest: 9.15 },
+    { name: 'Amazon DynamoDB (bajo demanda)', normal: 4.83, harvest: 4.83 },
+    { name: 'Amazon CloudFront', normal: 1.40, harvest: 1.40 },
+    { name: 'Cómputo orientado a eventos e IA', normal: 0.30, harvest: 5.21 },
+    { name: 'AWS IoT Core', normal: 0.19, harvest: 0.19 }
+  ];
+  const barRows = (items, value, formatter) => {
+    const max = Math.max(...items.map(value));
+    return items.map((item) => `
+      <div class="cost-row"><span>${item.name}</span><div class="bar" aria-hidden="true"><i style="width:${(value(item) / max) * 100}%"></i></div><output>${formatter(value(item))}</output></div>`).join('');
+  };
+  const cloudBars = qs('[data-cloud-bars]');
+  cloudBars.classList.add('cost-bars', 'cost-bars--cloud');
   const renderCost = (mode) => {
-    const max = Math.max(...costDomains.map((item) => item[mode]));
-    qs('[data-cost-bars]').innerHTML = costDomains.map((item) => `
-      <div class="cost-row"><span>${item.name}</span><div class="bar" aria-hidden="true"><i style="width:${(item[mode] / max) * 100}%"></i></div><output>${money(item[mode])}</output></div>`).join('');
+    qs('[data-cost-bars]').innerHTML = barRows(costDomains, (item) => item[mode], (v) => money(v));
     qs('[data-cost-total-label]').textContent = costTotals[mode].label;
     qs('[data-cost-total]').textContent = money(costTotals[mode].value);
+    const cloudValue = mode === 'harvest'
+      ? (item) => item.harvest
+      : mode === 'annual' ? (item) => 8 * item.normal + 4 * item.harvest : (item) => item.normal;
+    cloudBars.innerHTML = barRows(cloudServices, cloudValue, (v) => money(v));
   };
   qsa('[data-cm]').forEach((button) => button.addEventListener('click', () => {
     qsa('[data-cm]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
     renderCost(button.dataset.cm);
   }));
   renderCost('normal');
+
+  /* ---------- Project effort by iteration (planning workbook) ---------- */
+  const effort = [
+    { name: 'Fase 0 - Decisiones', est: 32, tasks: 7 },
+    { name: 'Fase 1 - Arquitectura', est: 112, tasks: 14 },
+    { name: 'Sprint 1 - IaC semana 1', est: 50, tasks: 7 },
+    { name: 'Sprint 2 - IaC semana 2', est: 48, tasks: 6 },
+    { name: 'Cierre - Entrega', est: 56, tasks: 8 }
+  ];
+  const effortBars = qs('[data-effort-bars]');
+  effortBars.classList.add('cost-bars', 'cost-bars--effort');
+  const renderEffort = (mode) => {
+    const unit = mode === 'est' ? (v) => `${v} h` : (v) => `${v} tareas`;
+    effortBars.innerHTML = barRows(effort, (item) => item[mode], unit);
+    qs('[data-effort-label]').textContent = mode === 'est' ? 'Total de horas' : 'Total de tareas';
+    qs('[data-effort-total]').textContent = mode === 'est' ? '298 h' : '42 tareas';
+  };
+  qsa('[data-em]').forEach((button) => button.addEventListener('click', () => {
+    qsa('[data-em]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+    renderEffort(button.dataset.em);
+  }));
+  renderEffort('est');
+
+  /* ---------- Sortable and filterable 100 hour plan table ---------- */
+  const planTable = qs('#plan-table');
+  const planBody = qs('tbody', planTable);
+  let planRole = 'all';
+  const planRows = () => qsa('tr', planBody);
+  const updatePlanCount = () => {
+    const rows = planRows().filter((row) => !row.hidden);
+    const total = rows.reduce((sum, row) => sum + Number(row.dataset.hours), 0);
+    qs('[data-plan-count]').textContent = `${rows.length} partes, ${total} horas`;
+  };
+  qsa('[data-pr]').forEach((button) => button.addEventListener('click', () => {
+    planRole = button.dataset.pr;
+    qsa('[data-pr]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+    planRows().forEach((row) => { row.hidden = planRole !== 'all' && row.dataset.role !== planRole; });
+    updatePlanCount();
+  }));
+  qsa('[data-sort-col]', planTable).forEach((button) => button.addEventListener('click', () => {
+    const column = Number(button.dataset.sortCol);
+    const th = button.closest('th');
+    const next = th.getAttribute('aria-sort') === 'ascending' ? 'descending' : 'ascending';
+    qsa('th', planTable).forEach((item) => item.setAttribute('aria-sort', 'none'));
+    th.setAttribute('aria-sort', next);
+    const key = (row) => row.dataset.sortvals.split('|')[column];
+    const rows = planRows().sort((a, b) => key(a).localeCompare(key(b), 'es', { numeric: true }) * (next === 'ascending' ? 1 : -1));
+    rows.forEach((row) => planBody.appendChild(row));
+  }));
+  updatePlanCount();
+
+  /* ---------- Browsable table of the 28 pc-iac rules ---------- */
+  const rulesBody = qs('#rules-table tbody');
+  let ruleType = 'all';
+  let ruleQuery = '';
+  const applyRules = () => {
+    let shown = 0;
+    qsa('tr', rulesBody).forEach((row) => {
+      const matchType = ruleType === 'all' || row.dataset.ruleType === ruleType;
+      const text = `${row.dataset.ruleText} ${row.textContent.toLowerCase()}`;
+      const matchQuery = !ruleQuery || text.includes(ruleQuery);
+      row.hidden = !(matchType && matchQuery);
+      if (!row.hidden) shown += 1;
+    });
+    qs('[data-rule-count]').textContent = `${shown} de 28 reglas`;
+  };
+  qsa('[data-rt]').forEach((button) => button.addEventListener('click', () => {
+    ruleType = button.dataset.rt;
+    qsa('[data-rt]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+    applyRules();
+  }));
+  qs('[data-rule-search]').addEventListener('input', (event) => {
+    ruleQuery = event.target.value.trim().toLowerCase();
+    applyRules();
+  });
 
   /* ---------- Error budget calculator ---------- */
   const validInput = qs('[data-valid-events]');
@@ -314,20 +397,22 @@
   boxSelect.addEventListener('change', () => { box = boxSelect.value; renderGallery(); });
   renderGallery();
 
-  /* ---------- Lightbox ---------- */
+  /* ---------- Lightbox: zoom buttons, pinch, drag, swipe and keys ---------- */
   const lightbox = qs('[data-lightbox]');
   const viewport = qs('[data-lb-viewport]');
   const image = qs('[data-lb-img]');
   const status = qs('[data-lb-status]');
   const zoomOutput = qs('[data-lb-zoom]');
+  const pngButton = qs('[data-lb-png]');
   const svgButton = qs('[data-lb-svg]');
   let list = diagrams;
   let index = 0;
   let scale = 1;
   let fitScale = 1;
   let opener = null;
-  let drag = null;
-  let useSvg = false;
+  let source = 'view';
+  const pointers = new Map();
+  let gesture = null;
 
   const current = () => list[index];
   const applyScale = (next, keepCenter = true) => {
@@ -354,16 +439,19 @@
     applyScale(fitScale, false);
     requestAnimationFrame(() => { viewport.scrollLeft = 0; viewport.scrollTop = 0; });
   };
-  const setSource = (svg) => {
-    useSvg = svg;
-    svgButton.setAttribute('aria-pressed', String(svg));
-    svgButton.textContent = svg ? 'Usando SVG vectorial' : 'Cargar SVG vectorial';
+  const setSource = (next) => {
+    source = next;
+    pngButton.setAttribute('aria-pressed', String(next === 'png'));
+    svgButton.setAttribute('aria-pressed', String(next === 'svg'));
+    pngButton.textContent = next === 'png' ? 'PNG completo activo' : 'Ver PNG completo';
+    svgButton.textContent = next === 'svg' ? 'SVG vectorial activo' : 'Ver SVG vectorial';
     const item = current();
-    status.hidden = !svg;
-    if (svg) status.textContent = 'Cargando el SVG vectorial; puede pesar varios megabytes.';
-    image.src = asset(item.id, svg ? 'svg' : 'png');
+    const heavy = next !== 'view';
+    status.hidden = !heavy;
+    if (heavy) status.textContent = next === 'svg' ? 'Cargando el SVG vectorial; puede pesar varios megabytes.' : 'Cargando el PNG completo.';
+    image.src = next === 'view' ? `assets/diagrams/view/${item.id}.webp` : asset(item.id, next);
   };
-  image.addEventListener('load', () => { if (useSvg) status.hidden = true; });
+  image.addEventListener('load', () => { if (source !== 'view') status.hidden = true; });
   image.addEventListener('error', () => { status.hidden = false; status.textContent = 'No se pudo cargar la imagen.'; });
 
   const show = (newIndex) => {
@@ -377,14 +465,13 @@
     qs('[data-lb-open]').href = asset(item.id, 'svg');
     qs('[data-lb-download]').href = asset(item.id, 'png');
     qs('[data-lb-download]').setAttribute('download', `${item.id}.png`);
-    setSource(false);
+    setSource('view');
     requestAnimationFrame(() => requestAnimationFrame(fit));
   };
 
   const openDiagram = (id, trigger) => {
     list = (trigger && trigger.closest('.featured')) ? diagrams : visible.length ? visible : diagrams;
-    const found = list.findIndex((item) => item.id === id);
-    if (found < 0) list = diagrams;
+    if (list.findIndex((item) => item.id === id) < 0) list = diagrams;
     opener = trigger;
     if (!lightbox.open) lightbox.showModal();
     document.body.classList.add('modal-open');
@@ -409,30 +496,66 @@
   qs('[data-lb-in]').addEventListener('click', () => applyScale(scale * 1.25));
   qs('[data-lb-out]').addEventListener('click', () => applyScale(scale / 1.25));
   qs('[data-lb-fit]').addEventListener('click', fit);
-  svgButton.addEventListener('click', () => setSource(!useSvg));
+  pngButton.addEventListener('click', () => setSource(source === 'png' ? 'view' : 'png'));
+  svgButton.addEventListener('click', () => setSource(source === 'svg' ? 'view' : 'svg'));
 
   viewport.addEventListener('keydown', (event) => {
     if (event.key === '+' || event.key === '=') { event.preventDefault(); applyScale(scale * 1.25); }
     if (event.key === '-' || event.key === '_') { event.preventDefault(); applyScale(scale / 1.25); }
     if (event.key === '0') { event.preventDefault(); fit(); }
+    if (event.key === 'PageUp') { event.preventDefault(); show(index - 1); }
+    if (event.key === 'PageDown') { event.preventDefault(); show(index + 1); }
   });
   viewport.addEventListener('wheel', (event) => {
     if (!event.ctrlKey) return;
     event.preventDefault();
     applyScale(event.deltaY < 0 ? scale * 1.12 : scale / 1.12);
   }, { passive: false });
+
+  const distance = () => {
+    const [a, b] = [...pointers.values()];
+    return Math.hypot(a.x - b.x, a.y - b.y);
+  };
   viewport.addEventListener('pointerdown', (event) => {
-    if (event.button !== 0) return;
-    drag = { x: event.clientX, y: event.clientY, left: viewport.scrollLeft, top: viewport.scrollTop };
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     viewport.setPointerCapture(event.pointerId);
+    if (pointers.size === 1) {
+      gesture = { type: 'pan', x: event.clientX, y: event.clientY, left: viewport.scrollLeft, top: viewport.scrollTop, time: Date.now() };
+    } else if (pointers.size === 2) {
+      gesture = { type: 'pinch', distance: distance(), scale };
+    }
   });
   viewport.addEventListener('pointermove', (event) => {
-    if (!drag) return;
-    viewport.scrollLeft = drag.left - (event.clientX - drag.x);
-    viewport.scrollTop = drag.top - (event.clientY - drag.y);
+    if (!pointers.has(event.pointerId)) return;
+    pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    if (!gesture) return;
+    if (gesture.type === 'pinch' && pointers.size === 2) {
+      applyScale(gesture.scale * (distance() / gesture.distance));
+    } else if (gesture.type === 'pan' && pointers.size === 1) {
+      viewport.scrollLeft = gesture.left - (event.clientX - gesture.x);
+      viewport.scrollTop = gesture.top - (event.clientY - gesture.y);
+    }
   });
-  const endDrag = () => { drag = null; };
-  viewport.addEventListener('pointerup', endDrag);
-  viewport.addEventListener('pointercancel', endDrag);
+  const endPointer = (event) => {
+    if (!pointers.has(event.pointerId)) return;
+    const wasPan = gesture && gesture.type === 'pan' && pointers.size === 1;
+    const point = pointers.get(event.pointerId);
+    pointers.delete(event.pointerId);
+    if (wasPan && event.type === 'pointerup') {
+      const dx = point.x - gesture.x;
+      const dy = point.y - gesture.y;
+      const quick = Date.now() - gesture.time < 700;
+      const atFit = scale <= fitScale * 1.05;
+      if (quick && atFit && Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) show(index + (dx < 0 ? 1 : -1));
+    }
+    if (pointers.size === 0) gesture = null;
+    else if (pointers.size === 1) {
+      const [rest] = [...pointers.values()];
+      gesture = { type: 'pan', x: rest.x, y: rest.y, left: viewport.scrollLeft, top: viewport.scrollTop, time: Date.now() };
+    }
+  };
+  viewport.addEventListener('pointerup', endPointer);
+  viewport.addEventListener('pointercancel', endPointer);
   window.addEventListener('resize', () => { if (lightbox.open) fit(); });
 })();

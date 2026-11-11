@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aroma Pacífico | Vitrina técnica del piloto de trazabilidad 2026</title>
-  <meta name="description" content="Vitrina técnica del piloto de trazabilidad de café en Cauca, Huila y Tolima (2026): arquitectura, decisiones, operación sin señal, drones, infraestructura como código, costos y observabilidad.">
+  <title>Aroma Pacífico | Propuesta técnica completa del piloto de trazabilidad 2026</title>
+  <meta name="description" content="Propuesta técnica completa del piloto de trazabilidad de café en Cauca, Huila y Tolima (2026): arquitectura, decisiones, operación sin señal, drones, infraestructura como código, costos y observabilidad.">
   <meta name="theme-color" content="#0A3A41">
   <link rel="icon" type="image/svg+xml" href="brand/isotype.svg">
   <link rel="stylesheet" href="tokens/tokens.css">
@@ -26,8 +26,10 @@
       <a href="#decisiones">Decisiones</a>
       <a href="#conectividad">Sin señal</a>
       <a href="#drones">Drones</a>
+      <a href="#costos">Costos</a>
+      <a href="#gobernanza">Gobernanza</a>
+      <a href="#plan">Plan 100 h</a>
       <a href="#iac">IaC</a>
-      <a href="#costo">Costo</a>
       <a href="#observabilidad">SLO</a>
       <a href="#diseno">Diseño</a>
       <a href="#evidencia">Evidencia</a>
@@ -40,7 +42,7 @@
       <div class="wrap">
         <span class="hero-kicker">Piloto 2026 · Cauca, Huila y Tolima</span>
         <h1 id="hero-title">Del grano al comprador, <em>con rastro.</em></h1>
-        <p class="hero-lede">Un piloto de trazabilidad de café que sigue funcionando donde no hay señal. Esta vitrina muestra con detalle lo que la sustentación no alcanzó a cubrir: arquitectura, decisiones, infraestructura como código y la evidencia que las respalda.</p>
+        <p class="hero-lede">Un piloto de trazabilidad de café que sigue funcionando donde no hay señal. Esta es la propuesta completa: la arquitectura, las decisiones, la infraestructura como código, los costos, la gobernanza y la evidencia que las respalda.</p>
         <div class="hero-actions">
           <a class="ap-button ap-button--primary ap-button--large" href="#arquitectura">Explorar la arquitectura</a>
           <a class="ap-button ap-button--secondary ap-button--large" href="#iac">Ver la infraestructura</a>
@@ -128,7 +130,7 @@
 
         <article class="featured reveal" aria-labelledby="featured-title">
           <button class="featured-visual" type="button" data-open-diagram="complete-architecture" aria-label="Abrir la arquitectura completa en el visor">
-            <img src="assets/diagrams/thumbs/complete-architecture.webp" width="720" height="593" alt="Arquitectura completa del piloto: nube AWS con cinco cuentas, centros de acopio conectados por túneles IPsec, nodos de finca, dron y aplicaciones, con las cajas D01 a D13 marcadas.">
+            <img src="assets/diagrams/thumbs/complete-architecture.webp" width="720" height="593" loading="lazy" decoding="async" alt="Arquitectura completa del piloto: nube AWS con cinco cuentas, centros de acopio conectados por túneles IPsec, nodos de finca, dron y aplicaciones, con las cajas D01 a D13 marcadas.">
             <span class="featured-expand" aria-hidden="true">Ver completa</span>
           </button>
           <div>
@@ -174,17 +176,17 @@
 
         <div class="grid grid-2">
           <article class="card adr-card reveal">
-            <header><h3>ADR-001 · Nube principal y segunda nube</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Aceptado</span></span></header>
+            <header><h3>ADR-001 · Nube principal y segunda nube</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Decidido</span></span></header>
             <dl>
               <div><dt>Decisión</dt><dd>AWS es la nube principal y todos los ambientes corren en una sola región: US East (N. Virginia), <code>us-east-1</code>.</dd></div>
-              <div><dt>Segunda nube</dt><dd>Azure queda <em>preparada</em>, sin despliegue: portabilidad y salida del historial de sacos y de los objetos del dron en formato abierto, no conmutación por falla.</dd></div>
+              <div><dt>Segunda nube</dt><dd>Azure queda <em>preparada</em>, sin despliegue: portabilidad y salida del historial de sacos y de los objetos del dron en formatos estándar y portables, no conmutación por falla.</dd></div>
               <div><dt>Por qué esa región</dt><dd>Colombia no tiene región AWS. En <code>us-east-1</code> el almacenamiento, las funciones y la inferencia administrada están en un solo país y una sola región, de modo que se puede nombrar a dónde sale cada objeto.</dd></div>
               <div><dt>Recuperación</dt><dd>RPO de 15 minutos para eventos de saco y RTO de 4 horas para la consulta pública, dentro de la región y entre zonas de disponibilidad.</dd></div>
             </dl>
           </article>
 
           <article class="card adr-card reveal" data-delay="1">
-            <header><h3>ADR-002 · Modo de vuelo y gobierno del dron</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Aceptado</span></span></header>
+            <header><h3>ADR-002 · Modo de vuelo y gobierno del dron</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Decidido</span></span></header>
             <dl>
               <div><dt>Decisión</dt><dd>Modo combinado: el modo área delimita cada finca y estima la cosecha; el modo precisión confirma una alerta, fumiga el foco confirmado y verifica ese mismo lote.</dd></div>
               <div><dt>Quién vuela</dt><dd>Un operador de dron certificado y contratado. El caficultor no opera el dron.</dd></div>
@@ -194,7 +196,7 @@
           </article>
 
           <article class="card adr-card reveal">
-            <header><h3>ADR-003 · Terraform, estado remoto y módulo patrón</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Aceptado</span></span></header>
+            <header><h3>ADR-003 · Terraform, estado remoto y módulo patrón</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Decidido</span></span></header>
             <dl>
               <div><dt>Decisión</dt><dd>Terraform como herramienta. Un estado en S3 por ambiente, cifrado, versionado y con bloqueo nativo (<code>use_lockfile</code>), con una llave de estado por dominio.</dd></div>
               <div><dt>Repositorios</dt><dd>Módulos reutilizables en un repositorio público, consumidos por etiqueta SemVer. Pilas raíz, variables y pipelines en un repositorio privado.</dd></div>
@@ -204,7 +206,7 @@
           </article>
 
           <article class="card adr-card reveal" data-delay="1">
-            <header><h3>ADR-004 · Orquestación de capacidades del dron</h3><span class="ap-badge ap-badge--in-preparation"><img src="icons/clock.svg" class="ap-badge__icon" alt=""><span>Propuesto</span></span></header>
+            <header><h3>ADR-004 · Orquestación de capacidades del dron</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Decidido</span></span></header>
             <dl>
               <div><dt>Decisión</dt><dd>El <strong>orquestador de capacidades del dron, orientado a eventos</strong>: un bus personalizado con una regla por tipo de misión, una cola con reintentos y cola de fallos por función, y la máquina de estados de la misión en DynamoDB como fuente de verdad.</dd></div>
               <div><dt>Qué no se usa</dt><dd>Un motor central de flujos como Step Functions. Cobraría cada transición, incluidas las esperas de días entre el vuelo y la verificación, y duplicaría el dueño del estado del caso.</dd></div>
@@ -212,7 +214,7 @@
             </dl>
           </article>
         </div>
-        <p class="note reveal" style="margin-top: var(--ap-space-4)">Los ADR viven en el repositorio privado <code>aroma-pacifico-architecture</code>. Esta vitrina los resume; no los cita en forma textual.</p>
+        <p class="note reveal" style="margin-top: var(--ap-space-4)">Los ADR viven en el repositorio privado <code>aroma-pacifico-architecture</code>. Este sitio los resume; no los cita en forma textual.</p>
       </div>
     </section>
 
@@ -299,7 +301,7 @@
         </div>
 
         <h3 class="reveal">El orquestador de capacidades (ADR-004)</h3>
-        <p class="reveal">Bus, colas y estado hacen el trabajo de un orquestador sin mantener un flujo abierto mientras un caso espera. Elige una función para ver su recorrido.</p>
+        <p class="reveal">Bus, colas y estado hacen el trabajo de un orquestador sin mantener un flujo en ejecución mientras un caso espera. Elige una función para ver su recorrido.</p>
         <div class="flow reveal" aria-label="Recorrido de un evento" data-flow>
           <div class="flow-node" data-node="0"><b>1. Tabla de misiones</b>La misión pasa a <code>record_persisted</code></div>
           <span class="flow-arrow" aria-hidden="true">→</span>
@@ -345,117 +347,15 @@
       </div>
     </section>
 
-    <!-- 7. IaC -->
-    <section class="section section--subtle" id="iac" aria-labelledby="iac-title">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <div>
-            <span class="eyebrow">Infraestructura como código</span>
-            <h2 id="iac-title">Módulos versionados, pilas por dominio y un plan que se puede ejecutar.</h2>
-          </div>
-          <p>Todo el trabajo se entrega solo hasta <code>terraform plan</code>: no se aplica, no se despliega y no se crea ningún recurso real. La evidencia del plan sale de un emulador de AWS.</p>
+<!-- Costos -->
+<section class="section section--subtle" id="costos" aria-labelledby="cos-title"><div class="wrap">
+<div class="section-head reveal">
+          <div><span class="eyebrow">Costos (documento A23)</span><h2 id="cos-title">Cada dólar del piloto, con su método y su supuesto.</h2></div>
+          <p>Desglose completo del documento de costos: por dominio, por componente de nube, mes normal frente a mes de cosecha, los supuestos numerados, las seis decisiones que evitan gasto y cómo Infracost estima cada cambio en CI. Son estimaciones de planeación en dólares de noviembre de 2026 (1 USD = 4.100 COP), no mediciones.</p>
         </div>
-
-        <h3 class="reveal">Módulos de referencia</h3>
-        <p class="reveal">Viven en el repositorio público <a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules">aroma-pacifico-terraform-modules</a>. Una etiqueta SemVer cubre todo el repositorio, y las pilas fijan una etiqueta, nunca una rama.</p>
-        <div class="module-list reveal">
-          <div class="module"><div><code>state-backend</code><small>Estado remoto de un ambiente · D02</small></div><span class="tag">v0.3.0</span></div>
-          <div class="module"><div><code>network</code><small>VPC, ocho niveles, endpoints · D04</small></div><span class="tag">v0.1.0</span></div>
-          <div class="module"><div><code>collection-center-association</code><small>Un centro de acopio por ejecución · D05</small></div><span class="tag">v0.4.0</span></div>
-          <div class="module"><div><code>security</code><small>Línea base: llaves, roles, MFA · D06</small></div><span class="tag">v0.1.0</span></div>
-          <div class="module"><div><code>firewall-rules</code><small>Reglas permanentes con vigencia · D07</small></div><span class="tag">v0.3.0</span></div>
-          <div class="module"><div><code>farm</code><small>Una finca patrón: cosa IoT y certificado · D08</small></div><span class="tag">v0.2.0</span></div>
-          <div class="module"><div><code>telemetry-ingestion</code><small>Regla de tópico, tabla, cola de errores · D09</small></div><span class="tag">v0.4.0</span></div>
-          <div class="module"><div><code>inference-functions</code><small>Función, cola, cola de fallos · D10</small></div><span class="tag">v0.1.0</span></div>
-        </div>
-        <p class="note reveal" style="margin-top: var(--ap-space-3)">La etiqueta de cada módulo es la primera en la que aparece. La etiqueta vigente del repositorio es <code>v0.4.0</code>. La pila de estado fija <code>v0.3.0</code>; la pila de red fija <code>v0.3.0</code> para la red y <code>v0.4.0</code> para la asociación del centro.</p>
-
-        <h3 class="reveal" style="margin-top: var(--ap-space-6)">Pilas raíz del repositorio privado</h3>
-        <div class="grid grid-4 reveal">
-          <div class="card"><h4><code>state-backend</code></h4><p>Bucket y llave de estado por ambiente. Caja D02.</p></div>
-          <div class="card"><h4><code>network</code></h4><p>Red, asociación de un centro y reglas. Cajas D04, D05 y D07.</p></div>
-          <div class="card"><h4><code>security</code></h4><p>Línea base de seguridad. Caja D06.</p></div>
-          <div class="card"><h4><code>workload</code></h4><p>Finca, ingesta y función de inferencia. Cajas D08 a D10.</p></div>
-        </div>
-
-        <h3 class="reveal" style="margin-top: var(--ap-space-6)">Plan por ambiente</h3>
-        <p class="reveal">Elige un ambiente para ver el resultado del plan contra el emulador, y un mes para ver el costo de nube que estima el documento de costos.</p>
-        <div class="card reveal">
-          <div style="display:flex; flex-wrap:wrap; gap: var(--ap-space-5)">
-            <div><span class="seg-label" id="env-label">Ambiente</span>
-              <div class="seg" role="group" aria-labelledby="env-label" data-env>
-                <button type="button" aria-pressed="true" data-env-value="qa">qa</button>
-                <button type="button" aria-pressed="false" data-env-value="pdn">pdn</button>
-              </div></div>
-            <div><span class="seg-label" id="month-label">Mes de referencia</span>
-              <div class="seg" role="group" aria-labelledby="month-label" data-month>
-                <button type="button" aria-pressed="true" data-month-value="normal">Mes normal</button>
-                <button type="button" aria-pressed="false" data-month-value="harvest">Mes de cosecha</button>
-              </div></div>
-          </div>
-          <div class="env-panel" style="margin-top: var(--ap-space-4)" aria-live="polite">
-            <div>
-              <h4 style="margin-bottom: var(--ap-space-2)">Plan de la pila de red (<span data-env-name>qa</span>)</h4>
-              <pre class="plan" tabindex="0"><span data-plan-line>Plan: <span class="hl">163 to add</span>, 0 to change, 0 to destroy.</span>
-<span data-plan-note># ejemplo qa: sin asociación de centro de acopio</span>
-# resultado del plan, nunca aplicado</pre>
-              <p class="note" style="margin-top: var(--ap-space-2)" data-plan-text>Ambiente <strong>qa</strong>: 163 recursos por crear, 0 por cambiar y 0 por destruir.</p>
-            </div>
-            <div>
-              <h4 style="margin-bottom: var(--ap-space-2)">Costo mensual de nube (documento A23)</h4>
-              <div class="metric"><span data-cost-label>Factura mensual de AWS, mes normal</span><strong data-cost-value>US$ 558,94</strong></div>
-              <p class="note" style="margin-top: var(--ap-space-2)">Es el total de todas las cuentas y no se divide por ambiente. Infracost calcula el impacto por pila en CI, pero sin su token el flujo informa «estimación no disponible» y no inventa una cifra: por eso no se muestra un costo por ambiente.</p>
-            </div>
-          </div>
-        </div>
-
-        <h3 class="reveal" style="margin-top: var(--ap-space-6)">CI/CD y evidencia de plan</h3>
-        <div class="pipeline reveal">
-          <div class="card"><h4>Infrastructure CI</h4><p>Revisa secretos, luego <code>fmt</code>, <code>init</code>, <code>validate</code>, <code>tflint</code>, Trivy y <code>terraform test</code> en cada pila.</p></div>
-          <div class="card"><h4>Floci plan</h4><p>Plan especulativo de cada pila contra el emulador Floci, fijado por digest. Sin credenciales reales.</p></div>
-          <div class="card"><h4>Infracost</h4><p>Costo antes, después y diferencia por pila con la CLI v2. Sin token, informa que no hay estimación.</p></div>
-          <div class="card"><h4>CD promotion</h4><p>Promoción <code>dev</code>, <code>qa</code>, <code>pdn</code> con aprobación obligatoria en <code>pdn</code>, ventana de cosecha y registro de quién aprobó. No tiene paso de apply.</p></div>
-        </div>
-        <p class="note reveal" style="margin-top: var(--ap-space-3)">El pipeline falla si algún archivo de workflow o script contiene un comando de Terraform que cambie estado, de modo que el límite de solo plan lo hace cumplir el pipeline y no solo la costumbre.</p>
-
-        <h3 class="reveal" style="margin-top: var(--ap-space-6)">28 reglas vinculantes</h3>
-        <p class="reveal">Las reglas <code>pc-iac-001</code> a <code>pc-iac-028</code> son normativas para todo el código Terraform. Despliega un grupo para ver sus reglas.</p>
-        <div class="rule-groups reveal">
-          <details class="rule-group"><summary>Estructura y nombres <span class="tag">5</span></summary><ul>
-            <li>001 · Estructura obligatoria de los módulos</li><li>002 · Variables obligatorias y declaración</li><li>003 · Nomenclatura</li><li>004 · Etiquetas obligatorias</li><li>007 · Salidas de los módulos</li></ul></details>
-          <details class="rule-group"><summary>Providers, versiones y consumo <span class="tag">4</span></summary><ul>
-            <li>005 · Configuración y alias de providers</li><li>006 · Versiones y estabilidad</li><li>013 · Orden en las llamadas a módulos</li><li>015 · Consumo remoto y versionado de módulos</li></ul></details>
-          <details class="rule-group"><summary>Lógica y datos <span class="tag">7</span></summary><ul>
-            <li>009 · Tipos, conversiones y lógica en locals</li><li>010 · <code>for_each</code> y control de recursos</li><li>011 · Data sources</li><li>012 · Estructuras de datos en locals</li><li>014 · Bloques dinámicos y splat</li><li>021 · Centralización de configuración en locals</li><li>024 · Trazabilidad de configuración compleja</li></ul></details>
-          <details class="rule-group"><summary>Estado, dominios y secretos <span class="tag">6</span></summary><ul>
-            <li>008 · Estado remoto y backend</li><li>016 · Secretos y datos sensibles</li><li>017 · Comunicación entre dominios por data sources</li><li>019 · Uso restringido de <code>terraform_remote_state</code></li><li>022 · Separación por dominio</li><li>025 · Gobernanza procesada en la raíz</li></ul></details>
-          <details class="rule-group"><summary>Módulos y ejemplos <span class="tag">2</span></summary><ul>
-            <li>023 · Responsabilidad funcional única</li><li>026 · Patrón de transformación en <code>sample/</code></li></ul></details>
-          <details class="rule-group"><summary>Seguridad, pruebas y costo <span class="tag">4</span></summary><ul>
-            <li>018 · Pruebas y validación</li><li>020 · Gobernanza de seguridad y endurecimiento</li><li>027 · Estimación de costo con Infracost en CI/CD</li><li>028 · Emulación de AWS con Floci para evidencia de plan</li></ul></details>
-        </div>
-
-        <h3 class="reveal" style="margin-top: var(--ap-space-6)">Plan de 100 horas por rol</h3>
-        <p class="reveal">Solo cuentan las 13 tareas B01 a B13 del Epic 6. Suman 98 horas y dejan 2 de reserva; la ruta crítica termina en la hora 38 de 50 disponibles.</p>
-        <div class="card reveal">
-          <div class="role-bars" data-roles></div>
-          <p class="note" style="margin-top: var(--ap-space-3)">Reparto del plan: ninguna tarea supera 10 horas, y ninguna persona pasa de 5 horas al día ni de 25 por semana. Roles: SR1 y SR2 (senior), JR1 y JR2 (junior).</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 8. Costo -->
-    <section class="section" id="costo" aria-labelledby="cos-title">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <div>
-            <span class="eyebrow">Costo del piloto</span>
-            <h2 id="cos-title">El gasto está en el campo y en el aire, no en la nube.</h2>
-          </div>
-          <p>Cifras en dólares de noviembre de 2026 con una tasa de planeación de 4.100 COP por dólar. Son estimaciones de planeación del documento de costos, no mediciones.</p>
-        </div>
-
-        <div class="card reveal">
+<nav class="chip-nav reveal" aria-label="Contenido de costos"><a class="chip-link" href="#cos-resumen">Resumen</a><a class="chip-link" href="#cos-nube">Nube por servicio</a><a class="chip-link" href="#cos-campo">Campo y centros</a><a class="chip-link" href="#cos-drones">Drones</a><a class="chip-link" href="#cos-inferencia">Inferencia</a><a class="chip-link" href="#cos-supuestos">Método y supuestos</a><a class="chip-link" href="#cos-ahorros">Ahorros</a><a class="chip-link" href="#cos-presupuestos">Presupuestos</a><a class="chip-link" href="#cos-infracost">Infracost en CI</a></nav>
+<h3 id="cos-resumen" class="reveal">Resumen por dominio</h3>
+<div class="card reveal">
           <div class="seg" role="group" aria-label="Mes de referencia del costo" data-cost-month style="margin-bottom: var(--ap-space-4)">
             <button type="button" aria-pressed="true" data-cm="normal">Mes normal</button>
             <button type="button" aria-pressed="false" data-cm="harvest">Mes de cosecha</button>
@@ -463,16 +363,1997 @@
           </div>
           <div class="cost-bars" data-cost-bars aria-live="polite"></div>
           <div class="total-line"><span data-cost-total-label>Total mensual, mes normal</span><output data-cost-total>US$ 2.707,27</output></div>
+          <p class="note" style="margin: var(--ap-space-3) 0 0">El interruptor cambia también las barras de la nube por servicio de la sección siguiente.</p>
         </div>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Costo por dominio (USD)"><table class="">
+<caption>Costo por dominio (USD)</caption><thead><tr>
+<th scope="col">Dominio</th>
+<th scope="col" class="num">CAPEX</th>
+<th scope="col" class="num">Mes normal</th>
+<th scope="col" class="num">Mes de cosecha</th>
+<th scope="col" class="num">Anualizado</th>
+</tr></thead><tbody>
+<tr>
+<td>Hardware de fincas (200 fincas, 400 nodos)</td>
+<td class="num">74.000,00</td>
+<td class="num">920,00</td>
+<td class="num">920,00</td>
+<td class="num">85.040,00</td>
+</tr>
+<tr>
+<td>Infraestructura de centros de acopio (3 sitios)</td>
+<td class="num">8.550,00</td>
+<td class="num">645,00</td>
+<td class="num">645,00</td>
+<td class="num">16.290,00</td>
+</tr>
+<tr>
+<td>Campaña de drones (vuelo contratado)</td>
+<td class="num">0,00</td>
+<td class="num">583,33</td>
+<td class="num">8.500,00</td>
+<td class="num">45.250,00</td>
+</tr>
+<tr>
+<td>Nube AWS e ingesta</td>
+<td class="num">0,00</td>
+<td class="num">558,94</td>
+<td class="num">573,75</td>
+<td class="num">6.766,52</td>
+</tr>
+<tr>
+<td><strong>Total del piloto</strong></td>
+<td class="num"><strong>82.550,00</strong></td>
+<td class="num"><strong>2.707,27</strong></td>
+<td class="num"><strong>10.638,75</strong></td>
+<td class="num"><strong>153.346,52</strong></td>
+</tr>
+</tbody></table></div>
+<p class="note reveal">El anualizado de la nube es 8 meses normales más 4 meses de cosecha (8 x 558,94 + 4 x 573,75 = 6.766,52). La campaña de drones anual es 6.000 de delimitación inicial, 34.000 de cuatro campañas de cosecha y 5.250 de tres campañas fuera de cosecha.</p>
+<h3 id="cos-nube" class="reveal" style="margin-top: var(--ap-space-6)">La nube, servicio por servicio</h3>
+<p class="reveal">Factura mensual de AWS de todas las cuentas: US$ 558,94 en un mes normal y US$ 573,75 en un mes de cosecha. La diferencia viene solo de cómputo e inferencia y de los SMS: la red, que pesa más de la mitad, no cambia.</p>
+<div class="card reveal"><div class="cost-bars" data-cloud-bars aria-live="polite"></div></div>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Nube AWS por servicio (USD al mes)"><table class="">
+<caption>Nube AWS por servicio (USD al mes)</caption><thead><tr>
+<th scope="col">Servicio</th>
+<th scope="col">Base de cálculo</th>
+<th scope="col" class="num">Mes normal</th>
+<th scope="col" class="num">Mes de cosecha</th>
+</tr></thead><tbody>
+<tr>
+<td>AWS Transit Gateway</td>
+<td>3 adjuntos de VPC a US$ 0,05/h x 730 h, más ~50 GB procesados</td>
+<td class="num">110,50</td>
+<td class="num">110,50</td>
+</tr>
+<tr>
+<td>AWS Site-to-Site VPN</td>
+<td>3 conexiones (una por centro) x US$ 0,05/h x 730 h</td>
+<td class="num">109,50</td>
+<td class="num">109,50</td>
+</tr>
+<tr>
+<td>Route 53 Resolver entrante</td>
+<td>2 ENI en el nivel administration a US$ 0,125/h, más consultas</td>
+<td class="num">182,70</td>
+<td class="num">182,70</td>
+</tr>
+<tr>
+<td>Endpoints de VPC (interfaz)</td>
+<td>4 endpoints x 2 AZ a US$ 0,01/h, más datos</td>
+<td class="num">58,90</td>
+<td class="num">58,90</td>
+</tr>
+<tr>
+<td>AWS WAF</td>
+<td>1 Web ACL, 4 grupos de reglas gestionados y ~250.000 solicitudes</td>
+<td class="num">9,15</td>
+<td class="num">9,15</td>
+</tr>
+<tr>
+<td>Amazon CloudFront</td>
+<td>~15 GB de salida y 120.000 solicitudes HTTPS</td>
+<td class="num">1,40</td>
+<td class="num">1,40</td>
+</tr>
+<tr>
+<td>AWS IoT Core</td>
+<td>~130.000 mensajes MQTT, 260.000 acciones de regla</td>
+<td class="num">0,19</td>
+<td class="num">0,19</td>
+</tr>
+<tr>
+<td>Amazon DynamoDB (bajo demanda)</td>
+<td>WRU, RRU, 10 GB de almacenamiento y recuperación PITR</td>
+<td class="num">4,83</td>
+<td class="num">4,83</td>
+</tr>
+<tr>
+<td>Amazon S3 y AWS KMS</td>
+<td>~300 GB, solicitudes y 8 llaves KMS</td>
+<td class="num">15,80</td>
+<td class="num">15,80</td>
+</tr>
+<tr>
+<td>Cómputo orientado a eventos e IA</td>
+<td>Lambda, SQS, EventBridge Pipes e inferencia en Bedrock</td>
+<td class="num">0,30</td>
+<td class="num">5,21</td>
+</tr>
+<tr>
+<td>Notificaciones al caficultor (SMS y push)</td>
+<td>SMS a Colombia a US$ 0,055 (90 en mes normal, 270 en cosecha); push gratis</td>
+<td class="num">4,95</td>
+<td class="num">14,85</td>
+</tr>
+<tr>
+<td>Observabilidad y telemetría</td>
+<td>Métricas, alarmas, logs, canario de Synthetics y exportación de costos</td>
+<td class="num">60,72</td>
+<td class="num">60,72</td>
+</tr>
+<tr>
+<td><strong>Total de la nube</strong></td>
+<td>Factura mensual de todas las cuentas</td>
+<td class="num"><strong>558,94</strong></td>
+<td class="num"><strong>573,75</strong></td>
+</tr>
+</tbody></table></div>
+<h3 id="cos-campo" class="reveal" style="margin-top: var(--ap-space-6)">Campo y centros de acopio</h3>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Hardware de una finca: lista de materiales (USD)"><table class="">
+<caption>Hardware de una finca: lista de materiales (USD)</caption><thead><tr>
+<th scope="col">Componente</th>
+<th scope="col" class="num">Nodo de cultivo</th>
+<th scope="col" class="num">Nodo de secado</th>
+<th scope="col" class="num">Finca</th>
+</tr></thead><tbody>
+<tr>
+<td>Microcontrolador y lógica (ARM Cortex-M4, buffer cifrado de 24 h)</td>
+<td class="num">30,00</td>
+<td class="num">30,00</td>
+<td class="num">60,00</td>
+</tr>
+<tr>
+<td>Caja exterior IP67 con soporte</td>
+<td class="num">18,00</td>
+<td class="num">18,00</td>
+<td class="num">36,00</td>
+</tr>
+<tr>
+<td>Subsistema solar (panel 5 W, batería LiFePO4, controlador MPPT)</td>
+<td class="num">32,00</td>
+<td class="num">32,00</td>
+<td class="num">64,00</td>
+</tr>
+<tr>
+<td>Sensores de suelo y ambiente (NPK, humedad, temperatura)</td>
+<td class="num">54,00</td>
+<td class="num">0,00</td>
+<td class="num">54,00</td>
+</tr>
+<tr>
+<td>Sensores de secado y pulsador (RTD PT100, humedad del grano)</td>
+<td class="num">0,00</td>
+<td class="num">59,00</td>
+<td class="num">59,00</td>
+</tr>
+<tr>
+<td>Módulo celular y satelital de modo dual</td>
+<td class="num">38,00</td>
+<td class="num">38,00</td>
+<td class="num">76,00</td>
+</tr>
+<tr>
+<td>SIM industrial multired</td>
+<td class="num">3,00</td>
+<td class="num">3,00</td>
+<td class="num">6,00</td>
+</tr>
+<tr>
+<td><strong>Total por nodo</strong></td>
+<td class="num"><strong>175,00</strong></td>
+<td class="num"><strong>180,00</strong></td>
+<td class="num"><strong>355,00</strong></td>
+</tr>
+</tbody></table></div>
+<p class="note reveal">Los consumibles de montaje suman 15,00 por finca, de modo que una finca cuesta 370,00 y las 200 fincas 74.000,00 de CAPEX. La conectividad recurrente es 360 nodos celulares x 1,50 más 40 nodos satelitales x 9,50 (SIM más 8,00 de acceso satelital) = 920,00 al mes, un promedio de 4,60 por finca.</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Equipo de un centro de acopio (USD)"><table class="">
+<caption>Equipo de un centro de acopio (USD)</caption><thead><tr>
+<th scope="col">Equipo</th>
+<th scope="col" class="num">Cantidad</th>
+<th scope="col" class="num">Precio unitario</th>
+<th scope="col" class="num">Por centro</th>
+<th scope="col" class="num">Tres centros</th>
+</tr></thead><tbody>
+<tr>
+<td>Firewall perimetral empresarial</td>
+<td class="num">1</td>
+<td class="num">850,00</td>
+<td class="num">850,00</td>
+<td class="num">2.550,00</td>
+</tr>
+<tr>
+<td>Pasarela celular de respaldo (LTE, doble SIM)</td>
+<td class="num">1</td>
+<td class="num">350,00</td>
+<td class="num">350,00</td>
+<td class="num">1.050,00</td>
+</tr>
+<tr>
+<td>Switch PoE gestionado de 24 puertos</td>
+<td class="num">1</td>
+<td class="num">550,00</td>
+<td class="num">550,00</td>
+<td class="num">1.650,00</td>
+</tr>
+<tr>
+<td>Puntos de acceso Wi-Fi 6</td>
+<td class="num">3</td>
+<td class="num">200,00</td>
+<td class="num">600,00</td>
+<td class="num">1.800,00</td>
+</tr>
+<tr>
+<td>Impresora térmica industrial de hojas de código</td>
+<td class="num">1</td>
+<td class="num">500,00</td>
+<td class="num">500,00</td>
+<td class="num">1.500,00</td>
+</tr>
+<tr>
+<td><strong>Total de hardware</strong></td>
+<td class="num">7 equipos</td>
+<td class="num">-</td>
+<td class="num"><strong>2.850,00</strong></td>
+<td class="num"><strong>8.550,00</strong></td>
+</tr>
+</tbody></table></div>
+<p class="note reveal">Operación de los tres centros: 645,00 al mes, es decir acceso dedicado a Internet de 100 Mbps a 180,00 por centro (540,00) más enlace celular de respaldo a 35,00 por centro (105,00).</p>
+<h3 id="cos-drones" class="reveal" style="margin-top: var(--ap-space-6)">Campaña de drones</h3>
+<p class="reveal">En lugar de comprar flota, se contrata un operador certificado por vuelo (ADR-002): 25,00 por misión de precisión y 30,00 por misión de área. Con H = 4 meses de cosecha al año hay 4 + ⌈(12 − 4) / 3⌉ = 7 campañas programadas.</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Vuelos y tarifa por tipo de misión"><table class="">
+<caption>Vuelos y tarifa por tipo de misión</caption><thead><tr>
+<th scope="col">Misión</th>
+<th scope="col" class="num">Vuelos en mes de cosecha</th>
+<th scope="col" class="num">Vuelos en mes normal</th>
+<th scope="col" class="num">Vuelos al año</th>
+<th scope="col" class="num">Tarifa (USD)</th>
+</tr></thead><tbody>
+<tr>
+<td>Delimitación (una vez por finca, antes del lanzamiento)</td>
+<td class="num">0</td>
+<td class="num">0</td>
+<td class="num">200</td>
+<td class="num">30,00</td>
+</tr>
+<tr>
+<td>Estimación de cosecha (área)</td>
+<td class="num">200</td>
+<td class="num">0</td>
+<td class="num">200</td>
+<td class="num">30,00</td>
+</tr>
+<tr>
+<td>Confirmación del foco</td>
+<td class="num">40</td>
+<td class="num">15</td>
+<td class="num">285</td>
+<td class="num">25,00</td>
+</tr>
+<tr>
+<td>Fumigación dirigida</td>
+<td class="num">30</td>
+<td class="num">10</td>
+<td class="num">210</td>
+<td class="num">25,00</td>
+</tr>
+<tr>
+<td>Verificación posterior</td>
+<td class="num">30</td>
+<td class="num">10</td>
+<td class="num">210</td>
+<td class="num">25,00</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td class="num"><strong>300</strong></td>
+<td class="num"><strong>35</strong></td>
+<td class="num"><strong>1.105</strong></td>
+<td class="num">-</td>
+</tr>
+</tbody></table></div>
+<p class="note reveal">Mes de cosecha: 6.000 + 1.000 + 750 + 750 = 8.500,00. Campaña trimestral fuera de cosecha: 35 vuelos x 25,00 = 875,00 al mes de vuelos con alerta, 1.750,00 por campaña, un promedio de 583,33 al mes. Contrato anual: 45.250,00.</p>
+<h3 id="cos-inferencia" class="reveal" style="margin-top: var(--ap-space-6)">Invocaciones e inferencia en cosecha</h3>
+<p class="reveal">El costo de 1.000 invocaciones de cada función sigue una fórmula única (ASM-169): solicitud de Lambda, GB-segundo, colas SQS, lecturas de S3 y KMS, escrituras y lecturas de DynamoDB, enrutamiento de eventos y, solo cuando el modelo se invoca, los tokens de entrada y salida de Amazon Nova Pro.</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Costo por 1.000 invocaciones (planeación, us-east-1)"><table class="">
+<caption>Costo por 1.000 invocaciones (planeación, us-east-1)</caption><thead><tr>
+<th scope="col">Función</th>
+<th scope="col" class="num">Memoria (GB)</th>
+<th scope="col" class="num">Duración (s)</th>
+<th scope="col" class="num">Tokens de entrada</th>
+<th scope="col" class="num">Tokens de salida</th>
+<th scope="col" class="num">Costo por 1.000 (USD)</th>
+</tr></thead><tbody>
+<tr>
+<td>Umbral de telemetría</td>
+<td class="num">0,25</td>
+<td class="num">0,15</td>
+<td class="num">500</td>
+<td class="num">150</td>
+<td class="num">0,00477</td>
+</tr>
+<tr>
+<td>Confirmación de plaga</td>
+<td class="num">0,50</td>
+<td class="num">3,50</td>
+<td class="num">5.200</td>
+<td class="num">300</td>
+<td class="num">5,16400</td>
+</tr>
+<tr>
+<td>Verificación de plaga</td>
+<td class="num">0,50</td>
+<td class="num">3,50</td>
+<td class="num">5.200</td>
+<td class="num">300</td>
+<td class="num">5,16400</td>
+</tr>
+<tr>
+<td>Estimación de cosecha</td>
+<td class="num">0,50</td>
+<td class="num">8,00</td>
+<td class="num">25.700</td>
+<td class="num">300</td>
+<td class="num">21,65000</td>
+</tr>
+</tbody></table></div>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Un mes de cosecha: invocaciones y costo"><table class="">
+<caption>Un mes de cosecha: invocaciones y costo</caption><thead><tr>
+<th scope="col">Disparador</th>
+<th scope="col" class="num">Invocaciones al mes</th>
+<th scope="col" class="num">Llamadas al modelo</th>
+<th scope="col" class="num">Costo del mes (USD)</th>
+</tr></thead><tbody>
+<tr>
+<td>Evaluación de lotes de telemetría (36.000 de cultivo + 72.000 de secado)</td>
+<td class="num">108.000</td>
+<td class="num">150</td>
+<td class="num">0,515</td>
+</tr>
+<tr>
+<td>Objetos de confirmación</td>
+<td class="num">40</td>
+<td class="num">40</td>
+<td class="num">0,207</td>
+</tr>
+<tr>
+<td>Objetos de verificación</td>
+<td class="num">30</td>
+<td class="num">30</td>
+<td class="num">0,155</td>
+</tr>
+<tr>
+<td>Objetos de estimación de cosecha</td>
+<td class="num">200</td>
+<td class="num">200</td>
+<td class="num">4,330</td>
+</tr>
+<tr>
+<td><strong>Total del mes de cosecha</strong></td>
+<td class="num"><strong>108.270</strong></td>
+<td class="num"><strong>420</strong></td>
+<td class="num"><strong>5,207</strong></td>
+</tr>
+</tbody></table></div>
+<p class="note reveal">Un mes normal fuera de cosecha tiene 36.025 invocaciones, 85 llamadas al modelo y US$ 0,301 de cómputo. Solo las 150 aperturas de episodio del mes de cosecha (60 en un mes normal) llaman al modelo, por eso la probabilidad de llamada de la función de umbral es 150 / 108.000 = 0,001389.</p>
+<h3 id="cos-supuestos" class="reveal" style="margin-top: var(--ap-space-6)">Método y supuestos</h3>
+<p class="reveal">Todo valor que el enunciado no fija es un supuesto numerado en el log de decisiones, separado de los cálculos. Los precios de AWS son supuestos de planeación a noviembre de 2026; los de hardware y de drones son estimaciones de referencia que se validan con cotizaciones de proveedores en la compra.</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Supuestos de costo (ASM-230 a ASM-251)"><table class="">
+<caption>Supuestos de costo (ASM-230 a ASM-251)</caption><thead><tr>
+<th scope="col">ID</th>
+<th scope="col">Parámetro</th>
+<th scope="col">Valor asignado</th>
+</tr></thead><tbody>
+<tr>
+<td>ASM-230</td>
+<td>Moneda, fecha y tasa de planeación</td>
+<td>USD; noviembre de 2026; 1 USD = 4.100 COP</td>
+</tr>
+<tr>
+<td>ASM-231</td>
+<td>Nodos de finca y conectividad</td>
+<td>Nodo de cultivo 175; nodo de secado 180; SIM 1,50 al mes; acceso satelital 8,00 al mes; 10 % de las fincas sin cobertura</td>
+</tr>
+<tr>
+<td>ASM-232</td>
+<td>Equipo de un centro de acopio</td>
+<td>2.850 por sitio (firewall, respaldo, switch, puntos de acceso, impresora)</td>
+</tr>
+<tr>
+<td>ASM-233</td>
+<td>Redes de nube</td>
+<td>Transit Gateway 0,05/h; VPN 0,05/h; Resolver 0,125/h por ENI; endpoints 0,01/h por AZ; WAF 5,00 al mes por ACL</td>
+</tr>
+<tr>
+<td>ASM-234</td>
+<td>Notificaciones</td>
+<td>SMS a Colombia 0,055 por segmento; push 0,00; 90 episodios al mes normal y 270 en cosecha</td>
+</tr>
+<tr>
+<td>ASM-235</td>
+<td>Almacenes y consulta web</td>
+<td>DynamoDB 0,625 por millón de WRU y 0,125 por millón de RRU; S3 0,023 por GB; CloudFront 0,085 por GB</td>
+</tr>
+<tr>
+<td>ASM-236</td>
+<td>Inferencia administrada</td>
+<td>Amazon Nova Pro: 0,0008 por 1.000 tokens de entrada y 0,0032 de salida; 1.200 tokens por imagen</td>
+</tr>
+<tr>
+<td>ASM-237</td>
+<td>Invocaciones de cosecha</td>
+<td>108.000 de telemetría; 150 episodios; 40 confirmaciones, 30 verificaciones y 200 estimaciones</td>
+</tr>
+<tr>
+<td>ASM-238</td>
+<td>Operación de drones</td>
+<td>Misión dirigida 25,00; misión de área 30,00; H = 4 meses de cosecha; 7 campañas al año</td>
+</tr>
+<tr>
+<td>ASM-239</td>
+<td>Observabilidad</td>
+<td>Métrica 0,30 al mes; alarma 0,10; alarma compuesta 0,50; logs 0,50 por GB; canario 0,0012 por ejecución</td>
+</tr>
+<tr>
+<td>ASM-250</td>
+<td>Techos de presupuesto mensual</td>
+<td>650,00 en mes normal y 700,00 en mes de cosecha</td>
+</tr>
+<tr>
+<td>ASM-251</td>
+<td>Ahorros</td>
+<td>47.532,88 de OPEX evitado al año y 230.000,00 de CAPEX evitado</td>
+</tr>
+</tbody></table></div>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Observabilidad: costo mensual de la propia observabilidad (US$ 60,72)"><table class="">
+<caption>Observabilidad: costo mensual de la propia observabilidad (US$ 60,72)</caption><thead><tr>
+<th scope="col">Componente</th>
+<th scope="col">Cantidad</th>
+<th scope="col" class="num">Costo al mes (USD)</th>
+</tr></thead><tbody>
+<tr>
+<td>Métricas personalizadas de CloudWatch</td>
+<td>65 (las primeras 10 son gratis)</td>
+<td class="num">16,50</td>
+</tr>
+<tr>
+<td>Alarmas estándar</td>
+<td>110 a 0,10</td>
+<td class="num">11,00</td>
+</tr>
+<tr>
+<td>Alarmas compuestas</td>
+<td>8 a 0,50</td>
+<td class="num">4,00</td>
+</tr>
+<tr>
+<td>Ingesta de logs</td>
+<td>35 GB a 0,50</td>
+<td class="num">17,50</td>
+</tr>
+<tr>
+<td>Almacenamiento de archivo de logs</td>
+<td>35 GB a 0,03</td>
+<td class="num">1,05</td>
+</tr>
+<tr>
+<td>Canario de Synthetics sobre la consulta del saco</td>
+<td>8.640 ejecuciones a 0,0012</td>
+<td class="num">10,37</td>
+</tr>
+<tr>
+<td>Solicitudes a la API de Cost Explorer</td>
+<td>30 a 0,01</td>
+<td class="num">0,30</td>
+</tr>
+<tr>
+<td>AWS X-Ray</td>
+<td>~80.000 trazas (capa gratuita)</td>
+<td class="num">0,00</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td class="num"><strong>60,72</strong></td>
+</tr>
+</tbody></table></div>
+<h3 id="cos-ahorros" class="reveal" style="margin-top: var(--ap-space-6)">Seis decisiones que evitan gasto</h3>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Conciliación de ahorros"><table class="">
+<caption>Conciliación de ahorros</caption><thead><tr>
+<th scope="col">Decisión</th>
+<th scope="col">Alternativa</th>
+<th scope="col">Arquitectura elegida</th>
+<th scope="col" class="num">OPEX evitado al año (USD)</th>
+<th scope="col" class="num">CAPEX evitado (USD)</th>
+</tr></thead><tbody>
+<tr>
+<td>1. Endpoints de VPC en lugar de Network Firewall y NAT (ASM-127)</td>
+<td>11.563,20 al año (963,60 al mes)</td>
+<td>706,80 al año (58,90 al mes)</td>
+<td class="num">10.856,40</td>
+<td class="num">0,00</td>
+</tr>
+<tr>
+<td>2. Entrada sin servidores (CloudFront, WAF, URL de función) en lugar de ALB</td>
+<td>617,16 al año</td>
+<td>126,60 al año</td>
+<td class="num">490,56</td>
+<td class="num">0,00</td>
+</tr>
+<tr>
+<td>3. Inferencia solo en aperturas de episodio (ASM-167)</td>
+<td>633,60 al año</td>
+<td>0,92 al año</td>
+<td class="num">632,68</td>
+<td class="num">0,00</td>
+</tr>
+<tr>
+<td>4. Hardware de modo dual y satélite solo donde hace falta (ASM-073)</td>
+<td>38.400,00 al año más 50.000,00 de estudios de campo</td>
+<td>3.840,00 al año</td>
+<td class="num">34.560,00</td>
+<td class="num">50.000,00</td>
+</tr>
+<tr>
+<td>5. Operador de drones contratado en lugar de flota propia (ADR-002)</td>
+<td>180.000,00 de equipos más mantenimiento</td>
+<td>45.250,00 al año</td>
+<td class="num">Escala por misión</td>
+<td class="num">180.000,00</td>
+</tr>
+<tr>
+<td>6. DynamoDB bajo demanda en lugar de base provisionada</td>
+<td>1.051,20 al año</td>
+<td>57,96 al año</td>
+<td class="num">993,24</td>
+<td class="num">0,00</td>
+</tr>
+<tr>
+<td><strong>Total conciliado</strong></td>
+<td></td>
+<td></td>
+<td class="num"><strong>47.532,88</strong></td>
+<td class="num"><strong>230.000,00</strong></td>
+</tr>
+</tbody></table></div>
+<p class="note reveal">Por ejemplo, en la decisión 1 el tráfico de los centros se inspecciona en el firewall local antes del túnel IPsec y los servicios de AWS se alcanzan por endpoints privados; los endpoints de pasarela de S3 y DynamoDB no cuestan. En la decisión 5 el operador cobra por misión y el gasto escala con la necesidad agronómica verificada.</p>
+<h3 id="cos-presupuestos" class="reveal" style="margin-top: var(--ap-space-6)">Presupuestos de AWS por centro de costo</h3>
+<p class="reveal">Los presupuestos se crean en la cuenta de administración y avisan por SNS al 80 % y 100 % del costo real y al 100 % del pronosticado. Solo el presupuesto de pruebas tiene una acción: con aprobación manual aplica una SCP que niega crear recursos. La producción nunca se apaga automáticamente, para proteger las alertas al caficultor y la consulta pública.</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Presupuestos mensuales (USD)"><table class="">
+<caption>Presupuestos mensuales (USD)</caption><thead><tr>
+<th scope="col">Centro de costo</th>
+<th scope="col">Alcance</th>
+<th scope="col" class="num">Mes normal</th>
+<th scope="col" class="num">Mes de cosecha</th>
+<th scope="col">Acción automática</th>
+</tr></thead><tbody>
+<tr>
+<td><code>farms</code></td>
+<td>Etiqueta CostCenter = farms, cuenta de producción</td>
+<td class="num">80,00</td>
+<td class="num">95,00</td>
+<td>Ninguna (producción protegida)</td>
+</tr>
+<tr>
+<td><code>drones</code></td>
+<td>Etiqueta CostCenter = drones, cuenta de producción</td>
+<td class="num">15,00</td>
+<td class="num">25,00</td>
+<td>Ninguna (producción protegida)</td>
+</tr>
+<tr>
+<td><code>collection-centers</code></td>
+<td>Etiqueta CostCenter = collection-centers, producción</td>
+<td class="num">385,00</td>
+<td class="num">385,00</td>
+<td>Ninguna (producción protegida)</td>
+</tr>
+<tr>
+<td><code>trips</code></td>
+<td>Etiqueta CostCenter = trips, producción</td>
+<td class="num">10,00</td>
+<td class="num">15,00</td>
+<td>Ninguna (producción protegida)</td>
+</tr>
+<tr>
+<td><code>testing</code></td>
+<td>Cuentas de desarrollo y de pruebas</td>
+<td class="num">80,00</td>
+<td class="num">90,00</td>
+<td>Aprobación manual: SCP que niega crear recursos</td>
+</tr>
+<tr>
+<td>Compartido y administración</td>
+<td>Cuentas de administración, seguridad y logs compartidos</td>
+<td class="num">80,00</td>
+<td class="num">90,00</td>
+<td>Ninguna</td>
+</tr>
+<tr>
+<td><strong>Techo total de nube</strong></td>
+<td>Umbral mensual agregado de facturación</td>
+<td class="num"><strong>650,00</strong></td>
+<td class="num"><strong>700,00</strong></td>
+<td></td>
+</tr>
+</tbody></table></div>
+<h3 id="cos-infracost" class="reveal" style="margin-top: var(--ap-space-6)">Cómo Infracost estima cada cambio en CI (pc-iac-027)</h3>
+<p class="reveal">La regla pc-iac-027 obliga a que todo pipeline de IaC estime el costo mensual con Infracost CLI v2: en cada pull request, antes y después del cambio, y en la promoción a producción, junto al plan que revisa el aprobador.</p>
+<div class="pipeline reveal">
+          <div class="card"><h4>1. Pull request</h4><p>El flujo <code>Infracost cost impact</code> corre en cada pull request y en cada push a <code>main</code>, en el repositorio de módulos y en el de infraestructura.</p></div>
+          <div class="card"><h4>2. Estimación sin credenciales</h4><p>La CLI v2 (versión 2.18.3, verificada por checksum SHA-256) lee solo el código y los valores de ejemplo no sensibles de <code>qa</code>. No toca AWS ni necesita estado remoto.</p></div>
+          <div class="card"><h4>3. Antes, después y diferencia</h4><p>Publica en el resumen del trabajo el costo mensual previo, el nuevo y la diferencia por raíz: las cuatro pilas, o los <code>sample/</code> de cada módulo.</p></div>
+          <div class="card"><h4>4. En la aprobación de producción</h4><p>La promoción a <code>pdn</code> muestra el costo previo, el nuevo, la diferencia y el porcentaje por pila junto al plan, antes de que alguien apruebe.</p></div>
+        </div>
+<p class="note reveal" style="margin-top: var(--ap-space-3)">Se autentica solo con el secreto de organización <code>INFRACOST_CLI_TOKEN</code> y las variables <code>INFRACOST_ORG</code> e <code>INFRACOST_METADATA_EGRESS_APPROVED</code>. Las contribuciones de forks o de Dependabot no acceden a los secretos de precios y reciben una nota explicativa. Las acciones están fijadas por SHA y la CLI por checksum.</p>
+</div></section>
 
-        <div class="grid grid-3" style="margin-top: var(--ap-space-5)">
-          <div class="metric reveal"><span>Inversión inicial (CAPEX)</span><strong>US$ 82.550</strong></div>
-          <div class="metric reveal"><span>Techo mensual de nube, mes normal / cosecha</span><strong>US$ 650 / 700</strong></div>
-          <div class="metric reveal"><span>Ahorro neto anual por decisiones de diseño</span><strong>US$ 47.532,88</strong></div>
+<!-- Gobernanza -->
+<section class="section" id="gobernanza" aria-labelledby="gob-title"><div class="wrap">
+<div class="section-head reveal">
+          <div><span class="eyebrow">Gobernanza</span><h2 id="gob-title">Quién puede qué, qué se revisa y qué se bloquea solo.</h2></div>
+          <p>La landing zone, las identidades y el mínimo privilegio, las 28 reglas pc-iac con la forma en que el CI las hace cumplir, las compuertas de revisión y las convenciones, y el log de decisiones con los cuatro ADR.</p>
         </div>
-        <p class="note reveal" style="margin-top: var(--ap-space-3)">Además del ahorro operativo, las decisiones de diseño evitan US$ 230.000 de inversión inicial. Las cifras de inferencia de un mes de cosecha suman US$ 5,207 en 108.270 invocaciones y 420 llamadas al modelo.</p>
-      </div>
-    </section>
+<nav class="chip-nav reveal" aria-label="Contenido de gobernanza"><a class="chip-link" href="#gob-lz">Landing zone</a><a class="chip-link" href="#gob-etiquetas">Etiquetas</a><a class="chip-link" href="#gob-auditoria">Auditoría</a><a class="chip-link" href="#gob-identidad">Identidades</a><a class="chip-link" href="#gob-reglas">28 reglas</a><a class="chip-link" href="#gob-compuertas">Compuertas</a><a class="chip-link" href="#gob-log">Log de decisiones</a></nav>
+<h3 id="gob-lz" class="reveal">Landing zone: cuentas y controles desde la raíz</h3>
+<p class="reveal">Una sola Organización de AWS con todas las funciones habilitadas, construida directamente con AWS Organizations y sin Control Tower, porque este crearía sus propias cuentas de Log Archive y Audit y no calzaría con la única cuenta de seguridad del ADR-001. La administración no corre ninguna carga de trabajo.</p>
+<pre class="plan reveal" tabindex="0" aria-label="Estructura de la organización">Raíz  (SCP, política de etiquetas)
+|-- cuenta de administración   (facturación, presupuestos, etiquetas de costo)
+|-- OU Security
+|   `-- cuenta de seguridad    (archivo de auditoría, administrador delegado de CloudTrail)
+|-- OU Infrastructure
+|   `-- cuenta de red          (hub de los centros de acopio, enlaces WAN)
+`-- OU Workloads
+    |-- OU Production
+    |   `-- cuenta de producción   (pdn, 10.82.0.0/16)
+    `-- OU NonProduction
+        |-- cuenta de pruebas      (qa, 10.81.0.0/16)
+        `-- cuenta de desarrollo   (dev, 10.80.0.0/16)</pre>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Cuentas de la organización"><table class="">
+<caption>Cuentas de la organización</caption><thead><tr>
+<th scope="col">Cuenta</th>
+<th scope="col">OU</th>
+<th scope="col">Etiqueta Environment</th>
+<th scope="col">Contiene</th>
+</tr></thead><tbody>
+<tr>
+<td>Administración</td>
+<td>Raíz</td>
+<td><code>shared</code></td>
+<td>AWS Organizations, facturación consolidada, presupuestos, activación de etiquetas de costo, categorías de costo y detección de anomalías, instancia de IAM Identity Center</td>
+</tr>
+<tr>
+<td>Seguridad</td>
+<td>Security</td>
+<td><code>shared</code></td>
+<td>Bucket del archivo de auditoría y su llave KMS, administración delegada de CloudTrail e IAM Identity Center, Athena para consultar la auditoría</td>
+</tr>
+<tr>
+<td>Red</td>
+<td>Infrastructure</td>
+<td><code>shared</code></td>
+<td>El hub que termina los enlaces WAN de los tres centros y adjunta las VPC de los ambientes</td>
+</tr>
+<tr>
+<td>Producción</td>
+<td>Production</td>
+<td><code>pdn</code></td>
+<td>VPC y cargas de <code>pdn</code>, su bucket de estado y su llave, los roles OIDC de GitHub de <code>pdn</code>, el log de auditoría de la aplicación</td>
+</tr>
+<tr>
+<td>Pruebas</td>
+<td>NonProduction</td>
+<td><code>qa</code></td>
+<td>El mismo diseño para <code>qa</code></td>
+</tr>
+<tr>
+<td>Desarrollo</td>
+<td>NonProduction</td>
+<td><code>dev</code></td>
+<td>El mismo diseño para <code>dev</code></td>
+</tr>
+</tbody></table></div>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Siete SCP aplicadas desde la raíz o una OU"><table class="">
+<caption>Siete SCP aplicadas desde la raíz o una OU</caption><thead><tr>
+<th scope="col">SCP</th>
+<th scope="col">Se aplica a</th>
+<th scope="col">Qué niega</th>
+</tr></thead><tbody>
+<tr>
+<td>Salir de la organización</td>
+<td>Raíz</td>
+<td><code>organizations:LeaveOrganization</code></td>
+</tr>
+<tr>
+<td>Regiones distintas de <code>us-east-1</code></td>
+<td>Raíz</td>
+<td>Toda acción cuya región solicitada no sea <code>us-east-1</code>, con excepción de los servicios globales</td>
+</tr>
+<tr>
+<td>Proteger el registro de auditoría</td>
+<td>Raíz</td>
+<td>Detener, borrar o cambiar la trail y sus selectores; cambiar la política, el Object Lock o la llave del bucket de auditoría</td>
+</tr>
+<tr>
+<td>Credenciales de larga duración</td>
+<td>Raíz</td>
+<td><code>iam:CreateUser</code>, <code>iam:CreateAccessKey</code> y <code>iam:CreateLoginProfile</code></td>
+</tr>
+<tr>
+<td>Usuario raíz de cuentas miembro</td>
+<td>Raíz</td>
+<td>Toda acción del usuario raíz de una cuenta miembro</td>
+</tr>
+<tr>
+<td>Etiquetas de costo obligatorias</td>
+<td>OU Workloads</td>
+<td>Crear recursos sin las etiquetas <code>Environment</code> o <code>CostCenter</code></td>
+</tr>
+<tr>
+<td>Cambios en producción solo por el pipeline</td>
+<td>OU Production</td>
+<td>Escrituras desde sesiones humanas, salvo permisos de operación acotados y un permiso de emergencia bajo una referencia de incidente</td>
+</tr>
+</tbody></table></div>
+<h3 id="gob-etiquetas" class="reveal" style="margin-top: var(--ap-space-6)">Esquema de etiquetas</h3>
+<p class="reveal">Una política de etiquetas en la raíz fija la capitalización de las claves y los valores permitidos. No hace obligatoria una etiqueta: la presencia la exigen la SCP de etiquetas de costo y la compuerta de IaC.</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Claves de etiquetas"><table class="">
+<caption>Claves de etiquetas</caption><thead><tr>
+<th scope="col">Clave</th>
+<th scope="col">Valores permitidos</th>
+<th scope="col">Quién la asigna</th>
+<th scope="col">Etiqueta de asignación de costo</th>
+</tr></thead><tbody>
+<tr>
+<td><code>Client</code></td>
+<td>Fijado por el repositorio de infraestructura (PD-070)</td>
+<td>Pila raíz, por <code>default_tags</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>Project</code></td>
+<td>Fijado por el repositorio de infraestructura (PD-070)</td>
+<td>Pila raíz</td>
+<td>Sí</td>
+</tr>
+<tr>
+<td><code>Environment</code></td>
+<td><code>dev</code>, <code>qa</code>, <code>pdn</code>; <code>shared</code> en administración, seguridad y red</td>
+<td>Pila raíz, desde la variable de ambiente</td>
+<td>Sí</td>
+</tr>
+<tr>
+<td><code>Owner</code></td>
+<td>Código de rol: SR1, SR2, JR1 o JR2; nunca un nombre</td>
+<td>Pila raíz</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>CostCenter</code></td>
+<td><code>farms</code>, <code>drones</code>, <code>collection-centers</code>, <code>trips</code>, <code>shared</code></td>
+<td>Pila raíz por defecto; el módulo lo cambia por recurso</td>
+<td>Sí</td>
+</tr>
+<tr>
+<td><code>FarmId</code></td>
+<td>Identificador estable de la finca</td>
+<td>Módulo de finca, en cada recurso de una finca</td>
+<td>Sí</td>
+</tr>
+<tr>
+<td><code>CollectionCenter</code></td>
+<td><code>cauca</code>, <code>huila</code>, <code>tolima</code></td>
+<td>Asociación del centro y recursos de un solo centro</td>
+<td>Sí</td>
+</tr>
+<tr>
+<td><code>Name</code></td>
+<td>Nombre físico según pc-iac-003</td>
+<td>Cada módulo de referencia</td>
+<td>No</td>
+</tr>
+</tbody></table></div>
+<h3 id="gob-auditoria" class="reveal" style="margin-top: var(--ap-space-6)">Auditoría de los cuatro eventos obligatorios</h3>
+<p class="reveal">Una trail de organización multirregión registra los eventos de gestión de todas las cuentas, con validación de integridad, hacia el bucket de auditoría de la cuenta de seguridad: versionado, S3 Object Lock en modo de cumplimiento con retención de 5 años, Block Public Access y cifrado KMS. Cada registro se guarda al menos tanto como el dato que audita: 5 años.</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Cada evento en la capa que ve al actor real"><table class="">
+<caption>Cada evento en la capa que ve al actor real</caption><thead><tr>
+<th scope="col">Evento</th>
+<th scope="col">Capa que escribe</th>
+<th scope="col">Fuente del registro</th>
+</tr></thead><tbody>
+<tr>
+<td>Lectura de un saco</td>
+<td>Aplicación (servicio de consulta)</td>
+<td>Registro estructurado del servicio por cada lectura, con el rol del usuario o <code>anonymous</code> para una lectura pública</td>
+</tr>
+<tr>
+<td>Cambio de umbral</td>
+<td>Aplicación (configuración de umbrales)</td>
+<td>Registro escrito en la misma transacción que el cambio; secundario: eventos de datos de CloudTrail sobre la tabla de umbrales</td>
+</tr>
+<tr>
+<td>Publicación de telemetría</td>
+<td>AWS IoT Core</td>
+<td>La propia lectura guarda el principal del certificado, el cliente, la IP de origen y la hora de recepción junto a la hora original</td>
+</tr>
+<tr>
+<td>Entrega de un objeto de vuelo</td>
+<td>AWS (Amazon S3) y aplicación</td>
+<td>Eventos de datos de CloudTrail <code>PutObject</code> y <code>CompleteMultipartUpload</code> en el bucket de objetos de <code>pdn</code>, ligados luego al registro del vuelo</td>
+</tr>
+</tbody></table></div>
+<h3 id="gob-identidad" class="reveal" style="margin-top: var(--ap-space-6)">Identidades y mínimo privilegio</h3>
+<p class="reveal">Cada actor entra por un solo tipo de identidad: usuarios de aplicación por Amazon Cognito (dos pools, porque MFA es un ajuste del pool), personas que operan AWS por IAM Identity Center con MFA, dispositivos por certificados de IoT Core, el pipeline por OIDC de GitHub y los servicios por roles de IAM. No existe ningún usuario ni llave de acceso de IAM.</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Catálogo de roles"><table class="">
+<caption>Catálogo de roles</caption><thead><tr>
+<th scope="col">Rol</th>
+<th scope="col">Aplicación</th>
+<th scope="col">Alcance</th>
+<th scope="col">MFA</th>
+<th scope="col">Pool</th>
+</tr></thead><tbody>
+<tr>
+<td>Caficultor</td>
+<td>App del caficultor</td>
+<td>Sus fincas</td>
+<td>No (justificado)</td>
+<td><code>field</code></td>
+</tr>
+<tr>
+<td>Transportador</td>
+<td>App del transportador</td>
+<td>Sus viajes</td>
+<td>No (justificado)</td>
+<td><code>field</code></td>
+</tr>
+<tr>
+<td>Operario de centro de acopio</td>
+<td>App de logística y reportes web</td>
+<td>Su centro</td>
+<td>Sí</td>
+<td><code>staff</code></td>
+</tr>
+<tr>
+<td>Comprador de solo lectura</td>
+<td>Reportes web</td>
+<td>Sacos por código, solo la vista del comprador</td>
+<td>No</td>
+<td><code>field</code></td>
+</tr>
+<tr>
+<td>Lector público anónimo</td>
+<td>Página pública de consulta</td>
+<td>Un saco por código, solo la vista del comprador</td>
+<td>No autenticado</td>
+<td>Ninguno</td>
+</tr>
+<tr>
+<td>Operador de drones</td>
+<td>App de la estación de tierra</td>
+<td>Misiones asignadas</td>
+<td>Sí</td>
+<td><code>staff</code></td>
+</tr>
+<tr>
+<td>Agrónomo</td>
+<td>Reportes web</td>
+<td>Departamentos asignados</td>
+<td>Sí</td>
+<td><code>staff</code></td>
+</tr>
+<tr>
+<td>Operador de plataforma</td>
+<td>Reportes web y AWS por IAM Identity Center</td>
+<td>Toda la plataforma, sin escrituras de negocio</td>
+<td>Sí</td>
+<td><code>staff</code></td>
+</tr>
+</tbody></table></div>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Separación de funciones y cómo se hace cumplir"><table class="">
+<caption>Separación de funciones y cómo se hace cumplir</caption><thead><tr>
+<th scope="col">Regla</th>
+<th scope="col">Cumplimiento</th>
+</tr></thead><tbody>
+<tr>
+<td>El agrónomo que autoriza una fumigación no la vuela, y ninguna identidad de servicio autoriza.</td>
+<td>Solo un token <code>staff</code> del grupo agrónomo llama a la operación de autorizar; la API la rechaza si el piloto elegido es el mismo que autoriza; ningún rol de función puede escribir quién autoriza.</td>
+</tr>
+<tr>
+<td>Un operador de drones no crea ni autoriza órdenes.</td>
+<td>Ninguna operación de crear o autorizar se permite al grupo de operadores de drones.</td>
+</tr>
+<tr>
+<td>El operador de plataforma no autoriza fumigaciones ni escribe sacos, eventos de custodia u órdenes.</td>
+<td>Ninguna escritura de negocio se permite a ese grupo.</td>
+</tr>
+<tr>
+<td>Una identidad, un rol.</td>
+<td>Disparador de preautenticación de Cognito.</td>
+</tr>
+<tr>
+<td>Las operaciones sensibles piden un segundo factor reciente.</td>
+<td>Autorizar una fumigación, cambiar un umbral, revocar o administrar identidades exigen un token con <code>auth_time</code> de máximo 10 minutos.</td>
+</tr>
+</tbody></table></div>
+<p class="note reveal">Cifrado: TLS 1.2 o superior de punta a punta y una llave KMS administrada por el cliente por clase de dato y ambiente, ocho clases: <code>telemetry</code>, <code>objects</code>, <code>records</code>, <code>personal</code>, <code>logs</code>, <code>state</code>, <code>public_view</code> y <code>restricted</code>. El código de un saco son 80 bits aleatorios que no exponen cédula ni trazabilidad; la vista del comprador es una proyección aparte.</p>
+<h3 id="gob-reglas" class="reveal" style="margin-top: var(--ap-space-6)">Las 28 reglas pc-iac y cómo las hace cumplir el CI</h3>
+<p class="reveal">Las reglas <code>pc-iac-001</code> a <code>pc-iac-028</code> son vinculantes para todo el código Terraform. La columna de cumplimiento distingue lo que bloquea un flujo de CI de lo que solo revisa una persona, sin presentar una revisión como si fuera automática.</p>
+<div class="rules-tools reveal">
+          <div class="field-inline"><label class="seg-label" for="rule-search">Buscar regla</label><input id="rule-search" class="text-input" type="search" placeholder="Número, nombre o palabra clave" data-rule-search autocomplete="off"></div>
+          <div><span class="seg-label" id="rule-type-label">Cumplimiento</span>
+            <div class="seg" role="group" aria-labelledby="rule-type-label" data-rule-type>
+              <button type="button" aria-pressed="true" data-rt="all">Todas (28)</button>
+              <button type="button" aria-pressed="false" data-rt="a">Automática (5)</button>
+              <button type="button" aria-pressed="false" data-rt="p">Automática y revisión (9)</button>
+              <button type="button" aria-pressed="false" data-rt="r">Revisión (14)</button>
+            </div></div>
+        </div>
+        <p class="gallery-count" aria-live="polite" data-rule-count>28 de 28 reglas</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Reglas pc-iac, su alcance y su cumplimiento"><table id="rules-table" class="">
+<caption>Reglas pc-iac, su alcance y su cumplimiento</caption><thead><tr>
+<th scope="col">Regla</th>
+<th scope="col">Nombre</th>
+<th scope="col">Cumplimiento</th>
+<th scope="col">Cómo se hace cumplir</th>
+</tr></thead><tbody>
+<tr data-rule-type="p" data-rule-text="001 estructura obligatoria de los módulos de referencia">
+<td><code>PC-IAC-001</code></td>
+<td>Estructura obligatoria de los módulos de referencia</td>
+<td><span class="tag tag--p">Automática y revisión</span></td>
+<td>El CI de módulos valida cada <code>modules/*</code> junto con su raíz <code>sample/</code> (init, validate, tflint, Trivy, test, plan); el diseño de archivos se revisa.</td>
+</tr>
+<tr data-rule-type="p" data-rule-text="002 variables obligatorias y declaración">
+<td><code>PC-IAC-002</code></td>
+<td>Variables obligatorias y declaración</td>
+<td><span class="tag tag--p">Automática y revisión</span></td>
+<td>tflint con <code>terraform_typed_variables</code> y <code>terraform_documented_variables</code>; los bloques <code>validation</code> y la ausencia de valores por ambiente se revisan.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="003 nomenclatura de elementos y recursos">
+<td><code>PC-IAC-003</code></td>
+<td>Nomenclatura de elementos y recursos</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>Revisión del pull request: no hay un linter de nombres configurado.</td>
+</tr>
+<tr data-rule-type="p" data-rule-text="004 etiquetas obligatorias">
+<td><code>PC-IAC-004</code></td>
+<td>Etiquetas obligatorias</td>
+<td><span class="tag tag--p">Automática y revisión</span></td>
+<td>Pruebas <code>terraform test</code> con aserciones de etiquetas en varios módulos; el resto lo comprueba la revisión del pull request.</td>
+</tr>
+<tr data-rule-type="p" data-rule-text="005 configuración y alias de providers">
+<td><code>PC-IAC-005</code></td>
+<td>Configuración y alias de providers</td>
+<td><span class="tag tag--p">Automática y revisión</span></td>
+<td><code>terraform validate</code> con stubs de alias locales para los módulos con <code>configuration_aliases</code>, y tflint <code>terraform_required_providers</code>.</td>
+</tr>
+<tr data-rule-type="p" data-rule-text="006 versiones y estabilidad">
+<td><code>PC-IAC-006</code></td>
+<td>Versiones y estabilidad</td>
+<td><span class="tag tag--p">Automática y revisión</span></td>
+<td>tflint <code>terraform_required_version</code> y <code>terraform_required_providers</code>; <code>.terraform-version</code> fija el parche exacto de CI; los archivos de bloqueo solo en las pilas.</td>
+</tr>
+<tr data-rule-type="a" data-rule-text="007 salidas de los módulos">
+<td><code>PC-IAC-007</code></td>
+<td>Salidas de los módulos</td>
+<td><span class="tag tag--a">Automática</span></td>
+<td>tflint con <code>terraform_documented_outputs</code> en cada módulo y pila.</td>
+</tr>
+<tr data-rule-type="p" data-rule-text="008 estado remoto y backend">
+<td><code>PC-IAC-008</code></td>
+<td>Estado remoto y backend</td>
+<td><span class="tag tag--p">Automática y revisión</span></td>
+<td>Cada pila declara <code>backend "s3" {}</code> vacío; el flujo Floci plan inicializa el backend S3 con <code>-backend-config</code>; el CI valida con <code>-backend=false</code>.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="009 tipos, conversiones y lógica en locals">
+<td><code>PC-IAC-009</code></td>
+<td>Tipos, conversiones y lógica en locals</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>Revisión del pull request.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="010 for_each y reglas de ciclo de vida">
+<td><code>PC-IAC-010</code></td>
+<td>for_each y reglas de ciclo de vida</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>Revisión del pull request.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="011 data sources y datos externos">
+<td><code>PC-IAC-011</code></td>
+<td>Data sources y datos externos</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>Revisión del pull request.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="012 estructuras de datos y reutilización en locals">
+<td><code>PC-IAC-012</code></td>
+<td>Estructuras de datos y reutilización en locals</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>Revisión del pull request.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="013 orden en la llamada a módulos">
+<td><code>PC-IAC-013</code></td>
+<td>Orden en la llamada a módulos</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>Revisión del pull request.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="014 bloques dinámicos y splat">
+<td><code>PC-IAC-014</code></td>
+<td>Bloques dinámicos y splat</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>Revisión del pull request.</td>
+</tr>
+<tr data-rule-type="p" data-rule-text="015 consumo remoto y versionado de módulos">
+<td><code>PC-IAC-015</code></td>
+<td>Consumo remoto y versionado de módulos</td>
+<td><span class="tag tag--p">Automática y revisión</span></td>
+<td><code>terraform init</code> descarga la etiqueta fijada con <code>?ref=vX.Y.Z</code> y falla si no existe; que sea una etiqueta y no una rama se revisa.</td>
+</tr>
+<tr data-rule-type="a" data-rule-text="016 secretos y datos sensibles">
+<td><code>PC-IAC-016</code></td>
+<td>Secretos y datos sensibles</td>
+<td><span class="tag tag--a">Automática</span></td>
+<td><code>check-env-secrets.sh</code> rechaza claves con nombre de secreto, llaves privadas e identificadores de cuenta de 12 dígitos en variables y archivos de backend; Trivy escanea la configuración.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="017 comunicación entre dominios por data sources">
+<td><code>PC-IAC-017</code></td>
+<td>Comunicación entre dominios por data sources</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>Revisión del pull request.</td>
+</tr>
+<tr data-rule-type="a" data-rule-text="018 pruebas y validación del código">
+<td><code>PC-IAC-018</code></td>
+<td>Pruebas y validación del código</td>
+<td><span class="tag tag--a">Automática</span></td>
+<td>Es el propio CI: <code>fmt</code>, <code>validate</code>, tflint, Trivy (HIGH y CRITICAL), <code>terraform test</code> con proveedores simulados y plan contra Floci.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="019 uso restringido de terraform_remote_state">
+<td><code>PC-IAC-019</code></td>
+<td>Uso restringido de terraform_remote_state</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>Revisión del pull request: ninguna pila lo usa.</td>
+</tr>
+<tr data-rule-type="p" data-rule-text="020 gobernanza de seguridad y endurecimiento">
+<td><code>PC-IAC-020</code></td>
+<td>Gobernanza de seguridad y endurecimiento</td>
+<td><span class="tag tag--p">Automática y revisión</span></td>
+<td>Trivy <code>config --severity HIGH,CRITICAL</code> sobre módulos y pilas (cifrado, acceso público); el resto lo comprueba la revisión del pull request.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="021 centralización de la configuración en locals">
+<td><code>PC-IAC-021</code></td>
+<td>Centralización de la configuración en locals</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>Revisión del pull request.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="022 separación de responsabilidades por dominio">
+<td><code>PC-IAC-022</code></td>
+<td>Separación de responsabilidades por dominio</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>La estructura en pilas (state-backend, network, security, workload) la fija el diseño; el CI corre una matriz por pila; la separación se revisa.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="023 responsabilidad funcional única de los módulos">
+<td><code>PC-IAC-023</code></td>
+<td>Responsabilidad funcional única de los módulos</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>Revisión del pull request.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="024 trazabilidad de la configuración compleja">
+<td><code>PC-IAC-024</code></td>
+<td>Trazabilidad de la configuración compleja</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>Revisión del pull request.</td>
+</tr>
+<tr data-rule-type="r" data-rule-text="025 gobernanza obligatoria procesada en la raíz">
+<td><code>PC-IAC-025</code></td>
+<td>Gobernanza obligatoria procesada en la raíz</td>
+<td><span class="tag tag--r">Revisión</span></td>
+<td>Revisión del pull request.</td>
+</tr>
+<tr data-rule-type="p" data-rule-text="026 patrón de transformación en sample/">
+<td><code>PC-IAC-026</code></td>
+<td>Patrón de transformación en sample/</td>
+<td><span class="tag tag--p">Automática y revisión</span></td>
+<td>El CI valida y planea el <code>sample/</code> de cada módulo; el patrón de transformación se revisa.</td>
+</tr>
+<tr data-rule-type="a" data-rule-text="027 estimación automática de costos con infracost">
+<td><code>PC-IAC-027</code></td>
+<td>Estimación automática de costos con Infracost</td>
+<td><span class="tag tag--a">Automática</span></td>
+<td>Flujo <code>Infracost cost impact</code> en los dos repositorios de Terraform y paso de costo del CD de promoción.</td>
+</tr>
+<tr data-rule-type="a" data-rule-text="028 emulación de aws con floci para evidencia de plan">
+<td><code>PC-IAC-028</code></td>
+<td>Emulación de AWS con Floci para evidencia de plan</td>
+<td><span class="tag tag--a">Automática</span></td>
+<td>Flujos <code>Floci plan</code> y plan de los módulos contra Floci fijado por digest; el CD falla si algún flujo o script ejecuta apply o destroy.</td>
+</tr>
+</tbody></table></div>
+<h3 id="gob-compuertas" class="reveal" style="margin-top: var(--ap-space-6)">Compuertas de revisión y convenciones</h3>
+<p class="reveal">El trabajo avanza por ramas cortas que vuelven a <code>main</code> mediante un pull request. Quien implementa nunca fusiona: lo revisa un agente de otro proveedor de IA y hace el squash merge solo si aprueba y todos los chequeos están en verde. Lo que exige una decisión de negocio, debilita un chequeo o borra contenido fuera de alcance va a la persona líder.</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Compuertas automáticas"><table class="">
+<caption>Compuertas automáticas</caption><thead><tr>
+<th scope="col">Compuerta</th>
+<th scope="col">Qué verifica</th>
+<th scope="col">Dónde corre</th>
+</tr></thead><tbody>
+<tr>
+<td>PR conventions</td>
+<td>Título del pull request como Conventional Commit, rama <code>&lt;tipo&gt;/&lt;issue&gt;-&lt;slug&gt;</code>, sin emojis, en inglés, cada commit con su pie de referencia a la issue</td>
+<td>Todos los repositorios, en cada pull request</td>
+</tr>
+<tr>
+<td>Infrastructure CI</td>
+<td>Escaneo de secretos; por pila: <code>fmt</code>, <code>init</code> sin backend, <code>validate</code>, tflint, Trivy y <code>terraform test</code></td>
+<td>Repositorio de infraestructura</td>
+</tr>
+<tr>
+<td>Module CI</td>
+<td>Siete chequeos por módulo y su <code>sample/</code>: formato, init, validate, tflint, Trivy, pruebas simuladas y plan contra Floci</td>
+<td>Repositorio de módulos</td>
+</tr>
+<tr>
+<td>Floci plan</td>
+<td>Plan especulativo de cada pila contra el emulador, con el resumen y el texto del plan como artefacto</td>
+<td>Repositorio de infraestructura</td>
+</tr>
+<tr>
+<td>Infracost cost impact</td>
+<td>Costo antes, después y diferencia por raíz (pc-iac-027)</td>
+<td>Los dos repositorios de Terraform</td>
+</tr>
+<tr>
+<td>CD promotion</td>
+<td>Guardia de solo plan, planes por ambiente, ventana de cambios, huella del plan y aprobación en dos pasos</td>
+<td>Repositorio de infraestructura</td>
+</tr>
+</tbody></table></div>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Convenciones del trabajo"><table class="">
+<caption>Convenciones del trabajo</caption><thead><tr>
+<th scope="col">Convención</th>
+<th scope="col">Regla</th>
+</tr></thead><tbody>
+<tr>
+<td>Ramas</td>
+<td><code>&lt;tipo&gt;/&lt;número-de-issue&gt;-&lt;slug&gt;</code>, de vida máxima 48 horas y menos de 400 líneas; <code>main</code> protegida y siempre liberable</td>
+</tr>
+<tr>
+<td>Commits</td>
+<td>Conventional Commits atómicos: encabezado de máximo 72 caracteres, en minúscula, sin punto final, con el pie <code>Refs aroma-pacifico/aroma-pacifico-roadmap#N</code></td>
+</tr>
+<tr>
+<td>Atribución</td>
+<td>Sin firmas de herramientas de IA en commits ni en pull requests</td>
+</tr>
+<tr>
+<td>Fuente de requisitos</td>
+<td>El enunciado del caso es la única fuente; todo valor que no fija se registra como supuesto numerado, nunca se inventa</td>
+</tr>
+<tr>
+<td>Solo plan</td>
+<td>Nunca <code>terraform apply</code> ni <code>destroy</code>, nunca se despliega ni se crea un recurso real</td>
+</tr>
+<tr>
+<td>Definición de terminado</td>
+<td>Formato, validación, tflint, escáner de seguridad, evidencia de plan con destrucciones y reemplazos señalados, estimación de costo y plan contra Floci, con la salida real a la vista</td>
+</tr>
+</tbody></table></div>
+<h3 id="gob-log" class="reveal" style="margin-top: var(--ap-space-6)">Log de decisiones y ADR</h3>
+<div class="grid grid-3 reveal">
+          <div class="metric"><span>Supuestos registrados (ASM)</span><strong>206</strong></div>
+          <div class="metric"><span>Decisiones registradas (PD)</span><strong>107</strong></div>
+          <div class="metric"><span>ADR</span><strong>4</strong><span>ADR-001 a ADR-004</span></div>
+        </div>
+        <p class="note reveal" style="margin-top: var(--ap-space-3)">Cifras contadas en el log de decisiones del repositorio de arquitectura. Cada supuesto y cada decisión lleva fecha, responsable por rol y justificación, y los ADR se enlazan desde el log.</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Registros de decisión de arquitectura"><table class="">
+<caption>Registros de decisión de arquitectura</caption><thead><tr>
+<th scope="col">ADR</th>
+<th scope="col">Fecha</th>
+<th scope="col">Responsable</th>
+<th scope="col">Decisión</th>
+</tr></thead><tbody>
+<tr>
+<td>ADR-001</td>
+<td>2026-11-04</td>
+<td>SR1 / SR2</td>
+<td>AWS como nube principal en <code>us-east-1</code>; Azure preparada, sin desplegar</td>
+</tr>
+<tr>
+<td>ADR-002</td>
+<td>2026-11-04</td>
+<td>SR1 / SR2</td>
+<td>Modo combinado de drones; operador certificado contratado; agrónomo con MFA autoriza</td>
+</tr>
+<tr>
+<td>ADR-003</td>
+<td>2026-11-04</td>
+<td>SR1 / SR2</td>
+<td>Terraform, estado remoto por ambiente y la ingesta de telemetría como módulo patrón</td>
+</tr>
+<tr>
+<td>ADR-004</td>
+<td>2026-11-11</td>
+<td>SR1</td>
+<td>Orquestación de capacidades del dron orientada a eventos, sin motor central de flujos</td>
+</tr>
+</tbody></table></div>
+<p class="note reveal">El detalle de cada ADR está en la sección <a href="#decisiones">Decisiones clave</a>. Una decisión registrada en un ADR no se edita para cambiarla: se escribe un ADR nuevo que la reemplaza, y el anterior queda marcado como reemplazado.</p>
+</div></section>
+
+<!-- Plan de 100 horas -->
+<section class="section section--subtle" id="plan" aria-labelledby="plan-title"><div class="wrap">
+<div class="section-head reveal">
+          <div><span class="eyebrow">Plan de 100 horas</span><h2 id="plan-title">Trece tareas, 98 horas y dos semanas de calendario.</h2></div>
+          <p>Las tareas B01 a B13 del Epic 6, con horas, rol, semana, la partición en módulo y pila, las dependencias y lo entregado en cada una, y el esfuerzo de todo el proyecto por iteración (298 horas, 98 de IaC).</p>
+        </div>
+<nav class="chip-nav reveal" aria-label="Contenido del plan"><a class="chip-link" href="#plan-tabla">Tabla de tareas</a><a class="chip-link" href="#plan-gantt">Vista por día</a><a class="chip-link" href="#plan-esfuerzo">Esfuerzo del proyecto</a></nav>
+<div class="grid grid-4 reveal">
+          <div class="metric"><span>Horas reservadas</span><strong>98 h</strong><span>de 100; 2 h de reserva</span></div>
+          <div class="metric"><span>Tareas y partes</span><strong>13 y 19</strong><span>B01 a B13</span></div>
+          <div class="metric"><span>Ruta crítica</span><strong>38 h</strong><span>de 50 h de calendario</span></div>
+          <div class="metric"><span>Equipo</span><strong>4 roles</strong><span>SR1, SR2, JR1, JR2</span></div>
+        </div>
+<h3 id="plan-tabla" class="reveal" style="margin-top: var(--ap-space-6)">Tabla de tareas B01 a B13</h3>
+<p class="reveal">Cuatro tareas se parten en un módulo (código reutilizable del repositorio de módulos, verificado con pruebas simuladas) y su cableado en una pila (repositorio de infraestructura); B11 se parte en las compuertas de red y seguridad y su extensión a la carga de trabajo, y B13 entre sus dos responsables. Ordena por cualquier columna con su encabezado y filtra por rol.</p>
+<div class="rules-tools reveal"><div><span class="seg-label" id="plan-role-label">Rol</span>
+          <div class="seg" role="group" aria-labelledby="plan-role-label" data-plan-role>
+            <button type="button" aria-pressed="true" data-pr="all">Todos</button>
+            <button type="button" aria-pressed="false" data-pr="SR1">SR1</button>
+            <button type="button" aria-pressed="false" data-pr="SR2">SR2</button>
+            <button type="button" aria-pressed="false" data-pr="JR1">JR1</button>
+            <button type="button" aria-pressed="false" data-pr="JR2">JR2</button>
+          </div></div>
+          <p class="gallery-count" style="margin:0" aria-live="polite" data-plan-count>19 partes, 98 horas</p></div>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Partes de las tareas B01 a B13 del Epic 6"><table id="plan-table" class="">
+<caption>Partes de las tareas B01 a B13 del Epic 6</caption><thead><tr>
+<th scope="col" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="0">Parte</button></th>
+<th scope="col" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="1">Tarea</button></th>
+<th scope="col" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="2">Tipo</button></th>
+<th scope="col" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="3">Rol</button></th>
+<th scope="col" class="num" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="4">Horas</button></th>
+<th scope="col" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="5">Semana</button></th>
+<th scope="col" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="6">Día</button></th>
+<th scope="col" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="7">Depende de</button></th>
+<th scope="col" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="8">Caja</button></th>
+</tr></thead><tbody>
+<tr data-role="JR1" data-hours="4" data-sortvals="B01|Inicializar los repositorios de IaC|Única|JR1|004|1|01|A20, A04|D01">
+<td><code>B01</code></td>
+<td>Inicializar los repositorios de IaC</td>
+<td>Única</td>
+<td>JR1</td>
+<td class="num">4</td>
+<td>1</td>
+<td>1</td>
+<td>A20, A04</td>
+<td>D01</td>
+</tr>
+<tr data-role="JR2" data-hours="6" data-sortvals="B02|Configurar el estado remoto|Única|JR2|006|1|01|B01, A04|D02">
+<td><code>B02</code></td>
+<td>Configurar el estado remoto</td>
+<td>Única</td>
+<td>JR2</td>
+<td class="num">6</td>
+<td>1</td>
+<td>1 a 2</td>
+<td>B01, A04</td>
+<td>D02</td>
+</tr>
+<tr data-role="SR1" data-hours="6" data-sortvals="B03|Variables por ambiente y manejo de secretos|Única|SR1|006|1|03|B01, B02, A04|D03">
+<td><code>B03</code></td>
+<td>Variables por ambiente y manejo de secretos</td>
+<td>Única</td>
+<td>SR1</td>
+<td class="num">6</td>
+<td>1</td>
+<td>3 a 4</td>
+<td>B01, B02, A04</td>
+<td>D03</td>
+</tr>
+<tr data-role="JR1" data-hours="6" data-sortvals="B04a|Módulo de red|Módulo|JR1|006|1|01|B01, A07|D04">
+<td><code>B04a</code></td>
+<td>Módulo de red</td>
+<td>Módulo</td>
+<td>JR1</td>
+<td class="num">6</td>
+<td>1</td>
+<td>1 a 2</td>
+<td>B01, A07</td>
+<td>D04</td>
+</tr>
+<tr data-role="JR1" data-hours="4" data-sortvals="B04b|Cableado de la pila de red (qa y pdn)|Pila|JR1|004|1|04|B02, B03, B04a|D04">
+<td><code>B04b</code></td>
+<td>Cableado de la pila de red (qa y pdn)</td>
+<td>Pila</td>
+<td>JR1</td>
+<td class="num">4</td>
+<td>1</td>
+<td>4 a 5</td>
+<td>B02, B03, B04a</td>
+<td>D04</td>
+</tr>
+<tr data-role="JR2" data-hours="6" data-sortvals="B05|Asociación con un centro de acopio|Única|JR2|006|2|06|B04b, A11|D05">
+<td><code>B05</code></td>
+<td>Asociación con un centro de acopio</td>
+<td>Única</td>
+<td>JR2</td>
+<td class="num">6</td>
+<td>2</td>
+<td>6 a 7</td>
+<td>B04b, A11</td>
+<td>D05</td>
+</tr>
+<tr data-role="SR1" data-hours="7" data-sortvals="B06a|Módulo de seguridad base|Módulo|SR1|007|1|01|B01, A09|D06">
+<td><code>B06a</code></td>
+<td>Módulo de seguridad base</td>
+<td>Módulo</td>
+<td>SR1</td>
+<td class="num">7</td>
+<td>1</td>
+<td>1 a 3</td>
+<td>B01, A09</td>
+<td>D06</td>
+</tr>
+<tr data-role="SR1" data-hours="3" data-sortvals="B06b|Cableado de la pila de seguridad|Pila|SR1|003|1|04|B03, B06a|D06">
+<td><code>B06b</code></td>
+<td>Cableado de la pila de seguridad</td>
+<td>Pila</td>
+<td>SR1</td>
+<td class="num">3</td>
+<td>1</td>
+<td>4</td>
+<td>B03, B06a</td>
+<td>D06</td>
+</tr>
+<tr data-role="SR2" data-hours="5" data-sortvals="B07a|Módulo de reglas de firewall|Módulo|SR2|005|1|03|B01, A12|D07">
+<td><code>B07a</code></td>
+<td>Módulo de reglas de firewall</td>
+<td>Módulo</td>
+<td>SR2</td>
+<td class="num">5</td>
+<td>1</td>
+<td>3 a 4</td>
+<td>B01, A12</td>
+<td>D07</td>
+</tr>
+<tr data-role="SR2" data-hours="3" data-sortvals="B07b|Cableado de las reglas en las pilas|Pila|SR2|003|1 y 2|05|B04b, B06b, B07a|D07">
+<td><code>B07b</code></td>
+<td>Cableado de las reglas en las pilas</td>
+<td>Pila</td>
+<td>SR2</td>
+<td class="num">3</td>
+<td>1 y 2</td>
+<td>5 a 6</td>
+<td>B04b, B06b, B07a</td>
+<td>D07</td>
+</tr>
+<tr data-role="JR2" data-hours="8" data-sortvals="B08|Módulo reutilizable de finca|Única|JR2|008|1 y 2|05|B04b, A10|D08">
+<td><code>B08</code></td>
+<td>Módulo reutilizable de finca</td>
+<td>Única</td>
+<td>JR2</td>
+<td class="num">8</td>
+<td>1 y 2</td>
+<td>5 a 6</td>
+<td>B04b, A10</td>
+<td>D08</td>
+</tr>
+<tr data-role="SR2" data-hours="7" data-sortvals="B09a|Módulo de ingesta de telemetría|Módulo|SR2|007|1|01|B01, A04, A16|D09">
+<td><code>B09a</code></td>
+<td>Módulo de ingesta de telemetría</td>
+<td>Módulo</td>
+<td>SR2</td>
+<td class="num">7</td>
+<td>1</td>
+<td>1 a 3</td>
+<td>B01, A04, A16</td>
+<td>D09</td>
+</tr>
+<tr data-role="SR2" data-hours="3" data-sortvals="B09b|Cableado de la ingesta en la pila workload|Pila|SR2|003|1|05|B04b, B06b, B09a|D09">
+<td><code>B09b</code></td>
+<td>Cableado de la ingesta en la pila workload</td>
+<td>Pila</td>
+<td>SR2</td>
+<td class="num">3</td>
+<td>1</td>
+<td>5</td>
+<td>B04b, B06b, B09a</td>
+<td>D09</td>
+</tr>
+<tr data-role="SR1" data-hours="8" data-sortvals="B10|Patrón de función de inferencia|Única|SR1|008|1 y 2|05|B06b, A17|D10">
+<td><code>B10</code></td>
+<td>Patrón de función de inferencia</td>
+<td>Única</td>
+<td>SR1</td>
+<td class="num">8</td>
+<td>1 y 2</td>
+<td>5 a 6</td>
+<td>B06b, A17</td>
+<td>D10</td>
+</tr>
+<tr data-role="JR1" data-hours="5" data-sortvals="B11a|CI: compuertas y plan qa de red y seguridad|Pila|JR1|005|1 y 2|05|B02, B03, B04b, B06b|D11">
+<td><code>B11a</code></td>
+<td>CI: compuertas y plan qa de red y seguridad</td>
+<td>Pila</td>
+<td>JR1</td>
+<td class="num">5</td>
+<td>1 y 2</td>
+<td>5 a 6</td>
+<td>B02, B03, B04b, B06b</td>
+<td>D11</td>
+</tr>
+<tr data-role="JR1" data-hours="3" data-sortvals="B11b|CI extendido a la pila workload|Pila|JR1|003|2|06|B08, B09b, B10, B11a|D11">
+<td><code>B11b</code></td>
+<td>CI extendido a la pila workload</td>
+<td>Pila</td>
+<td>JR1</td>
+<td class="num">3</td>
+<td>2</td>
+<td>6 a 7</td>
+<td>B08, B09b, B10, B11a</td>
+<td>D11</td>
+</tr>
+<tr data-role="SR2" data-hours="8" data-sortvals="B12|CD: promoción qa a pdn con aprobación|Única|SR2|008|2|06|B11a, A18|D12">
+<td><code>B12</code></td>
+<td>CD: promoción qa a pdn con aprobación</td>
+<td>Única</td>
+<td>SR2</td>
+<td class="num">8</td>
+<td>2</td>
+<td>6 a 7</td>
+<td>B11a, A18</td>
+<td>D12</td>
+</tr>
+<tr data-role="SR1" data-hours="3" data-sortvals="B13a|Plan ejecutable de qa y cierre de alcance|Única|SR1|003|2|08|B05, B07b, B08, B09b, B10, B11b, B12|D13">
+<td><code>B13a</code></td>
+<td>Plan ejecutable de qa y cierre de alcance</td>
+<td>Única</td>
+<td>SR1</td>
+<td class="num">3</td>
+<td>2</td>
+<td>8</td>
+<td>B05, B07b, B08, B09b, B10, B11b, B12</td>
+<td>D13</td>
+</tr>
+<tr data-role="JR2" data-hours="3" data-sortvals="B13b|Validación sin secretos y evidencia por caja|Única|JR2|003|2|08|B05, B07b, B08, B09b, B10, B11b, B12|D13">
+<td><code>B13b</code></td>
+<td>Validación sin secretos y evidencia por caja</td>
+<td>Única</td>
+<td>JR2</td>
+<td class="num">3</td>
+<td>2</td>
+<td>8</td>
+<td>B05, B07b, B08, B09b, B10, B11b, B12</td>
+<td>D13</td>
+</tr>
+</tbody></table></div>
+<p class="note reveal">Los días son hábiles: del día 1 al 5 es la semana 1 y del 6 al 10 la semana 2. Las dependencias A04 a A20 son las tareas de diseño que alimentan cada pieza de código. B04, B06, B07 y B09 llegan al tope de 10 horas por tarea (B06a 7 + B06b 3; B04a 6 + B04b 4; B07a 5 + B07b 3; B09a 7 + B09b 3).</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Lo que entrega cada tarea"><table class="">
+<caption>Lo que entrega cada tarea</caption><thead><tr>
+<th scope="col">Tarea</th>
+<th scope="col" class="num">Horas</th>
+<th scope="col">Caja</th>
+<th scope="col">Entregado</th>
+</tr></thead><tbody>
+<tr>
+<td>B01 Repositorios de IaC</td>
+<td class="num">4</td>
+<td>D01</td>
+<td>Estructura inicial de módulos, ambientes y pipelines; <code>main</code> protegida con flujo de pull request; README con requisitos y comandos base; referencias a las cajas D01 a D13 y carpeta <code>release-notes/</code>.</td>
+</tr>
+<tr>
+<td>B02 Estado remoto</td>
+<td class="num">6</td>
+<td>D02</td>
+<td>Estado remoto sin estado local para el trabajo compartido, separado por ambiente (al menos <code>qa</code> y <code>pdn</code>); el backend bloquea y ningún secreto vive en archivos del repositorio.</td>
+</tr>
+<tr>
+<td>B03 Variables y secretos</td>
+<td class="num">6</td>
+<td>D03</td>
+<td>Variables separadas para <code>qa</code> y <code>pdn</code>; secretos inyectados desde un mecanismo fuera del repositorio; el estado sin secretos en texto plano; ejemplo de variables no sensibles y guía de uso.</td>
+</tr>
+<tr>
+<td>B04 Módulo de red</td>
+<td class="num">10</td>
+<td>D04</td>
+<td>Subredes mínimas de ingesta de telemetría, objetos del dron, aplicación, datos, almacenamiento de objetos, administración y consulta pública; un CIDR por ambiente y salidas reutilizables. El plan de <code>qa</code> no se solapa con 10.41.0.0/16, 10.42.0.0/16 ni 10.43.0.0/16 y <code>pdn</code> tiene su propio bloque.</td>
+</tr>
+<tr>
+<td>B05 Asociación de un centro</td>
+<td class="num">6</td>
+<td>D05</td>
+<td>Asociación parametrizada para un solo centro por ejecución, dentro del bloque de su departamento; no instancia los tres centros ni nada en Buenaventura; el plan expone los recursos del enlace entre la nube y el centro.</td>
+</tr>
+<tr>
+<td>B06 Módulo de seguridad</td>
+<td class="num">10</td>
+<td>D06</td>
+<td>Los seis roles de la arquitectura, MFA en los tres roles obligatorios, cifrado en reposo y conexiones seguras, y revocación de la identidad de un nodo de finca o de un kit de dron perdido. La pila de <code>qa</code> y <code>pdn</code> publica los identificadores que leen B07, B09 y B10.</td>
+</tr>
+<tr>
+<td>B07 Reglas de firewall</td>
+<td class="num">8</td>
+<td>D07</td>
+<td>Reglas para telemetría, objetos del dron, administración y consulta pública, con reglas permanentes y temporales distinguidas por nombre o metadatos y sin invitados en segmentos internos. El plan de <code>qa</code> refleja solo las aperturas que justifica la tabla de política.</td>
+</tr>
+<tr>
+<td>B08 Módulo de finca</td>
+<td class="num">8</td>
+<td>D08</td>
+<td>Una finca patrón con parámetros reutilizables, sin 200 fincas ni hardware físico, con puntos de conexión para la ingesta con almacenar y reenviar y sin modelar el firmware; se asocia al ambiente sin duplicar lógica.</td>
+</tr>
+<tr>
+<td>B09 Ingesta de telemetría</td>
+<td class="num">10</td>
+<td>D09</td>
+<td>Solo el patrón aprobado en el ADR-003, con alcance y exclusiones documentados; sus entradas y salidas encajan con el ambiente patrón y su plan se genera sin secretos en el repositorio.</td>
+</tr>
+<tr>
+<td>B10 Función de inferencia</td>
+<td class="num">8</td>
+<td>D10</td>
+<td>Disparador por evento, permiso de lectura, invocación y escritura del resultado con marca de tiempo, confianza e identificador del objeto de origen; con reintentos y cola de fallos, y sin cómputo persistente esperando objetos.</td>
+</tr>
+<tr>
+<td>B11 CI con plan ejecutable</td>
+<td class="num">8</td>
+<td>D11</td>
+<td>Validaciones básicas y plan guardado como evidencia revisable para <code>qa</code> y para la pila de carga, dentro del desarrollo basado en tronco y los pull requests.</td>
+</tr>
+<tr>
+<td>B12 CD con aprobación</td>
+<td class="num">8</td>
+<td>D12</td>
+<td>Promoción de <code>qa</code> a <code>pdn</code> con aprobación manual obligatoria antes de producción, evidencia de quién aprobó y cuándo, y documentación de cómo notificar y cómo revertir.</td>
+</tr>
+<tr>
+<td>B13 Plan final validado</td>
+<td class="num">6</td>
+<td>D13</td>
+<td>Plan ejecutable del ambiente patrón de punta a punta; cierre con el alcance implementado, las exclusiones y los pasos de ejecución; validación de que no hay secretos en repositorios ni en el estado, con la evidencia mapeada a D01 a D13.</td>
+</tr>
+</tbody></table></div>
+<h3 id="plan-gantt" class="reveal" style="margin-top: var(--ap-space-6)">Vista por persona y por día</h3>
+<p class="reveal">Cada persona trabaja una parte a la vez, con un máximo de 5 horas por día y 25 por semana. Las celdas muestran la parte y las horas de ese día; el color es el rol. El calendario nominal parte del lunes 2026-11-09.</p>
+<div class="gantt reveal" role="table" aria-label="Horas por persona y por día"><div class="gantt-row gantt-head" role="row"><span role="columnheader">Rol</span>
+<span role="columnheader">Día 1</span>
+<span role="columnheader">Día 2</span>
+<span role="columnheader">Día 3</span>
+<span role="columnheader">Día 4</span>
+<span role="columnheader">Día 5</span>
+<span role="columnheader">Día 6</span>
+<span role="columnheader">Día 7</span>
+<span role="columnheader">Día 8</span>
+<span role="columnheader">Día 9</span>
+<span role="columnheader">Día 10</span>
+<span role="columnheader">Total</span></div>
+<div class="gantt-row" role="row"><b role="rowheader" class="gantt-role gantt-role--SR1">SR1</b>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR1"><b>B06a</b> 1 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR1"><b>B06a</b> 5 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR1"><b>B06a</b> 1 h</i><i class="gantt-chip gantt-chip--SR1"><b>B03</b> 4 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR1"><b>B03</b> 2 h</i><i class="gantt-chip gantt-chip--SR1"><b>B06b</b> 3 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR1"><b>B10</b> 5 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR1"><b>B10</b> 3 h</i></span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR1"><b>B13a</b> 3 h</i></span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-total" role="cell">27 h</span></div>
+<div class="gantt-row" role="row"><b role="rowheader" class="gantt-role gantt-role--SR2">SR2</b>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR2"><b>B09a</b> 1 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR2"><b>B09a</b> 5 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR2"><b>B09a</b> 1 h</i><i class="gantt-chip gantt-chip--SR2"><b>B07a</b> 4 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR2"><b>B07a</b> 1 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR2"><b>B09b</b> 3 h</i><i class="gantt-chip gantt-chip--SR2"><b>B07b</b> 1 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR2"><b>B07b</b> 2 h</i><i class="gantt-chip gantt-chip--SR2"><b>B12</b> 3 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--SR2"><b>B12</b> 5 h</i></span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-total" role="cell">26 h</span></div>
+<div class="gantt-row" role="row"><b role="rowheader" class="gantt-role gantt-role--JR1">JR1</b>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--JR1"><b>B01</b> 4 h</i><i class="gantt-chip gantt-chip--JR1"><b>B04a</b> 1 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--JR1"><b>B04a</b> 5 h</i></span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--JR1"><b>B04b</b> 3 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--JR1"><b>B04b</b> 1 h</i><i class="gantt-chip gantt-chip--JR1"><b>B11a</b> 4 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--JR1"><b>B11a</b> 1 h</i><i class="gantt-chip gantt-chip--JR1"><b>B11b</b> 1 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--JR1"><b>B11b</b> 2 h</i></span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-total" role="cell">22 h</span></div>
+<div class="gantt-row" role="row"><b role="rowheader" class="gantt-role gantt-role--JR2">JR2</b>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--JR2"><b>B02</b> 1 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--JR2"><b>B02</b> 5 h</i></span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--JR2"><b>B08</b> 4 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--JR2"><b>B08</b> 4 h</i><i class="gantt-chip gantt-chip--JR2"><b>B05</b> 1 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--JR2"><b>B05</b> 5 h</i></span>
+<span class="gantt-cell" role="cell"><i class="gantt-chip gantt-chip--JR2"><b>B13b</b> 3 h</i></span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-cell gantt-cell--empty" role="cell">-</span>
+<span class="gantt-total" role="cell">23 h</span></div>
+</div>
+<p class="note reveal">La ruta crítica pasa por B01, B02, B03, B04b, B11a, B12 y B13 (4 + 6 + 6 + 4 + 5 + 8 + 3 = 36 horas); como cada persona hace una parte a la vez, dos cadenas de 38 horas sin holgura fijan el cierre en la hora 3 del día 8. El colchón de calendario hasta el final del día 10 (hora 50) es de 12 horas hábiles, es decir 2,4 días.</p>
+<h3 id="plan-esfuerzo" class="reveal" style="margin-top: var(--ap-space-6)">Esfuerzo de todo el proyecto por iteración</h3>
+<p class="reveal">Del libro de planeación del proyecto: 42 tareas y 298 horas, de las cuales 98 son de IaC (el carril B de la bolsa de 100 horas). Cada iteración tiene su objetivo, y el diseño y las decisiones preceden al código.</p>
+<div class="card reveal">
+          <div class="seg" role="group" aria-label="Medida del esfuerzo" data-effort-mode style="margin-bottom: var(--ap-space-4)">
+            <button type="button" aria-pressed="true" data-em="est">Horas</button>
+            <button type="button" aria-pressed="false" data-em="tasks">Tareas</button>
+          </div>
+          <div class="cost-bars" data-effort-bars aria-live="polite"></div>
+          <div class="total-line"><span data-effort-label>Total de horas</span><output data-effort-total>298 h</output></div>
+        </div>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Esfuerzo por iteración"><table class="">
+<caption>Esfuerzo por iteración</caption><thead><tr>
+<th scope="col">Iteración</th>
+<th scope="col">Objetivo</th>
+<th scope="col" class="num">Tareas</th>
+<th scope="col" class="num">Horas</th>
+</tr></thead><tbody>
+<tr>
+<td>Fase 0 - Decisiones</td>
+<td>Registrar supuestos y tomar las decisiones fundacionales (ADR)</td>
+<td class="num">7</td>
+<td class="num">32</td>
+</tr>
+<tr>
+<td>Fase 1 - Arquitectura</td>
+<td>Diseñar la arquitectura completa y el plan de 100 horas de IaC</td>
+<td class="num">14</td>
+<td class="num">112</td>
+</tr>
+<tr>
+<td>Sprint 1 - IaC semana 1</td>
+<td>Base de IaC: repositorio, estado remoto, variables, red, seguridad y firewall</td>
+<td class="num">7</td>
+<td class="num">50</td>
+</tr>
+<tr>
+<td>Sprint 2 - IaC semana 2</td>
+<td>Módulos de cargas, pipelines de CI/CD y validación final del plan</td>
+<td class="num">6</td>
+<td class="num">48</td>
+</tr>
+<tr>
+<td>Cierre - Entrega</td>
+<td>Observabilidad, costos, sistema de diseño, presentación y ajustes transversales</td>
+<td class="num">8</td>
+<td class="num">56</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td></td>
+<td class="num"><strong>42</strong></td>
+<td class="num"><strong>298</strong></td>
+</tr>
+</tbody></table></div>
+<div class="grid grid-2">
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Esfuerzo por épica"><table class="">
+<caption>Esfuerzo por épica</caption><thead><tr>
+<th scope="col">Épica</th>
+<th scope="col" class="num">Tareas</th>
+<th scope="col" class="num">Horas</th>
+<th scope="col" class="num">Horas de IaC</th>
+</tr></thead><tbody>
+<tr>
+<td>E1 Base de la plataforma y gobierno</td>
+<td class="num">10</td>
+<td class="num">72</td>
+<td class="num">0</td>
+</tr>
+<tr>
+<td>E2 Red y firewall</td>
+<td class="num">5</td>
+<td class="num">36</td>
+<td class="num">0</td>
+</tr>
+<tr>
+<td>E3 Ingesta del cultivo y monitoreo</td>
+<td class="num">1</td>
+<td class="num">8</td>
+<td class="num">0</td>
+</tr>
+<tr>
+<td>E4 Drones e inferencia</td>
+<td class="num">3</td>
+<td class="num">20</td>
+<td class="num">0</td>
+</tr>
+<tr>
+<td>E5 Saco, viaje y consulta</td>
+<td class="num">1</td>
+<td class="num">8</td>
+<td class="num">0</td>
+</tr>
+<tr>
+<td>E6 Infraestructura como código y automatización</td>
+<td class="num">20</td>
+<td class="num">138</td>
+<td class="num">98</td>
+</tr>
+<tr>
+<td>E7 Costos y sistema de diseño</td>
+<td class="num">2</td>
+<td class="num">16</td>
+<td class="num">0</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td class="num"><strong>42</strong></td>
+<td class="num"><strong>298</strong></td>
+<td class="num"><strong>98</strong></td>
+</tr>
+</tbody></table></div>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Esfuerzo por responsable principal"><table class="">
+<caption>Esfuerzo por responsable principal</caption><thead><tr>
+<th scope="col">Rol</th>
+<th scope="col" class="num">Tareas lideradas</th>
+<th scope="col" class="num">Horas</th>
+<th scope="col" class="num">Horas de IaC</th>
+</tr></thead><tbody>
+<tr>
+<td>SR1</td>
+<td class="num">22</td>
+<td class="num">152</td>
+<td class="num">24</td>
+</tr>
+<tr>
+<td>SR2</td>
+<td class="num">9</td>
+<td class="num">70</td>
+<td class="num">26</td>
+</tr>
+<tr>
+<td>JR1</td>
+<td class="num">5</td>
+<td class="num">38</td>
+<td class="num">22</td>
+</tr>
+<tr>
+<td>JR2</td>
+<td class="num">6</td>
+<td class="num">38</td>
+<td class="num">26</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td class="num"><strong>42</strong></td>
+<td class="num"><strong>298</strong></td>
+<td class="num"><strong>98</strong></td>
+</tr>
+</tbody></table></div>
+</div>
+<p class="note reveal">Las horas de IaC por responsable de la última tabla son las estimaciones de cada tarea (SR1 24, SR2 26, JR1 22, JR2 26 = 98). La grilla por persona y por día usa la carga nivelada del plan de 100 horas (SR1 27, SR2 26, JR1 22, JR2 23 = 98), donde B13 se reparte entre SR1 y JR2.</p>
+</div></section>
+
+<!-- IaC -->
+<section class="section" id="iac" aria-labelledby="iac-title"><div class="wrap">
+<div class="section-head reveal">
+          <div><span class="eyebrow">Infraestructura como código</span><h2 id="iac-title">Módulos versionados, pilas por dominio y un plan que se puede ejecutar.</h2></div>
+          <p>El catálogo de módulos del repositorio público, las pilas y cómo los consumen, el pipeline desde el pull request hasta el plan contra Floci con Infracost y la aprobación de producción, y el alcance de solo plan.</p>
+        </div>
+<nav class="chip-nav reveal" aria-label="Contenido de IaC"><a class="chip-link" href="#iac-alcance">Alcance de solo plan</a><a class="chip-link" href="#iac-modulos">Catálogo de módulos</a><a class="chip-link" href="#iac-pilas">Pilas</a><a class="chip-link" href="#iac-pipeline">Pipeline</a><a class="chip-link" href="#iac-plan">Plan por ambiente</a></nav>
+<h3 id="iac-alcance" class="reveal">Alcance: solo plan</h3>
+<div class="grid grid-3 reveal">
+          <div class="ap-alert ap-alert--critical"><img src="icons/x-circle.svg" class="ap-alert__icon" alt=""><div class="ap-alert__content"><div class="ap-alert__title">Nunca apply ni destroy</div><div class="ap-alert__message">Tampoco contra el emulador. El flujo de promoción falla si algún workflow o script contiene un comando de Terraform que cambie estado.</div></div></div>
+          <div class="ap-alert ap-alert--notice"><img src="icons/shield-check.svg" class="ap-alert__icon" alt=""><div class="ap-alert__content"><div class="ap-alert__title">Sin cuenta ni credenciales</div><div class="ap-alert__message">El plan sale de Floci, un emulador de AWS fijado por digest, con las llaves de prueba fijas de pc-iac-028. El diseño no necesita ninguna llave estática: el CI usaría federación OIDC.</div></div></div>
+          <div class="ap-alert ap-alert--resolved"><img src="icons/check-circle.svg" class="ap-alert__icon" alt=""><div class="ap-alert__content"><div class="ap-alert__title">Pero se prueba que funcionaría</div><div class="ap-alert__message">Formato, validación, tflint, Trivy, pruebas <code>terraform test</code> con proveedores simulados, plan ejecutable y estimación de costo en cada cambio.</div></div></div>
+        </div>
+<h3 id="iac-modulos" class="reveal" style="margin-top: var(--ap-space-6)">Catálogo de módulos de referencia</h3>
+<p class="reveal">Viven en el repositorio público <a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules">aroma-pacifico-terraform-modules</a>. Una sola etiqueta SemVer cubre todo el repositorio y las pilas fijan una etiqueta, nunca una rama ni un commit. La etiqueta vigente es <a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.5.0">v0.5.0</a>.</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Módulos de referencia del repositorio público"><table class="">
+<caption>Módulos de referencia del repositorio público</caption><thead><tr>
+<th scope="col">Módulo</th>
+<th scope="col">Caja · tarea</th>
+<th scope="col">Qué construye</th>
+<th scope="col">Primera etiqueta</th>
+<th scope="col">Quién lo consume</th>
+</tr></thead><tbody>
+<tr>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.5.0/modules/state-backend"><code>state-backend</code></a></td>
+<td>D02 · B02</td>
+<td>Bucket de estado de un ambiente, cifrado con KMS, versionado y con bloqueo nativo</td>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.3.0"><code>v0.3.0</code></a></td>
+<td>Pila <code>state-backend</code> en <a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.3.0/modules/state-backend"><code>v0.3.0</code></a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.5.0/modules/network"><code>network</code></a></td>
+<td>D04 · B04</td>
+<td>VPC, ocho niveles de subred, tablas de rutas, ACL de red y endpoints; CIDR distinto por ambiente</td>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.1.0"><code>v0.1.0</code></a></td>
+<td>Pila <code>network</code> en <a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.3.0/modules/network"><code>v0.3.0</code></a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.5.0/modules/collection-center-association"><code>collection-center-association</code></a></td>
+<td>D05 · B05</td>
+<td>Adjunto al Transit Gateway y conexión VPN de un solo centro de acopio por ejecución</td>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.4.0"><code>v0.4.0</code></a></td>
+<td>Pila <code>network</code> en <a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.4.0/modules/collection-center-association"><code>v0.4.0</code></a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.5.0/modules/security"><code>security</code></a></td>
+<td>D06 · B06</td>
+<td>Línea base de seguridad: llaves KMS por clase de dato, pools de Cognito, grupos y roles (incluye revocación y roles de IoT)</td>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.1.0"><code>v0.1.0</code></a></td>
+<td>Pila <code>security</code> en <a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.5.0/modules/security"><code>v0.5.0</code></a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.5.0/modules/firewall-rules"><code>firewall-rules</code></a></td>
+<td>D07 · B07</td>
+<td>Reglas permanentes de firewall en la nube con metadatos de vigencia</td>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.3.0"><code>v0.3.0</code></a></td>
+<td>Pila <code>network y security</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.5.0/modules/farm"><code>farm</code></a></td>
+<td>D08 · B08</td>
+<td>Identidad en la nube de una finca: dos cosas de IoT (cultivo y secado), certificados desde CSR y políticas</td>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.2.0"><code>v0.2.0</code></a></td>
+<td>Pila <code>workload</code> en <a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.4.0/modules/farm"><code>v0.4.0</code></a></td>
+</tr>
+<tr>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.5.0/modules/telemetry-ingestion"><code>telemetry-ingestion</code></a></td>
+<td>D09 · B09</td>
+<td>Patrón del Epic 6: política de IoT, regla del tópico, tabla de telemetría, cola de errores y grupo de logs</td>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.4.0"><code>v0.4.0</code></a></td>
+<td>Pila <code>workload</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.5.0/modules/inference-functions"><code>inference-functions</code></a></td>
+<td>D10 · B10</td>
+<td>Patrón de función de inferencia: función, cola, cola de fallos y permisos de lectura, escritura e invocación</td>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.1.0"><code>v0.1.0</code></a></td>
+<td>Pila <code>workload</code> en <a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.4.0/modules/inference-functions"><code>v0.4.0</code></a></td>
+</tr>
+</tbody></table></div>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Etiquetas del repositorio de módulos"><table class="">
+<caption>Etiquetas del repositorio de módulos</caption><thead><tr>
+<th scope="col">Etiqueta</th>
+<th scope="col" class="num">Módulos incluidos</th>
+<th scope="col">Novedad</th>
+</tr></thead><tbody>
+<tr>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.1.0"><code>v0.1.0</code></a></td>
+<td class="num">3</td>
+<td>network, security, inference-functions</td>
+</tr>
+<tr>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.2.0"><code>v0.2.0</code></a></td>
+<td class="num">4</td>
+<td>farm</td>
+</tr>
+<tr>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.3.0"><code>v0.3.0</code></a></td>
+<td class="num">6</td>
+<td>state-backend, firewall-rules</td>
+</tr>
+<tr>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.4.0"><code>v0.4.0</code></a></td>
+<td class="num">8</td>
+<td>collection-center-association, telemetry-ingestion</td>
+</tr>
+<tr>
+<td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.5.0"><code>v0.5.0</code></a></td>
+<td class="num">8</td>
+<td>Roles de IoT y de logs en el módulo de seguridad</td>
+</tr>
+</tbody></table></div>
+<p class="note reveal">Cada módulo sigue la estructura de pc-iac-001 (archivos obligatorios, un directorio <code>sample/</code> y pruebas en <code>tests/</code>), no declara bloques <code>provider</code> ni <code>backend</code> y recibe un prefijo de nombre. El repositorio es público porque nada en él es específico de un ambiente ni secreto: no contiene identificadores de cuenta, ARN, nombres de host internos ni datos de clientes, y así el pipeline privado lo descarga por HTTPS sin llave de despliegue.</p>
+<h3 id="iac-pilas" class="reveal" style="margin-top: var(--ap-space-6)">Pilas y cómo consumen los módulos</h3>
+<p class="reveal">Las pilas raíz están en el repositorio privado de infraestructura, una por dominio, con una llave de estado por pila dentro del bucket cifrado, versionado y con bloqueo nativo de cada ambiente. Cada pila declara <code>backend "s3" {}</code> vacío y recibe el bucket, la llave y el cifrado al hacer <code>init</code>, desde el archivo del ambiente.</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Pilas raíz"><table class="">
+<caption>Pilas raíz</caption><thead><tr>
+<th scope="col">Pila</th>
+<th scope="col">Cajas</th>
+<th scope="col">Módulos que consume</th>
+<th scope="col">Recursos en el plan de <code>qa</code></th>
+</tr></thead><tbody>
+<tr>
+<td><code>state-backend</code></td>
+<td>D02</td>
+<td><code>state-backend</code> en <code>v0.3.0</code></td>
+<td>Plan y pruebas nativas en CI</td>
+</tr>
+<tr>
+<td><code>network</code></td>
+<td>D04, D05, D07</td>
+<td><code>network</code> en <code>v0.3.0</code>, <code>collection-center-association</code> en <code>v0.4.0</code> y <code>firewall-rules</code></td>
+<td>163 por crear (167 en <code>pdn</code> con un centro)</td>
+</tr>
+<tr>
+<td><code>security</code></td>
+<td>D06</td>
+<td><code>security</code> en <code>v0.5.0</code></td>
+<td>31: 8 llaves y sus alias, 2 pools, 7 grupos y 3 roles</td>
+</tr>
+<tr>
+<td><code>workload</code></td>
+<td>D08, D09, D10</td>
+<td><code>farm</code> e <code>inference-functions</code> en <code>v0.4.0</code> y <code>telemetry-ingestion</code></td>
+<td>44: nueve por función de inferencia y ocho por la finca de ejemplo</td>
+</tr>
+</tbody></table></div>
+<pre class="plan reveal" tabindex="0" aria-label="Ejemplo de consumo de un módulo por etiqueta">module "network" {
+  source = "git::https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules.git//modules/network?ref=v0.3.0"
+  # ... entradas desde locals.tf
+}</pre>
+<p class="note reveal">Reglas de consumo: la fuente es siempre una URL de git con <code>?ref=vX.Y.Z</code> (pc-iac-015); las pilas no leen el estado de otras pilas (<code>terraform_remote_state</code> no se usa) sino etiquetas y parámetros públicos de SSM por data sources filtrados (pc-iac-017 y pc-iac-019); el orden de aplicación es red, seguridad y carga de trabajo.</p>
+<h3 id="iac-pipeline" class="reveal" style="margin-top: var(--ap-space-6)">Pipeline: del pull request al plan, y a la aprobación de producción</h3>
+<div class="flow flow--wrap reveal" aria-label="Pipeline de CI">
+          <div class="flow-node is-active"><b>1. Pull request</b>PR conventions: título, rama, commits</div><span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node is-active"><b>2. Infrastructure CI</b>Secretos; por pila: fmt, init, validate, tflint, Trivy, test</div><span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node is-active"><b>3. Floci plan</b>Plan especulativo de cada pila contra el emulador</div><span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node is-active"><b>4. Infracost</b>Antes, después y diferencia por pila</div><span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node"><b>5. Revisión y merge</b>Revisor de otro proveedor; squash merge si todo está en verde</div>
+        </div>
+<div class="flow flow--wrap reveal" aria-label="Pipeline de CD">
+          <div class="flow-node"><b>A. Guardia</b>Sin apply ni destroy; alcance de la promoción</div><span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node"><b>B. Planes dev y qa</b>Un plan por ambiente, en cada push a main</div><span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node"><b>C. Plan pdn y costo</b>Solo por despacho manual; Infracost antes y después</div><span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node"><b>D. Revisión de pdn</b>Ventana de cambios, huella del plan y diferencia de costo</div><span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node"><b>E. Aprobación</b>Otra persona aprueba contra la huella; queda el registro</div>
+        </div>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Los cuatro flujos de CI y el de CD"><table class="">
+<caption>Los cuatro flujos de CI y el de CD</caption><thead><tr>
+<th scope="col">Flujo</th>
+<th scope="col">Qué hace</th>
+</tr></thead><tbody>
+<tr>
+<td><code>Infrastructure CI</code></td>
+<td>En cada pull request a <code>main</code> y en cada push, por pila: escaneo de secretos de los archivos de variables y backend, <code>fmt -check</code>, <code>init -backend=false</code>, <code>validate</code>, tflint con el conjunto de reglas de AWS, Trivy y <code>terraform test</code> donde hay pruebas.</td>
+</tr>
+<tr>
+<td><code>Floci plan</code></td>
+<td>Plan especulativo de cada pila contra Floci (fijado por digest): crea un bucket de estado descartable, inicializa el backend S3, planea con los valores de ejemplo de <code>qa</code>, escribe el resumen y guarda el texto del plan tres días.</td>
+</tr>
+<tr>
+<td><code>Infracost cost impact</code></td>
+<td>Costo mensual antes, después y diferencia por pila con la CLI v2, solo con los valores de ejemplo no sensibles.</td>
+</tr>
+<tr>
+<td><code>PR conventions</code></td>
+<td>Convenciones de título, rama, idioma, emojis y commits.</td>
+</tr>
+<tr>
+<td><code>CD promotion</code></td>
+<td>Promoción <code>dev</code>, <code>qa</code>, <code>pdn</code>. Producción se promueve solo por despacho manual y desde <code>main</code>, con la nota de lanzamiento enlazada o una referencia de incidente. No tiene paso de apply.</td>
+</tr>
+</tbody></table></div>
+<p class="note reveal">La promoción a producción son dos ejecuciones del mismo flujo. La ejecución 1 (el solicitante) planea <code>dev</code>, <code>qa</code> y <code>pdn</code>, estima el costo y termina con la revisión: destrucciones y reemplazos primero, luego el plan, la diferencia de costo y la huella SHA-256 del plan. La ejecución 2 la lanza una persona distinta de la lista de aprobadores, con la huella de la primera, y un script verifica que el plan es exactamente el revisado, que la ventana de cambios permite el cambio y que aprobador y solicitante no coinciden; solo entonces escribe el registro de aprobación. Producción no cambia entre las 05:00 y las 18:00, hora de Colombia, en un día de la semana de cosecha, salvo bajo una referencia de incidente.</p>
+<h3 id="iac-plan" class="reveal" style="margin-top: var(--ap-space-6)">Plan por ambiente</h3>
+<p class="reveal">Elige un ambiente para ver el resultado de los planes contra el emulador, pila por pila, con las cifras que documenta el repositorio de infraestructura.</p>
+<div class="card reveal">
+          <span class="seg-label" id="env-label">Ambiente</span>
+          <div class="seg" role="group" aria-labelledby="env-label" data-env>
+            <button type="button" aria-pressed="true" data-env-value="qa">qa</button>
+            <button type="button" aria-pressed="false" data-env-value="pdn">pdn</button>
+          </div>
+          <div class="env-panel" style="margin-top: var(--ap-space-4)" aria-live="polite">
+            <div>
+              <h4 style="margin-bottom: var(--ap-space-2)">Plan de cada pila (<span data-env-name>qa</span>)</h4>
+              <pre class="plan" tabindex="0"><span data-plan-network>network    Plan: <span class="hl">163 to add</span>, 0 to change, 0 to destroy.</span>
+<span data-plan-security>security   Plan: <span class="hl">31 to add</span>, 0 to change, 0 to destroy.</span>
+<span data-plan-workload>workload   Plan: <span class="hl">44 to add</span>, 0 to change, 0 to destroy.</span>
+# resultados de plan, nunca aplicados</pre>
+            </div>
+            <div>
+              <div class="metric"><span>Recursos por crear (red, seguridad y carga)</span><strong data-plan-total>238</strong></div>
+              <p class="note" style="margin-top: var(--ap-space-2)" data-plan-text>Ambiente <strong>qa</strong>: 0 por cambiar y 0 por destruir en las tres pilas.</p>
+            </div>
+          </div>
+        </div>
+<p class="note reveal">El costo mensual del piloto es una factura única de todas las cuentas, no se divide por ambiente: está en la sección <a href="#costos">Costos</a>, y Infracost estima el impacto de cada cambio por pila en CI. Las pruebas nativas de la pila de red pasan 16 de 16 (5 de cableado y 11 de la asociación de un centro).</p>
+</div></section>
 
     <!-- 9. Observabilidad -->
     <section class="section section--dark" id="observabilidad" aria-labelledby="obs-title">
@@ -566,7 +2447,7 @@
               <button class="ap-button ap-button--primary" type="button"><img src="icons/check-circle.svg" width="18" height="18" alt="" class="ap-button__icon">Registrar</button>
               <button class="ap-button ap-button--secondary" type="button">Cancelar</button>
               <button class="ap-button ap-button--danger" type="button">Rechazar</button>
-              <button class="ap-button" type="button" disabled>No disponible</button>
+              <button class="ap-button" type="button" disabled>Deshabilitado</button>
             </div>
             <div class="ap-field">
               <label class="ap-field__label" for="ds-code">Código del saco <span class="ap-field__label-meta">QR</span></label>
@@ -583,7 +2464,7 @@
             <div class="ds-row">
               <span class="ap-badge ap-badge--in-preparation"><img src="icons/clock.svg" class="ap-badge__icon" alt=""><span>En preparación</span></span>
               <span class="ap-badge ap-badge--in-transit"><img src="icons/truck.svg" class="ap-badge__icon" alt=""><span>En viaje</span></span>
-              <span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Aceptado</span></span>
+              <span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Decidido</span></span>
               <span class="ap-badge ap-badge--rejected"><img src="icons/x-circle.svg" class="ap-badge__icon" alt=""><span>Rechazado</span></span>
             </div>
 
@@ -652,11 +2533,11 @@
           <div class="card repo reveal"><div><code>aroma-pacifico-diagrams</code><p class="note" style="margin:0">Fuentes Draw.io y exportaciones SVG y PNG de los 22 diagramas.</p></div><span class="tag">privado</span></div>
           <div class="card repo reveal"><div><code>aroma-pacifico-infrastructure</code><p class="note" style="margin:0">Pilas raíz de Terraform, variables por ambiente y workflows de solo plan.</p></div><span class="tag">privado</span></div>
           <div class="card repo reveal"><div><code>aroma-pacifico-design-system</code><p class="note" style="margin:0">Tokens, componentes, marca e iconos de las tres aplicaciones.</p></div><span class="tag">privado</span></div>
-          <div class="card repo reveal"><div><code>aroma-pacifico-presentation</code><p class="note" style="margin:0">Presentación y guion de la sustentación.</p></div><span class="tag">privado</span></div>
+          <div class="card repo reveal"><div><code>aroma-pacifico-presentation</code><p class="note" style="margin:0">Presentación y guion de exposición del piloto.</p></div><span class="tag">privado</span></div>
           <div class="card repo reveal"><div><code>aroma-pacifico-roadmap</code><p class="note" style="margin:0">Backlog del piloto: tareas A01 a A25, B01 a B13 y G01.</p></div><span class="tag">privado</span></div>
           <div class="card repo reveal"><div><code>aroma-pacifico-ai-agents</code><p class="note" style="margin:0">Reglas canónicas, estándares y reglas pc-iac.</p></div><span class="tag">privado</span></div>
         </div>
-        <p class="note reveal" style="margin-top: var(--ap-space-4)">Esta vitrina no contiene identificadores de cuenta, ARN, nombres de host, correos, tokens ni nombres de personas: el trabajo se atribuye solo a roles. Las cifras de costo y de recuperación son objetivos de diseño o aritmética sobre las cifras del caso; ninguna es una medición.</p>
+        <p class="note reveal" style="margin-top: var(--ap-space-4)">Este sitio no contiene identificadores de cuenta, ARN, nombres de host, correos, tokens ni nombres de personas: el trabajo se atribuye solo a roles. Las cifras de costo y de recuperación son objetivos de diseño o aritmética sobre las cifras del caso; ninguna es una medición.</p>
       </div>
     </section>
   </main>
@@ -665,7 +2546,7 @@
     <div class="wrap">
       <div>
         <img src="brand/logo-negative.svg" alt="Aroma Pacífico">
-        <p>Vitrina técnica del piloto de trazabilidad de café 2026 en Cauca, Huila y Tolima. Proyecto académico de DevOps: solo diseño y planes, sin despliegue.</p>
+        <p>Propuesta técnica completa del piloto de trazabilidad de café 2026 en Cauca, Huila y Tolima: arquitectura, decisiones, infraestructura como código, costos y gobernanza.</p>
       </div>
       <p><a href="#top">Volver al inicio</a></p>
     </div>
@@ -683,8 +2564,9 @@
       <output data-lb-zoom aria-live="polite">100 %</output>
       <button type="button" data-lb-in aria-label="Acercar">+</button>
       <button type="button" data-lb-fit>Ajustar</button>
-      <button type="button" data-lb-svg aria-pressed="false">Cargar SVG vectorial</button>
-      <span class="lb-hint">Arrastra para mover · teclas + − 0 y flechas</span>
+      <button type="button" data-lb-png aria-pressed="false">Ver PNG completo</button>
+      <button type="button" data-lb-svg aria-pressed="false">Ver SVG vectorial</button>
+      <span class="lb-hint">Pellizca o usa + y − para acercar · arrastra o desliza para moverte · PgUp y PgDn cambian de diagrama</span>
     </div>
     <div class="lb-viewport" data-lb-viewport tabindex="0" aria-label="Lienzo del diagrama, desplazable">
       <img data-lb-img alt="" src="">
@@ -696,7 +2578,7 @@
     </div>
   </dialog>
 
-  <script src="diagrams.js"></script>
-  <script src="app.js"></script>
+  <script src="diagrams.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>

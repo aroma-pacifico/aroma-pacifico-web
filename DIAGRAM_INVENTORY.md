@@ -1,6 +1,6 @@
 # Diagram inventory
 
-All 22 diagrams of `aroma-pacifico-diagrams` are published in the explorer of this site. The SVG is the vector publication export, the PNG is the preview, and a WebP thumbnail serves the gallery cards. Files live in `assets/diagrams/`, named `<id>.svg`, `<id>.png` and `thumbs/<id>.webp`.
+All 22 diagrams of `aroma-pacifico-diagrams` are published in the explorer of this site. The SVG is the vector publication export, the PNG is the preview, a 720 px WebP thumbnail serves the gallery cards and a 1600 px WebP view opens first in the lightbox. Files live in `assets/diagrams/`, named `<id>.svg`, `<id>.png`, `thumbs/<id>.webp` and `view/<id>.webp`.
 
 Each row keeps the source file of the diagrams repository, the IaC boxes D01 to D13 that the diagram badges (a dash means the diagram carries no box), and the byte size of the published files. The captions shown on the site are in `diagrams.js`.
 
