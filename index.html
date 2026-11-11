@@ -128,6 +128,11 @@
           <p>Cada diagrama del repositorio de diagramas está aquí, en SVG vectorial y en vista previa PNG. Cada uno indica las cajas D01 a D13 que el código de infraestructura implementa.</p>
         </div>
 
+        <div class="ap-alert ap-alert--notice deeplink-notice" data-deeplink-notice role="status" hidden>
+          <img src="icons/alert-triangle.svg" class="ap-alert__icon" alt="">
+          <div class="ap-alert__content"><div class="ap-alert__title">Ese diagrama no existe</div><div class="ap-alert__message" data-deeplink-message></div></div>
+        </div>
+
         <article class="featured reveal" aria-labelledby="featured-title">
           <button class="featured-visual" type="button" data-open-diagram="complete-architecture" aria-label="Abrir la arquitectura completa en el visor">
             <img src="assets/diagrams/thumbs/complete-architecture.webp" width="720" height="593" loading="lazy" decoding="async" alt="Arquitectura completa del piloto: nube AWS con cinco cuentas, centros de acopio conectados por túneles IPsec, nodos de finca, dron y aplicaciones, con las cajas D01 a D13 marcadas.">
@@ -2566,6 +2571,8 @@
       <button type="button" data-lb-fit>Ajustar</button>
       <button type="button" data-lb-png aria-pressed="false">Ver PNG completo</button>
       <button type="button" data-lb-svg aria-pressed="false">Ver SVG vectorial</button>
+      <button type="button" data-lb-copy>Copiar enlace</button>
+      <span class="lb-copy-status" data-lb-copy-status role="status" aria-live="polite"></span>
       <span class="lb-hint">Pellizca o usa + y − para acercar · arrastra o desliza para moverte · PgUp y PgDn cambian de diagrama</span>
     </div>
     <div class="lb-viewport" data-lb-viewport tabindex="0" aria-label="Lienzo del diagrama, desplazable">
