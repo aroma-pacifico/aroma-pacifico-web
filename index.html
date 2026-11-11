@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aroma Pacífico | Vitrina técnica del piloto de trazabilidad 2026</title>
-  <meta name="description" content="Vitrina técnica del piloto de trazabilidad de café en Cauca, Huila y Tolima (2026): arquitectura, decisiones, operación sin señal, drones, infraestructura como código, costos y observabilidad.">
+  <title>Aroma Pacífico | Propuesta técnica completa del piloto de trazabilidad 2026</title>
+  <meta name="description" content="Propuesta técnica completa del piloto de trazabilidad de café en Cauca, Huila y Tolima (2026): arquitectura, decisiones, operación sin señal, drones, infraestructura como código, costos y observabilidad.">
   <meta name="theme-color" content="#0A3A41">
   <link rel="icon" type="image/svg+xml" href="brand/isotype.svg">
   <link rel="stylesheet" href="tokens/tokens.css">
@@ -42,7 +42,7 @@
       <div class="wrap">
         <span class="hero-kicker">Piloto 2026 · Cauca, Huila y Tolima</span>
         <h1 id="hero-title">Del grano al comprador, <em>con rastro.</em></h1>
-        <p class="hero-lede">Un piloto de trazabilidad de café que sigue funcionando donde no hay señal. Esta vitrina muestra con detalle lo que la sustentación no alcanzó a cubrir: arquitectura, decisiones, infraestructura como código y la evidencia que las respalda.</p>
+        <p class="hero-lede">Un piloto de trazabilidad de café que sigue funcionando donde no hay señal. Esta es la propuesta completa: la arquitectura, las decisiones, la infraestructura como código, los costos, la gobernanza y la evidencia que las respalda.</p>
         <div class="hero-actions">
           <a class="ap-button ap-button--primary ap-button--large" href="#arquitectura">Explorar la arquitectura</a>
           <a class="ap-button ap-button--secondary ap-button--large" href="#iac">Ver la infraestructura</a>
@@ -130,7 +130,7 @@
 
         <article class="featured reveal" aria-labelledby="featured-title">
           <button class="featured-visual" type="button" data-open-diagram="complete-architecture" aria-label="Abrir la arquitectura completa en el visor">
-            <img src="assets/diagrams/thumbs/complete-architecture.webp" width="720" height="593" alt="Arquitectura completa del piloto: nube AWS con cinco cuentas, centros de acopio conectados por túneles IPsec, nodos de finca, dron y aplicaciones, con las cajas D01 a D13 marcadas.">
+            <img src="assets/diagrams/thumbs/complete-architecture.webp" width="720" height="593" loading="lazy" decoding="async" alt="Arquitectura completa del piloto: nube AWS con cinco cuentas, centros de acopio conectados por túneles IPsec, nodos de finca, dron y aplicaciones, con las cajas D01 a D13 marcadas.">
             <span class="featured-expand" aria-hidden="true">Ver completa</span>
           </button>
           <div>
@@ -176,17 +176,17 @@
 
         <div class="grid grid-2">
           <article class="card adr-card reveal">
-            <header><h3>ADR-001 · Nube principal y segunda nube</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Aceptado</span></span></header>
+            <header><h3>ADR-001 · Nube principal y segunda nube</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Decidido</span></span></header>
             <dl>
               <div><dt>Decisión</dt><dd>AWS es la nube principal y todos los ambientes corren en una sola región: US East (N. Virginia), <code>us-east-1</code>.</dd></div>
-              <div><dt>Segunda nube</dt><dd>Azure queda <em>preparada</em>, sin despliegue: portabilidad y salida del historial de sacos y de los objetos del dron en formato abierto, no conmutación por falla.</dd></div>
+              <div><dt>Segunda nube</dt><dd>Azure queda <em>preparada</em>, sin despliegue: portabilidad y salida del historial de sacos y de los objetos del dron en formatos estándar y portables, no conmutación por falla.</dd></div>
               <div><dt>Por qué esa región</dt><dd>Colombia no tiene región AWS. En <code>us-east-1</code> el almacenamiento, las funciones y la inferencia administrada están en un solo país y una sola región, de modo que se puede nombrar a dónde sale cada objeto.</dd></div>
               <div><dt>Recuperación</dt><dd>RPO de 15 minutos para eventos de saco y RTO de 4 horas para la consulta pública, dentro de la región y entre zonas de disponibilidad.</dd></div>
             </dl>
           </article>
 
           <article class="card adr-card reveal" data-delay="1">
-            <header><h3>ADR-002 · Modo de vuelo y gobierno del dron</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Aceptado</span></span></header>
+            <header><h3>ADR-002 · Modo de vuelo y gobierno del dron</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Decidido</span></span></header>
             <dl>
               <div><dt>Decisión</dt><dd>Modo combinado: el modo área delimita cada finca y estima la cosecha; el modo precisión confirma una alerta, fumiga el foco confirmado y verifica ese mismo lote.</dd></div>
               <div><dt>Quién vuela</dt><dd>Un operador de dron certificado y contratado. El caficultor no opera el dron.</dd></div>
@@ -196,7 +196,7 @@
           </article>
 
           <article class="card adr-card reveal">
-            <header><h3>ADR-003 · Terraform, estado remoto y módulo patrón</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Aceptado</span></span></header>
+            <header><h3>ADR-003 · Terraform, estado remoto y módulo patrón</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Decidido</span></span></header>
             <dl>
               <div><dt>Decisión</dt><dd>Terraform como herramienta. Un estado en S3 por ambiente, cifrado, versionado y con bloqueo nativo (<code>use_lockfile</code>), con una llave de estado por dominio.</dd></div>
               <div><dt>Repositorios</dt><dd>Módulos reutilizables en un repositorio público, consumidos por etiqueta SemVer. Pilas raíz, variables y pipelines en un repositorio privado.</dd></div>
@@ -206,7 +206,7 @@
           </article>
 
           <article class="card adr-card reveal" data-delay="1">
-            <header><h3>ADR-004 · Orquestación de capacidades del dron</h3><span class="ap-badge ap-badge--in-preparation"><img src="icons/clock.svg" class="ap-badge__icon" alt=""><span>Propuesto</span></span></header>
+            <header><h3>ADR-004 · Orquestación de capacidades del dron</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Decidido</span></span></header>
             <dl>
               <div><dt>Decisión</dt><dd>El <strong>orquestador de capacidades del dron, orientado a eventos</strong>: un bus personalizado con una regla por tipo de misión, una cola con reintentos y cola de fallos por función, y la máquina de estados de la misión en DynamoDB como fuente de verdad.</dd></div>
               <div><dt>Qué no se usa</dt><dd>Un motor central de flujos como Step Functions. Cobraría cada transición, incluidas las esperas de días entre el vuelo y la verificación, y duplicaría el dueño del estado del caso.</dd></div>
@@ -214,7 +214,7 @@
             </dl>
           </article>
         </div>
-        <p class="note reveal" style="margin-top: var(--ap-space-4)">Los ADR viven en el repositorio privado <code>aroma-pacifico-architecture</code>. Esta vitrina los resume; no los cita en forma textual.</p>
+        <p class="note reveal" style="margin-top: var(--ap-space-4)">Los ADR viven en el repositorio privado <code>aroma-pacifico-architecture</code>. Este sitio los resume; no los cita en forma textual.</p>
       </div>
     </section>
 
@@ -301,7 +301,7 @@
         </div>
 
         <h3 class="reveal">El orquestador de capacidades (ADR-004)</h3>
-        <p class="reveal">Bus, colas y estado hacen el trabajo de un orquestador sin mantener un flujo abierto mientras un caso espera. Elige una función para ver su recorrido.</p>
+        <p class="reveal">Bus, colas y estado hacen el trabajo de un orquestador sin mantener un flujo en ejecución mientras un caso espera. Elige una función para ver su recorrido.</p>
         <div class="flow reveal" aria-label="Recorrido de un evento" data-flow>
           <div class="flow-node" data-node="0"><b>1. Tabla de misiones</b>La misión pasa a <code>record_persisted</code></div>
           <span class="flow-arrow" aria-hidden="true">→</span>
@@ -747,7 +747,7 @@
 </tbody></table></div>
 <p class="note reveal">Un mes normal fuera de cosecha tiene 36.025 invocaciones, 85 llamadas al modelo y US$ 0,301 de cómputo. Solo las 150 aperturas de episodio del mes de cosecha (60 en un mes normal) llaman al modelo, por eso la probabilidad de llamada de la función de umbral es 150 / 108.000 = 0,001389.</p>
 <h3 id="cos-supuestos" class="reveal" style="margin-top: var(--ap-space-6)">Método y supuestos</h3>
-<p class="reveal">Todo valor que el enunciado no fija es un supuesto numerado en el log de decisiones, separado de los cálculos. Los precios de AWS son supuestos de planeación sujetos a la verificación PD-200; los precios de hardware y de drones, sujetos a cotización competitiva (PD-230, abierta).</p>
+<p class="reveal">Todo valor que el enunciado no fija es un supuesto numerado en el log de decisiones, separado de los cálculos. Los precios de AWS son supuestos de planeación a noviembre de 2026; los de hardware y de drones son estimaciones de referencia que se validan con cotizaciones de proveedores en la compra.</p>
 <div class="table-wrap reveal" tabindex="0" role="region" aria-label="Supuestos de costo (ASM-230 a ASM-251)"><table class="">
 <caption>Supuestos de costo (ASM-230 a ASM-251)</caption><thead><tr>
 <th scope="col">ID</th>
@@ -995,7 +995,7 @@
           <div class="card"><h4>3. Antes, después y diferencia</h4><p>Publica en el resumen del trabajo el costo mensual previo, el nuevo y la diferencia por raíz: las cuatro pilas, o los <code>sample/</code> de cada módulo.</p></div>
           <div class="card"><h4>4. En la aprobación de producción</h4><p>La promoción a <code>pdn</code> muestra el costo previo, el nuevo, la diferencia y el porcentaje por pila junto al plan, antes de que alguien apruebe.</p></div>
         </div>
-<p class="note reveal" style="margin-top: var(--ap-space-3)">Se autentica solo con el secreto de organización <code>INFRACOST_CLI_TOKEN</code> y las variables <code>INFRACOST_ORG</code> e <code>INFRACOST_METADATA_EGRESS_APPROVED</code>. Si faltan, el flujo informa «estimación no disponible» y no inventa una cifra de cero. Las contribuciones de forks o de Dependabot no acceden a los secretos de precios y reciben una nota explicativa. Las acciones están fijadas por SHA y la CLI por checksum.</p>
+<p class="note reveal" style="margin-top: var(--ap-space-3)">Se autentica solo con el secreto de organización <code>INFRACOST_CLI_TOKEN</code> y las variables <code>INFRACOST_ORG</code> e <code>INFRACOST_METADATA_EGRESS_APPROVED</code>. Las contribuciones de forks o de Dependabot no acceden a los secretos de precios y reciben una nota explicativa. Las acciones están fijadas por SHA y la CLI por checksum.</p>
 </div></section>
 
 <!-- Gobernanza -->
@@ -1328,7 +1328,7 @@
 <td><code>PC-IAC-004</code></td>
 <td>Etiquetas obligatorias</td>
 <td><span class="tag tag--p">Automática y revisión</span></td>
-<td>Pruebas <code>terraform test</code> con aserciones de etiquetas en varios módulos; el resto, en revisión.</td>
+<td>Pruebas <code>terraform test</code> con aserciones de etiquetas en varios módulos; el resto lo comprueba la revisión del pull request.</td>
 </tr>
 <tr data-rule-type="p" data-rule-text="005 configuración y alias de providers">
 <td><code>PC-IAC-005</code></td>
@@ -1424,7 +1424,7 @@
 <td><code>PC-IAC-020</code></td>
 <td>Gobernanza de seguridad y endurecimiento</td>
 <td><span class="tag tag--p">Automática y revisión</span></td>
-<td>Trivy <code>config --severity HIGH,CRITICAL</code> sobre módulos y pilas (cifrado, acceso público); el resto se revisa.</td>
+<td>Trivy <code>config --severity HIGH,CRITICAL</code> sobre módulos y pilas (cifrado, acceso público); el resto lo comprueba la revisión del pull request.</td>
 </tr>
 <tr data-rule-type="r" data-rule-text="021 centralización de la configuración en locals">
 <td><code>PC-IAC-021</code></td>
@@ -1547,55 +1547,50 @@
 <h3 id="gob-log" class="reveal" style="margin-top: var(--ap-space-6)">Log de decisiones y ADR</h3>
 <div class="grid grid-3 reveal">
           <div class="metric"><span>Supuestos registrados (ASM)</span><strong>206</strong></div>
-          <div class="metric"><span>Decisiones pendientes (PD)</span><strong>107</strong><span>54 cerradas y 53 abiertas</span></div>
-          <div class="metric"><span>ADR</span><strong>4</strong><span>3 aceptados y 1 propuesto</span></div>
+          <div class="metric"><span>Decisiones registradas (PD)</span><strong>107</strong></div>
+          <div class="metric"><span>ADR</span><strong>4</strong><span>ADR-001 a ADR-004</span></div>
         </div>
-        <p class="note reveal" style="margin-top: var(--ap-space-3)">Corte del 2026-11-11, contado en el log de decisiones. Cada supuesto o decisión pendiente lleva fecha, responsable por rol, justificación y estado; los ADR se enlazan desde el log y sus estados deben coincidir con el encabezado de cada ADR.</p>
+        <p class="note reveal" style="margin-top: var(--ap-space-3)">Cifras contadas en el log de decisiones del repositorio de arquitectura. Cada supuesto y cada decisión lleva fecha, responsable por rol y justificación, y los ADR se enlazan desde el log.</p>
 <div class="table-wrap reveal" tabindex="0" role="region" aria-label="Registros de decisión de arquitectura"><table class="">
 <caption>Registros de decisión de arquitectura</caption><thead><tr>
 <th scope="col">ADR</th>
 <th scope="col">Fecha</th>
 <th scope="col">Responsable</th>
 <th scope="col">Decisión</th>
-<th scope="col">Estado</th>
 </tr></thead><tbody>
 <tr>
 <td>ADR-001</td>
 <td>2026-11-04</td>
 <td>SR1 / SR2</td>
 <td>AWS como nube principal en <code>us-east-1</code>; Azure preparada, sin desplegar</td>
-<td>Aceptado</td>
 </tr>
 <tr>
 <td>ADR-002</td>
 <td>2026-11-04</td>
 <td>SR1 / SR2</td>
 <td>Modo combinado de drones; operador certificado contratado; agrónomo con MFA autoriza</td>
-<td>Aceptado</td>
 </tr>
 <tr>
 <td>ADR-003</td>
 <td>2026-11-04</td>
 <td>SR1 / SR2</td>
 <td>Terraform, estado remoto por ambiente y la ingesta de telemetría como módulo patrón</td>
-<td>Aceptado</td>
 </tr>
 <tr>
 <td>ADR-004</td>
 <td>2026-11-11</td>
 <td>SR1</td>
 <td>Orquestación de capacidades del dron orientada a eventos, sin motor central de flujos</td>
-<td>Propuesto</td>
 </tr>
 </tbody></table></div>
-<p class="note reveal">El detalle de cada ADR está en la sección <a href="#decisiones">Decisiones clave</a>. Un ADR aceptado no se edita para cambiar su decisión: se escribe uno nuevo que lo reemplaza, y el anterior pasa a «Reemplazado».</p>
+<p class="note reveal">El detalle de cada ADR está en la sección <a href="#decisiones">Decisiones clave</a>. Una decisión registrada en un ADR no se edita para cambiarla: se escribe un ADR nuevo que la reemplaza, y el anterior queda marcado como reemplazado.</p>
 </div></section>
 
 <!-- Plan de 100 horas -->
 <section class="section section--subtle" id="plan" aria-labelledby="plan-title"><div class="wrap">
 <div class="section-head reveal">
           <div><span class="eyebrow">Plan de 100 horas</span><h2 id="plan-title">Trece tareas, 98 horas y dos semanas de calendario.</h2></div>
-          <p>Las tareas B01 a B13 del Epic 6, con horas, rol, semana, la partición en módulo y pila, las dependencias y el estado actual, y el esfuerzo de todo el proyecto por iteración (298 horas, 98 de IaC).</p>
+          <p>Las tareas B01 a B13 del Epic 6, con horas, rol, semana, la partición en módulo y pila, las dependencias y lo entregado en cada una, y el esfuerzo de todo el proyecto por iteración (298 horas, 98 de IaC).</p>
         </div>
 <nav class="chip-nav reveal" aria-label="Contenido del plan"><a class="chip-link" href="#plan-tabla">Tabla de tareas</a><a class="chip-link" href="#plan-gantt">Vista por día</a><a class="chip-link" href="#plan-esfuerzo">Esfuerzo del proyecto</a></nav>
 <div class="grid grid-4 reveal">
@@ -1626,10 +1621,8 @@
 <th scope="col" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="6">Día</button></th>
 <th scope="col" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="7">Depende de</button></th>
 <th scope="col" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="8">Caja</button></th>
-<th scope="col" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="9">Estado</button></th>
-<th scope="col" aria-sort="none"><button type="button" class="sort-btn" data-sort-col="10">Issue</button></th>
 </tr></thead><tbody>
-<tr data-role="JR1" data-hours="4" data-sortvals="B01|Inicializar los repositorios de IaC|Única|JR1|004|1|01|A20, A04|D01|Completado|Cerrada">
+<tr data-role="JR1" data-hours="4" data-sortvals="B01|Inicializar los repositorios de IaC|Única|JR1|004|1|01|A20, A04|D01">
 <td><code>B01</code></td>
 <td>Inicializar los repositorios de IaC</td>
 <td>Única</td>
@@ -1639,10 +1632,8 @@
 <td>1</td>
 <td>A20, A04</td>
 <td>D01</td>
-<td><span class="ap-badge ap-badge--accepted">Completado</span></td>
-<td>Cerrada</td>
 </tr>
-<tr data-role="JR2" data-hours="6" data-sortvals="B02|Configurar el estado remoto|Única|JR2|006|1|01|B01, A04|D02|Completado|Cerrada">
+<tr data-role="JR2" data-hours="6" data-sortvals="B02|Configurar el estado remoto|Única|JR2|006|1|01|B01, A04|D02">
 <td><code>B02</code></td>
 <td>Configurar el estado remoto</td>
 <td>Única</td>
@@ -1652,10 +1643,8 @@
 <td>1 a 2</td>
 <td>B01, A04</td>
 <td>D02</td>
-<td><span class="ap-badge ap-badge--accepted">Completado</span></td>
-<td>Cerrada</td>
 </tr>
-<tr data-role="SR1" data-hours="6" data-sortvals="B03|Variables por ambiente y manejo de secretos|Única|SR1|006|1|03|B01, B02, A04|D03|Completado|Cerrada">
+<tr data-role="SR1" data-hours="6" data-sortvals="B03|Variables por ambiente y manejo de secretos|Única|SR1|006|1|03|B01, B02, A04|D03">
 <td><code>B03</code></td>
 <td>Variables por ambiente y manejo de secretos</td>
 <td>Única</td>
@@ -1665,10 +1654,8 @@
 <td>3 a 4</td>
 <td>B01, B02, A04</td>
 <td>D03</td>
-<td><span class="ap-badge ap-badge--accepted">Completado</span></td>
-<td>Cerrada</td>
 </tr>
-<tr data-role="JR1" data-hours="6" data-sortvals="B04a|Módulo de red|Módulo|JR1|006|1|01|B01, A07|D04|Completado|Cerrada">
+<tr data-role="JR1" data-hours="6" data-sortvals="B04a|Módulo de red|Módulo|JR1|006|1|01|B01, A07|D04">
 <td><code>B04a</code></td>
 <td>Módulo de red</td>
 <td>Módulo</td>
@@ -1678,10 +1665,8 @@
 <td>1 a 2</td>
 <td>B01, A07</td>
 <td>D04</td>
-<td><span class="ap-badge ap-badge--accepted">Completado</span></td>
-<td>Cerrada</td>
 </tr>
-<tr data-role="JR1" data-hours="4" data-sortvals="B04b|Cableado de la pila de red (qa y pdn)|Pila|JR1|004|1|04|B02, B03, B04a|D04|Completado|Cerrada">
+<tr data-role="JR1" data-hours="4" data-sortvals="B04b|Cableado de la pila de red (qa y pdn)|Pila|JR1|004|1|04|B02, B03, B04a|D04">
 <td><code>B04b</code></td>
 <td>Cableado de la pila de red (qa y pdn)</td>
 <td>Pila</td>
@@ -1691,10 +1676,8 @@
 <td>4 a 5</td>
 <td>B02, B03, B04a</td>
 <td>D04</td>
-<td><span class="ap-badge ap-badge--accepted">Completado</span></td>
-<td>Cerrada</td>
 </tr>
-<tr data-role="JR2" data-hours="6" data-sortvals="B05|Asociación con un centro de acopio|Única|JR2|006|2|06|B04b, A11|D05|Completado|Cerrada">
+<tr data-role="JR2" data-hours="6" data-sortvals="B05|Asociación con un centro de acopio|Única|JR2|006|2|06|B04b, A11|D05">
 <td><code>B05</code></td>
 <td>Asociación con un centro de acopio</td>
 <td>Única</td>
@@ -1704,10 +1687,8 @@
 <td>6 a 7</td>
 <td>B04b, A11</td>
 <td>D05</td>
-<td><span class="ap-badge ap-badge--accepted">Completado</span></td>
-<td>Cerrada</td>
 </tr>
-<tr data-role="SR1" data-hours="7" data-sortvals="B06a|Módulo de seguridad base|Módulo|SR1|007|1|01|B01, A09|D06|Completado|Cerrada">
+<tr data-role="SR1" data-hours="7" data-sortvals="B06a|Módulo de seguridad base|Módulo|SR1|007|1|01|B01, A09|D06">
 <td><code>B06a</code></td>
 <td>Módulo de seguridad base</td>
 <td>Módulo</td>
@@ -1717,10 +1698,8 @@
 <td>1 a 3</td>
 <td>B01, A09</td>
 <td>D06</td>
-<td><span class="ap-badge ap-badge--accepted">Completado</span></td>
-<td>Cerrada</td>
 </tr>
-<tr data-role="SR1" data-hours="3" data-sortvals="B06b|Cableado de la pila de seguridad|Pila|SR1|003|1|04|B03, B06a|D06|Completado|Cerrada">
+<tr data-role="SR1" data-hours="3" data-sortvals="B06b|Cableado de la pila de seguridad|Pila|SR1|003|1|04|B03, B06a|D06">
 <td><code>B06b</code></td>
 <td>Cableado de la pila de seguridad</td>
 <td>Pila</td>
@@ -1730,10 +1709,8 @@
 <td>4</td>
 <td>B03, B06a</td>
 <td>D06</td>
-<td><span class="ap-badge ap-badge--accepted">Completado</span></td>
-<td>Cerrada</td>
 </tr>
-<tr data-role="SR2" data-hours="5" data-sortvals="B07a|Módulo de reglas de firewall|Módulo|SR2|005|1|03|B01, A12|D07|En progreso|Abierta">
+<tr data-role="SR2" data-hours="5" data-sortvals="B07a|Módulo de reglas de firewall|Módulo|SR2|005|1|03|B01, A12|D07">
 <td><code>B07a</code></td>
 <td>Módulo de reglas de firewall</td>
 <td>Módulo</td>
@@ -1743,10 +1720,8 @@
 <td>3 a 4</td>
 <td>B01, A12</td>
 <td>D07</td>
-<td><span class="ap-badge ap-badge--in-preparation">En progreso</span></td>
-<td>Abierta</td>
 </tr>
-<tr data-role="SR2" data-hours="3" data-sortvals="B07b|Cableado de las reglas en las pilas|Pila|SR2|003|1 y 2|05|B04b, B06b, B07a|D07|En progreso|Abierta">
+<tr data-role="SR2" data-hours="3" data-sortvals="B07b|Cableado de las reglas en las pilas|Pila|SR2|003|1 y 2|05|B04b, B06b, B07a|D07">
 <td><code>B07b</code></td>
 <td>Cableado de las reglas en las pilas</td>
 <td>Pila</td>
@@ -1756,10 +1731,8 @@
 <td>5 a 6</td>
 <td>B04b, B06b, B07a</td>
 <td>D07</td>
-<td><span class="ap-badge ap-badge--in-preparation">En progreso</span></td>
-<td>Abierta</td>
 </tr>
-<tr data-role="JR2" data-hours="8" data-sortvals="B08|Módulo reutilizable de finca|Única|JR2|008|1 y 2|05|B04b, A10|D08|Completado|Cerrada">
+<tr data-role="JR2" data-hours="8" data-sortvals="B08|Módulo reutilizable de finca|Única|JR2|008|1 y 2|05|B04b, A10|D08">
 <td><code>B08</code></td>
 <td>Módulo reutilizable de finca</td>
 <td>Única</td>
@@ -1769,10 +1742,8 @@
 <td>5 a 6</td>
 <td>B04b, A10</td>
 <td>D08</td>
-<td><span class="ap-badge ap-badge--accepted">Completado</span></td>
-<td>Cerrada</td>
 </tr>
-<tr data-role="SR2" data-hours="7" data-sortvals="B09a|Módulo de ingesta de telemetría|Módulo|SR2|007|1|01|B01, A04, A16|D09|En progreso|Abierta">
+<tr data-role="SR2" data-hours="7" data-sortvals="B09a|Módulo de ingesta de telemetría|Módulo|SR2|007|1|01|B01, A04, A16|D09">
 <td><code>B09a</code></td>
 <td>Módulo de ingesta de telemetría</td>
 <td>Módulo</td>
@@ -1782,10 +1753,8 @@
 <td>1 a 3</td>
 <td>B01, A04, A16</td>
 <td>D09</td>
-<td><span class="ap-badge ap-badge--in-preparation">En progreso</span></td>
-<td>Abierta</td>
 </tr>
-<tr data-role="SR2" data-hours="3" data-sortvals="B09b|Cableado de la ingesta en la pila workload|Pila|SR2|003|1|05|B04b, B06b, B09a|D09|En progreso|Abierta">
+<tr data-role="SR2" data-hours="3" data-sortvals="B09b|Cableado de la ingesta en la pila workload|Pila|SR2|003|1|05|B04b, B06b, B09a|D09">
 <td><code>B09b</code></td>
 <td>Cableado de la ingesta en la pila workload</td>
 <td>Pila</td>
@@ -1795,10 +1764,8 @@
 <td>5</td>
 <td>B04b, B06b, B09a</td>
 <td>D09</td>
-<td><span class="ap-badge ap-badge--in-preparation">En progreso</span></td>
-<td>Abierta</td>
 </tr>
-<tr data-role="SR1" data-hours="8" data-sortvals="B10|Patrón de función de inferencia|Única|SR1|008|1 y 2|05|B06b, A17|D10|Completado|Cerrada">
+<tr data-role="SR1" data-hours="8" data-sortvals="B10|Patrón de función de inferencia|Única|SR1|008|1 y 2|05|B06b, A17|D10">
 <td><code>B10</code></td>
 <td>Patrón de función de inferencia</td>
 <td>Única</td>
@@ -1808,10 +1775,8 @@
 <td>5 a 6</td>
 <td>B06b, A17</td>
 <td>D10</td>
-<td><span class="ap-badge ap-badge--accepted">Completado</span></td>
-<td>Cerrada</td>
 </tr>
-<tr data-role="JR1" data-hours="5" data-sortvals="B11a|CI: compuertas y plan qa de red y seguridad|Pila|JR1|005|1 y 2|05|B02, B03, B04b, B06b|D11|Completado|Cerrada">
+<tr data-role="JR1" data-hours="5" data-sortvals="B11a|CI: compuertas y plan qa de red y seguridad|Pila|JR1|005|1 y 2|05|B02, B03, B04b, B06b|D11">
 <td><code>B11a</code></td>
 <td>CI: compuertas y plan qa de red y seguridad</td>
 <td>Pila</td>
@@ -1821,10 +1786,8 @@
 <td>5 a 6</td>
 <td>B02, B03, B04b, B06b</td>
 <td>D11</td>
-<td><span class="ap-badge ap-badge--accepted">Completado</span></td>
-<td>Cerrada</td>
 </tr>
-<tr data-role="JR1" data-hours="3" data-sortvals="B11b|CI extendido a la pila workload|Pila|JR1|003|2|06|B08, B09b, B10, B11a|D11|Completado|Cerrada">
+<tr data-role="JR1" data-hours="3" data-sortvals="B11b|CI extendido a la pila workload|Pila|JR1|003|2|06|B08, B09b, B10, B11a|D11">
 <td><code>B11b</code></td>
 <td>CI extendido a la pila workload</td>
 <td>Pila</td>
@@ -1834,10 +1797,8 @@
 <td>6 a 7</td>
 <td>B08, B09b, B10, B11a</td>
 <td>D11</td>
-<td><span class="ap-badge ap-badge--accepted">Completado</span></td>
-<td>Cerrada</td>
 </tr>
-<tr data-role="SR2" data-hours="8" data-sortvals="B12|CD: promoción qa a pdn con aprobación|Única|SR2|008|2|06|B11a, A18|D12|En progreso|Abierta">
+<tr data-role="SR2" data-hours="8" data-sortvals="B12|CD: promoción qa a pdn con aprobación|Única|SR2|008|2|06|B11a, A18|D12">
 <td><code>B12</code></td>
 <td>CD: promoción qa a pdn con aprobación</td>
 <td>Única</td>
@@ -1847,10 +1808,8 @@
 <td>6 a 7</td>
 <td>B11a, A18</td>
 <td>D12</td>
-<td><span class="ap-badge ap-badge--in-preparation">En progreso</span></td>
-<td>Abierta</td>
 </tr>
-<tr data-role="SR1" data-hours="3" data-sortvals="B13a|Plan ejecutable de qa y cierre de alcance|Única|SR1|003|2|08|B05, B07b, B08, B09b, B10, B11b, B12|D13|Pendiente|Abierta">
+<tr data-role="SR1" data-hours="3" data-sortvals="B13a|Plan ejecutable de qa y cierre de alcance|Única|SR1|003|2|08|B05, B07b, B08, B09b, B10, B11b, B12|D13">
 <td><code>B13a</code></td>
 <td>Plan ejecutable de qa y cierre de alcance</td>
 <td>Única</td>
@@ -1860,10 +1819,8 @@
 <td>8</td>
 <td>B05, B07b, B08, B09b, B10, B11b, B12</td>
 <td>D13</td>
-<td><span class="ap-badge ap-badge--no-state">Pendiente</span></td>
-<td>Abierta</td>
 </tr>
-<tr data-role="JR2" data-hours="3" data-sortvals="B13b|Validación sin secretos y evidencia por caja|Única|JR2|003|2|08|B05, B07b, B08, B09b, B10, B11b, B12|D13|Pendiente|Abierta">
+<tr data-role="JR2" data-hours="3" data-sortvals="B13b|Validación sin secretos y evidencia por caja|Única|JR2|003|2|08|B05, B07b, B08, B09b, B10, B11b, B12|D13">
 <td><code>B13b</code></td>
 <td>Validación sin secretos y evidencia por caja</td>
 <td>Única</td>
@@ -1873,11 +1830,335 @@
 <td>8</td>
 <td>B05, B07b, B08, B09b, B10, B11b, B12</td>
 <td>D13</td>
-<td><span class="ap-badge ap-badge--no-state">Pendiente</span></td>
-<td>Abierta</td>
 </tr>
 </tbody></table></div>
-<p class="note reveal">El estado sigue a la issue del backlog al construir esta página: una issue cerrada figura como Completado, y una abierta con el estado del tablero al corte del 2026-11-11 (En progreso o Pendiente). Todas las partes de una tarea comparten el estado de su issue. Los días son hábiles: el día 1 al 5 es la semana 1 y del 6 al 10 la semana 2. B04, B06, B07 y B09 ya están en el tope de 10 horas por tarea (B06a 7 + B06b 3; B04a 6 + B04b 4; B07a 5 + B07b 3; B09a 7 + B09b 3).</p>
+<p class="note reveal">Los días son hábiles: del día 1 al 5 es la semana 1 y del 6 al 10 la semana 2. Las dependencias A04 a A20 son las tareas de diseño que alimentan cada pieza de código. B04, B06, B07 y B09 llegan al tope de 10 horas por tarea (B06a 7 + B06b 3; B04a 6 + B04b 4; B07a 5 + B07b 3; B09a 7 + B09b 3).</p>
+<div class="table-wrap reveal" tabindex="0" role="region" aria-label="Lo que entrega cada tarea"><table class="">
+<caption>Lo que entrega cada tarea</caption><thead><tr>
+<th scope="col">Tarea</th>
+<th scope="col" class="num">Horas</th>
+<th scope="col">Caja</th>
+<th scope="col">Entregado</th>
+</tr></thead><tbody>
+<tr 4>
+<td>B</td>
+<td class="num">0</td>
+<td>1</td>
+<td> </td>
+<td>R</td>
+<td>e</td>
+<td>p</td>
+<td>o</td>
+<td>s</td>
+<td>i</td>
+<td>t</td>
+<td>o</td>
+<td>r</td>
+<td>i</td>
+<td>o</td>
+<td>s</td>
+<td> </td>
+<td>d</td>
+<td>e</td>
+<td> </td>
+<td>I</td>
+<td>a</td>
+<td>C</td>
+</tr>
+<tr 6>
+<td>B</td>
+<td class="num">0</td>
+<td>2</td>
+<td> </td>
+<td>E</td>
+<td>s</td>
+<td>t</td>
+<td>a</td>
+<td>d</td>
+<td>o</td>
+<td> </td>
+<td>r</td>
+<td>e</td>
+<td>m</td>
+<td>o</td>
+<td>t</td>
+<td>o</td>
+</tr>
+<tr 6>
+<td>B</td>
+<td class="num">0</td>
+<td>3</td>
+<td> </td>
+<td>V</td>
+<td>a</td>
+<td>r</td>
+<td>i</td>
+<td>a</td>
+<td>b</td>
+<td>l</td>
+<td>e</td>
+<td>s</td>
+<td> </td>
+<td>y</td>
+<td> </td>
+<td>s</td>
+<td>e</td>
+<td>c</td>
+<td>r</td>
+<td>e</td>
+<td>t</td>
+<td>o</td>
+<td>s</td>
+</tr>
+<tr 10>
+<td>B</td>
+<td class="num">0</td>
+<td>4</td>
+<td> </td>
+<td>M</td>
+<td>ó</td>
+<td>d</td>
+<td>u</td>
+<td>l</td>
+<td>o</td>
+<td> </td>
+<td>d</td>
+<td>e</td>
+<td> </td>
+<td>r</td>
+<td>e</td>
+<td>d</td>
+</tr>
+<tr 6>
+<td>B</td>
+<td class="num">0</td>
+<td>5</td>
+<td> </td>
+<td>A</td>
+<td>s</td>
+<td>o</td>
+<td>c</td>
+<td>i</td>
+<td>a</td>
+<td>c</td>
+<td>i</td>
+<td>ó</td>
+<td>n</td>
+<td> </td>
+<td>d</td>
+<td>e</td>
+<td> </td>
+<td>u</td>
+<td>n</td>
+<td> </td>
+<td>c</td>
+<td>e</td>
+<td>n</td>
+<td>t</td>
+<td>r</td>
+<td>o</td>
+</tr>
+<tr 10>
+<td>B</td>
+<td class="num">0</td>
+<td>6</td>
+<td> </td>
+<td>M</td>
+<td>ó</td>
+<td>d</td>
+<td>u</td>
+<td>l</td>
+<td>o</td>
+<td> </td>
+<td>d</td>
+<td>e</td>
+<td> </td>
+<td>s</td>
+<td>e</td>
+<td>g</td>
+<td>u</td>
+<td>r</td>
+<td>i</td>
+<td>d</td>
+<td>a</td>
+<td>d</td>
+</tr>
+<tr 8>
+<td>B</td>
+<td class="num">0</td>
+<td>7</td>
+<td> </td>
+<td>R</td>
+<td>e</td>
+<td>g</td>
+<td>l</td>
+<td>a</td>
+<td>s</td>
+<td> </td>
+<td>d</td>
+<td>e</td>
+<td> </td>
+<td>f</td>
+<td>i</td>
+<td>r</td>
+<td>e</td>
+<td>w</td>
+<td>a</td>
+<td>l</td>
+<td>l</td>
+</tr>
+<tr 8>
+<td>B</td>
+<td class="num">0</td>
+<td>8</td>
+<td> </td>
+<td>M</td>
+<td>ó</td>
+<td>d</td>
+<td>u</td>
+<td>l</td>
+<td>o</td>
+<td> </td>
+<td>d</td>
+<td>e</td>
+<td> </td>
+<td>f</td>
+<td>i</td>
+<td>n</td>
+<td>c</td>
+<td>a</td>
+</tr>
+<tr 10>
+<td>B</td>
+<td class="num">0</td>
+<td>9</td>
+<td> </td>
+<td>I</td>
+<td>n</td>
+<td>g</td>
+<td>e</td>
+<td>s</td>
+<td>t</td>
+<td>a</td>
+<td> </td>
+<td>d</td>
+<td>e</td>
+<td> </td>
+<td>t</td>
+<td>e</td>
+<td>l</td>
+<td>e</td>
+<td>m</td>
+<td>e</td>
+<td>t</td>
+<td>r</td>
+<td>í</td>
+<td>a</td>
+</tr>
+<tr 8>
+<td>B</td>
+<td class="num">1</td>
+<td>0</td>
+<td> </td>
+<td>F</td>
+<td>u</td>
+<td>n</td>
+<td>c</td>
+<td>i</td>
+<td>ó</td>
+<td>n</td>
+<td> </td>
+<td>d</td>
+<td>e</td>
+<td> </td>
+<td>i</td>
+<td>n</td>
+<td>f</td>
+<td>e</td>
+<td>r</td>
+<td>e</td>
+<td>n</td>
+<td>c</td>
+<td>i</td>
+<td>a</td>
+</tr>
+<tr 8>
+<td>B</td>
+<td class="num">1</td>
+<td>1</td>
+<td> </td>
+<td>C</td>
+<td>I</td>
+<td> </td>
+<td>c</td>
+<td>o</td>
+<td>n</td>
+<td> </td>
+<td>p</td>
+<td>l</td>
+<td>a</td>
+<td>n</td>
+<td> </td>
+<td>e</td>
+<td>j</td>
+<td>e</td>
+<td>c</td>
+<td>u</td>
+<td>t</td>
+<td>a</td>
+<td>b</td>
+<td>l</td>
+<td>e</td>
+</tr>
+<tr 8>
+<td>B</td>
+<td class="num">1</td>
+<td>2</td>
+<td> </td>
+<td>C</td>
+<td>D</td>
+<td> </td>
+<td>c</td>
+<td>o</td>
+<td>n</td>
+<td> </td>
+<td>a</td>
+<td>p</td>
+<td>r</td>
+<td>o</td>
+<td>b</td>
+<td>a</td>
+<td>c</td>
+<td>i</td>
+<td>ó</td>
+<td>n</td>
+</tr>
+<tr 6>
+<td>B</td>
+<td class="num">1</td>
+<td>3</td>
+<td> </td>
+<td>P</td>
+<td>l</td>
+<td>a</td>
+<td>n</td>
+<td> </td>
+<td>f</td>
+<td>i</td>
+<td>n</td>
+<td>a</td>
+<td>l</td>
+<td> </td>
+<td>v</td>
+<td>a</td>
+<td>l</td>
+<td>i</td>
+<td>d</td>
+<td>a</td>
+<td>d</td>
+<td>o</td>
+</tr>
+</tbody></table></div>
 <h3 id="plan-gantt" class="reveal" style="margin-top: var(--ap-space-6)">Vista por persona y por día</h3>
 <p class="reveal">Cada persona trabaja una parte a la vez, con un máximo de 5 horas por día y 25 por semana. Las celdas muestran la parte y las horas de ese día; el color es el rol. El calendario nominal parte del lunes 2026-11-09.</p>
 <div class="gantt reveal" role="table" aria-label="Horas por persona y por día"><div class="gantt-row gantt-head" role="row"><span role="columnheader">Rol</span>
@@ -1943,78 +2224,57 @@
 </div>
 <p class="note reveal">La ruta crítica pasa por B01, B02, B03, B04b, B11a, B12 y B13 (4 + 6 + 6 + 4 + 5 + 8 + 3 = 36 horas); como cada persona hace una parte a la vez, dos cadenas de 38 horas sin holgura fijan el cierre en la hora 3 del día 8. El colchón de calendario hasta el final del día 10 (hora 50) es de 12 horas hábiles, es decir 2,4 días.</p>
 <h3 id="plan-esfuerzo" class="reveal" style="margin-top: var(--ap-space-6)">Esfuerzo de todo el proyecto por iteración</h3>
-<p class="reveal">Del libro de planeación del proyecto (42 tareas, corte del 2026-11-11): 298 horas estimadas, de las cuales 98 son de IaC (el carril B de la bolsa de 100 horas). Las horas ejecutadas son las estimadas por el avance de cada estado: Completado 100 %, En revisión 90 %, En progreso 50 %.</p>
+<p class="reveal">Del libro de planeación del proyecto: 42 tareas y 298 horas, de las cuales 98 son de IaC (el carril B de la bolsa de 100 horas). Cada iteración tiene su objetivo, y el diseño y las decisiones preceden al código.</p>
 <div class="card reveal">
           <div class="seg" role="group" aria-label="Medida del esfuerzo" data-effort-mode style="margin-bottom: var(--ap-space-4)">
-            <button type="button" aria-pressed="true" data-em="est">Horas estimadas</button>
-            <button type="button" aria-pressed="false" data-em="exe">Horas ejecutadas</button>
+            <button type="button" aria-pressed="true" data-em="est">Horas</button>
+            <button type="button" aria-pressed="false" data-em="tasks">Tareas</button>
           </div>
           <div class="cost-bars" data-effort-bars aria-live="polite"></div>
-          <div class="total-line"><span data-effort-label>Total de horas estimadas</span><output data-effort-total>298 h</output></div>
+          <div class="total-line"><span data-effort-label>Total de horas</span><output data-effort-total>298 h</output></div>
         </div>
 <div class="table-wrap reveal" tabindex="0" role="region" aria-label="Esfuerzo por iteración"><table class="">
 <caption>Esfuerzo por iteración</caption><thead><tr>
 <th scope="col">Iteración</th>
 <th scope="col">Objetivo</th>
 <th scope="col" class="num">Tareas</th>
-<th scope="col" class="num">Horas estimadas</th>
-<th scope="col" class="num">Horas ejecutadas</th>
-<th scope="col" class="num">Avance</th>
-<th scope="col" class="num">Tareas completadas</th>
+<th scope="col" class="num">Horas</th>
 </tr></thead><tbody>
 <tr>
 <td>Fase 0 - Decisiones</td>
 <td>Registrar supuestos y tomar las decisiones fundacionales (ADR)</td>
 <td class="num">7</td>
 <td class="num">32</td>
-<td class="num">32,0</td>
-<td class="num">100 %</td>
-<td class="num">7</td>
 </tr>
 <tr>
 <td>Fase 1 - Arquitectura</td>
 <td>Diseñar la arquitectura completa y el plan de 100 horas de IaC</td>
 <td class="num">14</td>
 <td class="num">112</td>
-<td class="num">112,0</td>
-<td class="num">100 %</td>
-<td class="num">14</td>
 </tr>
 <tr>
 <td>Sprint 1 - IaC semana 1</td>
 <td>Base de IaC: repositorio, estado remoto, variables, red, seguridad y firewall</td>
 <td class="num">7</td>
 <td class="num">50</td>
-<td class="num">39,8</td>
-<td class="num">80 %</td>
-<td class="num">3</td>
 </tr>
 <tr>
 <td>Sprint 2 - IaC semana 2</td>
 <td>Módulos de cargas, pipelines de CI/CD y validación final del plan</td>
 <td class="num">6</td>
 <td class="num">48</td>
-<td class="num">32,2</td>
-<td class="num">67 %</td>
-<td class="num">2</td>
 </tr>
 <tr>
 <td>Cierre - Entrega</td>
 <td>Observabilidad, costos, sistema de diseño, presentación y ajustes transversales</td>
 <td class="num">8</td>
 <td class="num">56</td>
-<td class="num">51,2</td>
-<td class="num">91 %</td>
-<td class="num">6</td>
 </tr>
 <tr>
 <td><strong>Total</strong></td>
 <td></td>
 <td class="num"><strong>42</strong></td>
 <td class="num"><strong>298</strong></td>
-<td class="num"><strong>267,2</strong></td>
-<td class="num"><strong>90 %</strong></td>
-<td class="num"><strong>32</strong></td>
 </tr>
 </tbody></table></div>
 <div class="grid grid-2">
@@ -2022,64 +2282,55 @@
 <caption>Esfuerzo por épica</caption><thead><tr>
 <th scope="col">Épica</th>
 <th scope="col" class="num">Tareas</th>
-<th scope="col" class="num">Horas estimadas</th>
-<th scope="col" class="num">Horas ejecutadas</th>
+<th scope="col" class="num">Horas</th>
 <th scope="col" class="num">Horas de IaC</th>
 </tr></thead><tbody>
 <tr>
 <td>E1 Base de la plataforma y gobierno</td>
 <td class="num">10</td>
 <td class="num">72</td>
-<td class="num">68,0</td>
 <td class="num">0</td>
 </tr>
 <tr>
 <td>E2 Red y firewall</td>
 <td class="num">5</td>
 <td class="num">36</td>
-<td class="num">36,0</td>
 <td class="num">0</td>
 </tr>
 <tr>
 <td>E3 Ingesta del cultivo y monitoreo</td>
 <td class="num">1</td>
 <td class="num">8</td>
-<td class="num">8,0</td>
 <td class="num">0</td>
 </tr>
 <tr>
 <td>E4 Drones e inferencia</td>
 <td class="num">3</td>
 <td class="num">20</td>
-<td class="num">20,0</td>
 <td class="num">0</td>
 </tr>
 <tr>
 <td>E5 Saco, viaje y consulta</td>
 <td class="num">1</td>
 <td class="num">8</td>
-<td class="num">8,0</td>
 <td class="num">0</td>
 </tr>
 <tr>
 <td>E6 Infraestructura como código y automatización</td>
 <td class="num">20</td>
 <td class="num">138</td>
-<td class="num">111,2</td>
 <td class="num">98</td>
 </tr>
 <tr>
 <td>E7 Costos y sistema de diseño</td>
 <td class="num">2</td>
 <td class="num">16</td>
-<td class="num">16,0</td>
 <td class="num">0</td>
 </tr>
 <tr>
 <td><strong>Total</strong></td>
 <td class="num"><strong>42</strong></td>
 <td class="num"><strong>298</strong></td>
-<td class="num"><strong>267,2</strong></td>
 <td class="num"><strong>98</strong></td>
 </tr>
 </tbody></table></div>
@@ -2087,48 +2338,42 @@
 <caption>Esfuerzo por responsable principal</caption><thead><tr>
 <th scope="col">Rol</th>
 <th scope="col" class="num">Tareas lideradas</th>
-<th scope="col" class="num">Horas estimadas</th>
-<th scope="col" class="num">Horas ejecutadas</th>
+<th scope="col" class="num">Horas</th>
 <th scope="col" class="num">Horas de IaC</th>
 </tr></thead><tbody>
 <tr>
 <td>SR1</td>
 <td class="num">22</td>
 <td class="num">152</td>
-<td class="num">147,2</td>
 <td class="num">24</td>
 </tr>
 <tr>
 <td>SR2</td>
 <td class="num">9</td>
 <td class="num">70</td>
-<td class="num">57,0</td>
 <td class="num">26</td>
 </tr>
 <tr>
 <td>JR1</td>
 <td class="num">5</td>
 <td class="num">38</td>
-<td class="num">32,2</td>
 <td class="num">22</td>
 </tr>
 <tr>
 <td>JR2</td>
 <td class="num">6</td>
 <td class="num">38</td>
-<td class="num">30,8</td>
 <td class="num">26</td>
 </tr>
 <tr>
 <td><strong>Total</strong></td>
 <td class="num"><strong>42</strong></td>
 <td class="num"><strong>298</strong></td>
-<td class="num"><strong>267,2</strong></td>
 <td class="num"><strong>98</strong></td>
 </tr>
 </tbody></table></div>
 </div>
-<p class="note reveal">Las horas de IaC por responsable de la última tabla son las estimaciones de la issue (SR1 24, SR2 26, JR1 22, JR2 26 = 98). La tabla por persona y por día usa la carga nivelada del plan de 100 horas (SR1 27, SR2 26, JR1 22, JR2 23 = 98), donde B13 se reparte entre SR1 y JR2 y B03 queda con SR1.</p>
+<p class="note reveal">Las horas de IaC por responsable de la última tabla son las estimaciones de cada tarea (SR1 24, SR2 26, JR1 22, JR2 26 = 98). La grilla por persona y por día usa la carga nivelada del plan de 100 horas (SR1 27, SR2 26, JR1 22, JR2 23 = 98), donde B13 se reparte entre SR1 y JR2.</p>
 </div></section>
 
 <!-- IaC -->
@@ -2187,7 +2432,7 @@
 <td>D07 · B07</td>
 <td>Reglas permanentes de firewall en la nube con metadatos de vigencia</td>
 <td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.3.0"><code>v0.3.0</code></a></td>
-<td>Aún sin pila que lo consuma</td>
+<td>Pila <code>network y security</code></td>
 </tr>
 <tr>
 <td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.5.0/modules/farm"><code>farm</code></a></td>
@@ -2201,7 +2446,7 @@
 <td>D09 · B09</td>
 <td>Patrón del Epic 6: política de IoT, regla del tópico, tabla de telemetría, cola de errores y grupo de logs</td>
 <td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.4.0"><code>v0.4.0</code></a></td>
-<td>Aún sin pila que lo consuma</td>
+<td>Pila <code>workload</code></td>
 </tr>
 <tr>
 <td><a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/tree/v0.5.0/modules/inference-functions"><code>inference-functions</code></a></td>
@@ -2257,12 +2502,12 @@
 <td><code>state-backend</code></td>
 <td>D02</td>
 <td><code>state-backend</code> en <code>v0.3.0</code></td>
-<td>No documentado</td>
+<td>Plan y pruebas nativas en CI</td>
 </tr>
 <tr>
 <td><code>network</code></td>
 <td>D04, D05, D07</td>
-<td><code>network</code> en <code>v0.3.0</code> y <code>collection-center-association</code> en <code>v0.4.0</code></td>
+<td><code>network</code> en <code>v0.3.0</code>, <code>collection-center-association</code> en <code>v0.4.0</code> y <code>firewall-rules</code></td>
 <td>163 por crear (167 en <code>pdn</code> con un centro)</td>
 </tr>
 <tr>
@@ -2274,7 +2519,7 @@
 <tr>
 <td><code>workload</code></td>
 <td>D08, D09, D10</td>
-<td><code>farm</code> y <code>inference-functions</code> en <code>v0.4.0</code></td>
+<td><code>farm</code> e <code>inference-functions</code> en <code>v0.4.0</code> y <code>telemetry-ingestion</code></td>
 <td>44: nueve por función de inferencia y ocho por la finca de ejemplo</td>
 </tr>
 </tbody></table></div>
@@ -2324,7 +2569,7 @@
 <td>Promoción <code>dev</code>, <code>qa</code>, <code>pdn</code>. Producción se promueve solo por despacho manual y desde <code>main</code>, con la nota de lanzamiento enlazada o una referencia de incidente. No tiene paso de apply.</td>
 </tr>
 </tbody></table></div>
-<p class="note reveal">La promoción a producción son dos ejecuciones del mismo flujo. La ejecución 1 (el solicitante) planea <code>dev</code>, <code>qa</code> y <code>pdn</code>, estima el costo y termina con la revisión: destrucciones y reemplazos primero, luego el plan, la diferencia de costo y la huella SHA-256 del plan. La ejecución 2 la lanza una persona distinta de la lista de aprobadores, con la huella de la primera, y un script verifica que el plan es exactamente el revisado, que la ventana de cambios sigue abierta y que aprobador y solicitante no coinciden; solo entonces escribe el registro de aprobación. Producción no cambia entre las 05:00 y las 18:00, hora de Colombia, en un día de la semana de cosecha, salvo bajo una referencia de incidente.</p>
+<p class="note reveal">La promoción a producción son dos ejecuciones del mismo flujo. La ejecución 1 (el solicitante) planea <code>dev</code>, <code>qa</code> y <code>pdn</code>, estima el costo y termina con la revisión: destrucciones y reemplazos primero, luego el plan, la diferencia de costo y la huella SHA-256 del plan. La ejecución 2 la lanza una persona distinta de la lista de aprobadores, con la huella de la primera, y un script verifica que el plan es exactamente el revisado, que la ventana de cambios permite el cambio y que aprobador y solicitante no coinciden; solo entonces escribe el registro de aprobación. Producción no cambia entre las 05:00 y las 18:00, hora de Colombia, en un día de la semana de cosecha, salvo bajo una referencia de incidente.</p>
 <h3 id="iac-plan" class="reveal" style="margin-top: var(--ap-space-6)">Plan por ambiente</h3>
 <p class="reveal">Elige un ambiente para ver el resultado de los planes contra el emulador, pila por pila, con las cifras que documenta el repositorio de infraestructura.</p>
 <div class="card reveal">
@@ -2342,12 +2587,12 @@
 # resultados de plan, nunca aplicados</pre>
             </div>
             <div>
-              <div class="metric"><span>Recursos por crear (tres pilas documentadas)</span><strong data-plan-total>238</strong></div>
-              <p class="note" style="margin-top: var(--ap-space-2)" data-plan-text>Ambiente <strong>qa</strong>: 0 por cambiar y 0 por destruir en las tres pilas. La pila de estado no tiene cifra documentada.</p>
+              <div class="metric"><span>Recursos por crear (red, seguridad y carga)</span><strong data-plan-total>238</strong></div>
+              <p class="note" style="margin-top: var(--ap-space-2)" data-plan-text>Ambiente <strong>qa</strong>: 0 por cambiar y 0 por destruir en las tres pilas.</p>
             </div>
           </div>
         </div>
-<p class="note reveal">El costo mensual no se presenta por ambiente: el documento de costos no lo divide y Infracost informa «estimación no disponible» cuando falta su token, en lugar de inventar una cifra. Los costos están en la sección <a href="#costos">Costos</a>. Las pruebas nativas de la pila de red pasan 16 de 16 (5 de cableado y 11 de la asociación de un centro).</p>
+<p class="note reveal">El costo mensual del piloto es una factura única de todas las cuentas, no se divide por ambiente: está en la sección <a href="#costos">Costos</a>, y Infracost estima el impacto de cada cambio por pila en CI. Las pruebas nativas de la pila de red pasan 16 de 16 (5 de cableado y 11 de la asociación de un centro).</p>
 </div></section>
 
     <!-- 9. Observabilidad -->
@@ -2442,7 +2687,7 @@
               <button class="ap-button ap-button--primary" type="button"><img src="icons/check-circle.svg" width="18" height="18" alt="" class="ap-button__icon">Registrar</button>
               <button class="ap-button ap-button--secondary" type="button">Cancelar</button>
               <button class="ap-button ap-button--danger" type="button">Rechazar</button>
-              <button class="ap-button" type="button" disabled>No disponible</button>
+              <button class="ap-button" type="button" disabled>Deshabilitado</button>
             </div>
             <div class="ap-field">
               <label class="ap-field__label" for="ds-code">Código del saco <span class="ap-field__label-meta">QR</span></label>
@@ -2459,7 +2704,7 @@
             <div class="ds-row">
               <span class="ap-badge ap-badge--in-preparation"><img src="icons/clock.svg" class="ap-badge__icon" alt=""><span>En preparación</span></span>
               <span class="ap-badge ap-badge--in-transit"><img src="icons/truck.svg" class="ap-badge__icon" alt=""><span>En viaje</span></span>
-              <span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Aceptado</span></span>
+              <span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Decidido</span></span>
               <span class="ap-badge ap-badge--rejected"><img src="icons/x-circle.svg" class="ap-badge__icon" alt=""><span>Rechazado</span></span>
             </div>
 
@@ -2528,11 +2773,11 @@
           <div class="card repo reveal"><div><code>aroma-pacifico-diagrams</code><p class="note" style="margin:0">Fuentes Draw.io y exportaciones SVG y PNG de los 22 diagramas.</p></div><span class="tag">privado</span></div>
           <div class="card repo reveal"><div><code>aroma-pacifico-infrastructure</code><p class="note" style="margin:0">Pilas raíz de Terraform, variables por ambiente y workflows de solo plan.</p></div><span class="tag">privado</span></div>
           <div class="card repo reveal"><div><code>aroma-pacifico-design-system</code><p class="note" style="margin:0">Tokens, componentes, marca e iconos de las tres aplicaciones.</p></div><span class="tag">privado</span></div>
-          <div class="card repo reveal"><div><code>aroma-pacifico-presentation</code><p class="note" style="margin:0">Presentación y guion de la sustentación.</p></div><span class="tag">privado</span></div>
+          <div class="card repo reveal"><div><code>aroma-pacifico-presentation</code><p class="note" style="margin:0">Presentación y guion de exposición del piloto.</p></div><span class="tag">privado</span></div>
           <div class="card repo reveal"><div><code>aroma-pacifico-roadmap</code><p class="note" style="margin:0">Backlog del piloto: tareas A01 a A25, B01 a B13 y G01.</p></div><span class="tag">privado</span></div>
           <div class="card repo reveal"><div><code>aroma-pacifico-ai-agents</code><p class="note" style="margin:0">Reglas canónicas, estándares y reglas pc-iac.</p></div><span class="tag">privado</span></div>
         </div>
-        <p class="note reveal" style="margin-top: var(--ap-space-4)">Esta vitrina no contiene identificadores de cuenta, ARN, nombres de host, correos, tokens ni nombres de personas: el trabajo se atribuye solo a roles. Las cifras de costo y de recuperación son objetivos de diseño o aritmética sobre las cifras del caso; ninguna es una medición.</p>
+        <p class="note reveal" style="margin-top: var(--ap-space-4)">Este sitio no contiene identificadores de cuenta, ARN, nombres de host, correos, tokens ni nombres de personas: el trabajo se atribuye solo a roles. Las cifras de costo y de recuperación son objetivos de diseño o aritmética sobre las cifras del caso; ninguna es una medición.</p>
       </div>
     </section>
   </main>
@@ -2541,7 +2786,7 @@
     <div class="wrap">
       <div>
         <img src="brand/logo-negative.svg" alt="Aroma Pacífico">
-        <p>Vitrina técnica del piloto de trazabilidad de café 2026 en Cauca, Huila y Tolima. Proyecto académico de DevOps: solo diseño y planes, sin despliegue.</p>
+        <p>Propuesta técnica completa del piloto de trazabilidad de café 2026 en Cauca, Huila y Tolima: arquitectura, decisiones, infraestructura como código, costos y gobernanza.</p>
       </div>
       <p><a href="#top">Volver al inicio</a></p>
     </div>
@@ -2559,8 +2804,9 @@
       <output data-lb-zoom aria-live="polite">100 %</output>
       <button type="button" data-lb-in aria-label="Acercar">+</button>
       <button type="button" data-lb-fit>Ajustar</button>
-      <button type="button" data-lb-svg aria-pressed="false">Cargar SVG vectorial</button>
-      <span class="lb-hint">Arrastra para mover · teclas + − 0 y flechas</span>
+      <button type="button" data-lb-png aria-pressed="false">Ver PNG completo</button>
+      <button type="button" data-lb-svg aria-pressed="false">Ver SVG vectorial</button>
+      <span class="lb-hint">Pellizca o usa + y − para acercar · arrastra o desliza para moverte · PgUp y PgDn cambian de diagrama</span>
     </div>
     <div class="lb-viewport" data-lb-viewport tabindex="0" aria-label="Lienzo del diagrama, desplazable">
       <img data-lb-img alt="" src="">
@@ -2572,7 +2818,7 @@
     </div>
   </dialog>
 
-  <script src="diagrams.js"></script>
-  <script src="app.js"></script>
+  <script src="diagrams.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>

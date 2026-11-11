@@ -191,7 +191,7 @@
     qs('[data-plan-total]').textContent = env.network + env.security + env.workload;
     qs('[data-env-name]').textContent = currentEnv;
     qs('[data-plan-text]').innerHTML = currentEnv === 'qa'
-      ? 'Ambiente <strong>qa</strong>: 0 por cambiar y 0 por destruir en las tres pilas. La pila de estado no tiene cifra documentada.'
+      ? 'Ambiente <strong>qa</strong>: 0 por cambiar y 0 por destruir en las tres pilas.'
       : 'Ambiente <strong>pdn</strong>: la pila de red suma 4 recursos por la asociación de un centro de acopio (163 + 4 = 167). 0 por cambiar y 0 por destruir.';
   };
   qsa('[data-env-value]').forEach((button) => button.addEventListener('click', () => {
@@ -249,21 +249,21 @@
   }));
   renderCost('normal');
 
-  /* ---------- Project effort by iteration (planning workbook, cut 2026-11-11) ---------- */
+  /* ---------- Project effort by iteration (planning workbook) ---------- */
   const effort = [
-    { name: 'Fase 0 - Decisiones', est: 32, exe: 32.0 },
-    { name: 'Fase 1 - Arquitectura', est: 112, exe: 112.0 },
-    { name: 'Sprint 1 - IaC semana 1', est: 50, exe: 39.8 },
-    { name: 'Sprint 2 - IaC semana 2', est: 48, exe: 32.2 },
-    { name: 'Cierre - Entrega', est: 56, exe: 51.2 }
+    { name: 'Fase 0 - Decisiones', est: 32, tasks: 7 },
+    { name: 'Fase 1 - Arquitectura', est: 112, tasks: 14 },
+    { name: 'Sprint 1 - IaC semana 1', est: 50, tasks: 7 },
+    { name: 'Sprint 2 - IaC semana 2', est: 48, tasks: 6 },
+    { name: 'Cierre - Entrega', est: 56, tasks: 8 }
   ];
   const effortBars = qs('[data-effort-bars]');
   effortBars.classList.add('cost-bars', 'cost-bars--effort');
-  const hours = (v) => `${new Intl.NumberFormat('es-CO', { minimumFractionDigits: v % 1 ? 1 : 0, maximumFractionDigits: 1 }).format(v)} h`;
   const renderEffort = (mode) => {
-    effortBars.innerHTML = barRows(effort, (item) => item[mode], hours);
-    qs('[data-effort-label]').textContent = mode === 'est' ? 'Total de horas estimadas' : 'Total de horas ejecutadas';
-    qs('[data-effort-total]').textContent = mode === 'est' ? '298 h' : '267,2 h';
+    const unit = mode === 'est' ? (v) => `${v} h` : (v) => `${v} tareas`;
+    effortBars.innerHTML = barRows(effort, (item) => item[mode], unit);
+    qs('[data-effort-label]').textContent = mode === 'est' ? 'Total de horas' : 'Total de tareas';
+    qs('[data-effort-total]').textContent = mode === 'est' ? '298 h' : '42 tareas';
   };
   qsa('[data-em]').forEach((button) => button.addEventListener('click', () => {
     qsa('[data-em]').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
@@ -397,20 +397,22 @@
   boxSelect.addEventListener('change', () => { box = boxSelect.value; renderGallery(); });
   renderGallery();
 
-  /* ---------- Lightbox ---------- */
+  /* ---------- Lightbox: zoom buttons, pinch, drag, swipe and keys ---------- */
   const lightbox = qs('[data-lightbox]');
   const viewport = qs('[data-lb-viewport]');
   const image = qs('[data-lb-img]');
   const status = qs('[data-lb-status]');
   const zoomOutput = qs('[data-lb-zoom]');
+  const pngButton = qs('[data-lb-png]');
   const svgButton = qs('[data-lb-svg]');
   let list = diagrams;
   let index = 0;
   let scale = 1;
   let fitScale = 1;
   let opener = null;
-  let drag = null;
-  let useSvg = false;
+  let source = 'view';
+  const pointers = new Map();
+  let gesture = null;
 
   const current = () => list[index];
   const applyScale = (next, keepCenter = true) => {
@@ -437,16 +439,19 @@
     applyScale(fitScale, false);
     requestAnimationFrame(() => { viewport.scrollLeft = 0; viewport.scrollTop = 0; });
   };
-  const setSource = (svg) => {
-    useSvg = svg;
-    svgButton.setAttribute('aria-pressed', String(svg));
-    svgButton.textContent = svg ? 'Usando SVG vectorial' : 'Cargar SVG vectorial';
+  const setSource = (next) => {
+    source = next;
+    pngButton.setAttribute('aria-pressed', String(next === 'png'));
+    svgButton.setAttribute('aria-pressed', String(next === 'svg'));
+    pngButton.textContent = next === 'png' ? 'PNG completo activo' : 'Ver PNG completo';
+    svgButton.textContent = next === 'svg' ? 'SVG vectorial activo' : 'Ver SVG vectorial';
     const item = current();
-    status.hidden = !svg;
-    if (svg) status.textContent = 'Cargando el SVG vectorial; puede pesar varios megabytes.';
-    image.src = asset(item.id, svg ? 'svg' : 'png');
+    const heavy = next !== 'view';
+    status.hidden = !heavy;
+    if (heavy) status.textContent = next === 'svg' ? 'Cargando el SVG vectorial; puede pesar varios megabytes.' : 'Cargando el PNG completo.';
+    image.src = next === 'view' ? `assets/diagrams/view/${item.id}.webp` : asset(item.id, next);
   };
-  image.addEventListener('load', () => { if (useSvg) status.hidden = true; });
+  image.addEventListener('load', () => { if (source !== 'view') status.hidden = true; });
   image.addEventListener('error', () => { status.hidden = false; status.textContent = 'No se pudo cargar la imagen.'; });
 
   const show = (newIndex) => {
@@ -460,14 +465,13 @@
     qs('[data-lb-open]').href = asset(item.id, 'svg');
     qs('[data-lb-download]').href = asset(item.id, 'png');
     qs('[data-lb-download]').setAttribute('download', `${item.id}.png`);
-    setSource(false);
+    setSource('view');
     requestAnimationFrame(() => requestAnimationFrame(fit));
   };
 
   const openDiagram = (id, trigger) => {
     list = (trigger && trigger.closest('.featured')) ? diagrams : visible.length ? visible : diagrams;
-    const found = list.findIndex((item) => item.id === id);
-    if (found < 0) list = diagrams;
+    if (list.findIndex((item) => item.id === id) < 0) list = diagrams;
     opener = trigger;
     if (!lightbox.open) lightbox.showModal();
     document.body.classList.add('modal-open');
@@ -492,30 +496,66 @@
   qs('[data-lb-in]').addEventListener('click', () => applyScale(scale * 1.25));
   qs('[data-lb-out]').addEventListener('click', () => applyScale(scale / 1.25));
   qs('[data-lb-fit]').addEventListener('click', fit);
-  svgButton.addEventListener('click', () => setSource(!useSvg));
+  pngButton.addEventListener('click', () => setSource(source === 'png' ? 'view' : 'png'));
+  svgButton.addEventListener('click', () => setSource(source === 'svg' ? 'view' : 'svg'));
 
   viewport.addEventListener('keydown', (event) => {
     if (event.key === '+' || event.key === '=') { event.preventDefault(); applyScale(scale * 1.25); }
     if (event.key === '-' || event.key === '_') { event.preventDefault(); applyScale(scale / 1.25); }
     if (event.key === '0') { event.preventDefault(); fit(); }
+    if (event.key === 'PageUp') { event.preventDefault(); show(index - 1); }
+    if (event.key === 'PageDown') { event.preventDefault(); show(index + 1); }
   });
   viewport.addEventListener('wheel', (event) => {
     if (!event.ctrlKey) return;
     event.preventDefault();
     applyScale(event.deltaY < 0 ? scale * 1.12 : scale / 1.12);
   }, { passive: false });
+
+  const distance = () => {
+    const [a, b] = [...pointers.values()];
+    return Math.hypot(a.x - b.x, a.y - b.y);
+  };
   viewport.addEventListener('pointerdown', (event) => {
-    if (event.button !== 0) return;
-    drag = { x: event.clientX, y: event.clientY, left: viewport.scrollLeft, top: viewport.scrollTop };
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
     viewport.setPointerCapture(event.pointerId);
+    if (pointers.size === 1) {
+      gesture = { type: 'pan', x: event.clientX, y: event.clientY, left: viewport.scrollLeft, top: viewport.scrollTop, time: Date.now() };
+    } else if (pointers.size === 2) {
+      gesture = { type: 'pinch', distance: distance(), scale };
+    }
   });
   viewport.addEventListener('pointermove', (event) => {
-    if (!drag) return;
-    viewport.scrollLeft = drag.left - (event.clientX - drag.x);
-    viewport.scrollTop = drag.top - (event.clientY - drag.y);
+    if (!pointers.has(event.pointerId)) return;
+    pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    if (!gesture) return;
+    if (gesture.type === 'pinch' && pointers.size === 2) {
+      applyScale(gesture.scale * (distance() / gesture.distance));
+    } else if (gesture.type === 'pan' && pointers.size === 1) {
+      viewport.scrollLeft = gesture.left - (event.clientX - gesture.x);
+      viewport.scrollTop = gesture.top - (event.clientY - gesture.y);
+    }
   });
-  const endDrag = () => { drag = null; };
-  viewport.addEventListener('pointerup', endDrag);
-  viewport.addEventListener('pointercancel', endDrag);
+  const endPointer = (event) => {
+    if (!pointers.has(event.pointerId)) return;
+    const wasPan = gesture && gesture.type === 'pan' && pointers.size === 1;
+    const point = pointers.get(event.pointerId);
+    pointers.delete(event.pointerId);
+    if (wasPan && event.type === 'pointerup') {
+      const dx = point.x - gesture.x;
+      const dy = point.y - gesture.y;
+      const quick = Date.now() - gesture.time < 700;
+      const atFit = scale <= fitScale * 1.05;
+      if (quick && atFit && Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) show(index + (dx < 0 ? 1 : -1));
+    }
+    if (pointers.size === 0) gesture = null;
+    else if (pointers.size === 1) {
+      const [rest] = [...pointers.values()];
+      gesture = { type: 'pan', x: rest.x, y: rest.y, left: viewport.scrollLeft, top: viewport.scrollTop, time: Date.now() };
+    }
+  };
+  viewport.addEventListener('pointerup', endPointer);
+  viewport.addEventListener('pointercancel', endPointer);
   window.addEventListener('resize', () => { if (lightbox.open) fit(); });
 })();
