@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="es" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aroma Pacífico | Vitrina técnica del piloto de trazabilidad 2026</title>
+  <meta name="description" content="Vitrina técnica del piloto de trazabilidad de café en Cauca, Huila y Tolima (2026): arquitectura, decisiones, operación sin señal, drones, infraestructura como código, costos y observabilidad.">
+  <meta name="theme-color" content="#0A3A41">
+  <link rel="icon" type="image/svg+xml" href="brand/isotype.svg">
+  <link rel="stylesheet" href="tokens/tokens.css">
+  <link rel="stylesheet" href="components/components.css">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.remove('no-js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="Aroma Pacífico, inicio">
+      <img src="brand/logo.svg" alt="Aroma Pacífico">
+    </a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu>Menú</button>
+    <nav id="site-nav" class="site-nav" aria-label="Navegación principal" data-nav>
+      <a href="#caso">El caso</a>
+      <a href="#arquitectura">Arquitectura</a>
+      <a href="#decisiones">Decisiones</a>
+      <a href="#conectividad">Sin señal</a>
+      <a href="#drones">Drones</a>
+      <a href="#iac">IaC</a>
+      <a href="#costo">Costo</a>
+      <a href="#observabilidad">SLO</a>
+      <a href="#diseno">Diseño</a>
+      <a href="#evidencia">Evidencia</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- 1. Hero -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap">
+        <span class="hero-kicker">Piloto 2026 · Cauca, Huila y Tolima</span>
+        <h1 id="hero-title">Del grano al comprador, <em>con rastro.</em></h1>
+        <p class="hero-lede">Un piloto de trazabilidad de café que sigue funcionando donde no hay señal. Esta vitrina muestra con detalle lo que la sustentación no alcanzó a cubrir: arquitectura, decisiones, infraestructura como código y la evidencia que las respalda.</p>
+        <div class="hero-actions">
+          <a class="ap-button ap-button--primary ap-button--large" href="#arquitectura">Explorar la arquitectura</a>
+          <a class="ap-button ap-button--secondary ap-button--large" href="#iac">Ver la infraestructura</a>
+        </div>
+        <div class="hero-stats" role="list" aria-label="Cifras del piloto">
+          <article role="listitem"><strong>200</strong><span>fincas en tres departamentos</span></article>
+          <article role="listitem"><strong>3</strong><span>centros de acopio, uno por departamento</span></article>
+          <article role="listitem"><strong>60</strong><span>transportistas hasta Buenaventura</span></article>
+          <article role="listitem"><strong>24 h</strong><span>de buffer local sin señal</span></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. El caso -->
+    <section class="section" id="caso" aria-labelledby="caso-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">El caso</span>
+            <h2 id="caso-title">Un piloto de 2020 que nunca se desplegó, y un supuesto que ya no se sostiene.</h2>
+          </div>
+          <p>La Federación reinicia en 2026 un piloto diseñado en 2020: 200 fincas, tres centros de acopio, 60 transportistas y entrega en el puerto de Buenaventura. Se conservan las capacidades; se reemplaza el supuesto de conectividad.</p>
+        </div>
+
+        <blockquote class="quote reveal">«Se conserva el requisito que siga vigente y se reemplaza el supuesto de conectividad.»
+          <footer class="note">Enunciado del caso, que es la única fuente de requisitos. Su texto en español prevalece sobre cualquier traducción.</footer>
+        </blockquote>
+
+        <div class="seg reveal" role="group" aria-label="Resaltar decisión sobre el legado" data-legacy-filter>
+          <button type="button" aria-pressed="true" data-legacy="all">Las 18 filas</button>
+          <button type="button" aria-pressed="false" data-legacy="keep">Conservar</button>
+          <button type="button" aria-pressed="false" data-legacy="replace">Reemplazar</button>
+          <button type="button" aria-pressed="false" data-legacy="retire">Retirar</button>
+        </div>
+
+        <div class="legacy-cols reveal" style="margin-top: var(--ap-space-4)" data-legacy-cols>
+          <section class="legacy-col legacy-col--keep" data-legacy-col="keep" aria-labelledby="lk">
+            <h3 id="lk">Conservar <b>8</b></h3>
+            <ul>
+              <li><span>L-01</span><span>Trazabilidad de la finca al comprador</span></li>
+              <li><span>L-02</span><span>Territorio: Cauca, Huila y Tolima</span></li>
+              <li><span>L-03</span><span>Monitoreo de cultivo y secado con alerta al caficultor</span></li>
+              <li><span>L-04</span><span>Registro de cosecha y empaque en sacos de 60 kg</span></li>
+              <li><span>L-05</span><span>Seguimiento del viaje al centro de acopio y a Buenaventura</span></li>
+              <li><span>L-06</span><span>Consulta de un saco por código</span></li>
+              <li><span>L-07</span><span>Servicio de drones: delimitar, confirmar, fumigar, verificar, estimar</span></li>
+              <li><span>L-08</span><span>Tres aplicaciones: caficultor, transportador y reportes web</span></li>
+            </ul>
+          </section>
+          <section class="legacy-col legacy-col--replace" data-legacy-col="replace" aria-labelledby="lr">
+            <h3 id="lr">Reemplazar <b>4</b></h3>
+            <ul>
+              <li><span>L-09</span><span>Cobertura de datos en la mayoría de las fincas</span></li>
+              <li><span>L-10</span><span>Dispositivo que publica telemetría directo a la ingesta</span></li>
+              <li><span>L-11</span><span>Centro de acopio sin LAN ni enlace WAN</span></li>
+              <li><span>L-12</span><span>Puerto de Buenaventura sin LAN ni enlace WAN</span></li>
+            </ul>
+          </section>
+          <section class="legacy-col legacy-col--retire" data-legacy-col="retire" aria-labelledby="lt">
+            <h3 id="lt">Retirar <b>6</b></h3>
+            <ul>
+              <li><span>L-13</span><span>Dependencia de una generación de red móvil</span></li>
+              <li><span>L-14</span><span>Precios de 2020</span></li>
+              <li><span>L-15</span><span>Dispositivos de 2020</span></li>
+              <li><span>L-16</span><span>Servicios de nube de 2020</span></li>
+              <li><span>L-17</span><span>La arquitectura de 2020 como un todo</span></li>
+              <li><span>L-18</span><span>El manual de diseño de 2020</span></li>
+            </ul>
+          </section>
+        </div>
+        <p class="note reveal" style="margin-top: var(--ap-space-4)">Fuente: el registro del legado 2020 de la documentación de arquitectura. Cada fila cita la página del enunciado del caso de la que sale. El mapa visual está en el explorador, bajo «Legado 2020».</p>
+      </div>
+    </section>
+
+    <!-- 3. Arquitectura -->
+    <section class="section section--subtle" id="arquitectura" aria-labelledby="arq-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Explorador de arquitectura</span>
+            <h2 id="arq-title">22 diagramas, un solo modelo.</h2>
+          </div>
+          <p>Cada diagrama del repositorio de diagramas está aquí, en SVG vectorial y en vista previa PNG. Cada uno indica las cajas D01 a D13 que el código de infraestructura implementa.</p>
+        </div>
+
+        <article class="featured reveal" aria-labelledby="featured-title">
+          <button class="featured-visual" type="button" data-open-diagram="complete-architecture" aria-label="Abrir la arquitectura completa en el visor">
+            <img src="assets/diagrams/thumbs/complete-architecture.webp" width="720" height="593" alt="Arquitectura completa del piloto: nube AWS con cinco cuentas, centros de acopio conectados por túneles IPsec, nodos de finca, dron y aplicaciones, con las cajas D01 a D13 marcadas.">
+            <span class="featured-expand" aria-hidden="true">Ver completa</span>
+          </button>
+          <div>
+            <span class="tag">D01 a D13</span>
+            <h3 id="featured-title" style="margin: var(--ap-space-3) 0">Arquitectura completa</h3>
+            <p>Borde y nube en una sola vista: el aislamiento por cuentas, el enrutamiento, las rutas sin señal, el flujo de plaga a fumigación y las funciones de inferencia. Cada caja numerada es una tarea del Epic 6 que el código implementa.</p>
+            <button class="ap-button ap-button--primary" type="button" data-open-diagram="complete-architecture">Inspeccionar el diagrama</button>
+          </div>
+        </article>
+
+        <div class="reveal" aria-labelledby="gallery-title">
+          <h3 id="gallery-title" style="margin-bottom: var(--ap-space-4)">Galería filtrable</h3>
+          <div class="gallery-tools">
+            <div>
+              <span class="seg-label" id="filter-label">Categoría</span>
+              <div class="seg" role="toolbar" aria-labelledby="filter-label" data-filters></div>
+            </div>
+            <div class="field-inline">
+              <label class="seg-label" for="box-filter">Caja de IaC</label>
+              <select id="box-filter" data-box-filter></select>
+            </div>
+          </div>
+          <p class="gallery-count" aria-live="polite" data-count></p>
+          <div class="diagram-grid" data-grid></div>
+          <div class="diagram-empty" data-empty hidden>
+            <strong>Ningún diagrama coincide con esa combinación.</strong>
+            <p>Los diagramas de rutas de datos no llevan caja de IaC. Cambia la categoría o la caja.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Decisiones -->
+    <section class="section" id="decisiones" aria-labelledby="dec-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Decisiones clave</span>
+            <h2 id="dec-title">Cuatro ADR que sostienen el diseño.</h2>
+          </div>
+          <p>Cada decisión arquitectónica queda registrada con contexto, alternativas y consecuencias. Los supuestos que el enunciado no resuelve se registran en un log de decisiones con identificador.</p>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card adr-card reveal">
+            <header><h3>ADR-001 · Nube principal y segunda nube</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Aceptado</span></span></header>
+            <dl>
+              <div><dt>Decisión</dt><dd>AWS es la nube principal y todos los ambientes corren en una sola región: US East (N. Virginia), <code>us-east-1</code>.</dd></div>
+              <div><dt>Segunda nube</dt><dd>Azure queda <em>preparada</em>, sin despliegue: portabilidad y salida del historial de sacos y de los objetos del dron en formato abierto, no conmutación por falla.</dd></div>
+              <div><dt>Por qué esa región</dt><dd>Colombia no tiene región AWS. En <code>us-east-1</code> el almacenamiento, las funciones y la inferencia administrada están en un solo país y una sola región, de modo que se puede nombrar a dónde sale cada objeto.</dd></div>
+              <div><dt>Recuperación</dt><dd>RPO de 15 minutos para eventos de saco y RTO de 4 horas para la consulta pública, dentro de la región y entre zonas de disponibilidad.</dd></div>
+            </dl>
+          </article>
+
+          <article class="card adr-card reveal" data-delay="1">
+            <header><h3>ADR-002 · Modo de vuelo y gobierno del dron</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Aceptado</span></span></header>
+            <dl>
+              <div><dt>Decisión</dt><dd>Modo combinado: el modo área delimita cada finca y estima la cosecha; el modo precisión confirma una alerta, fumiga el foco confirmado y verifica ese mismo lote.</dd></div>
+              <div><dt>Quién vuela</dt><dd>Un operador de dron certificado y contratado. El caficultor no opera el dron.</dd></div>
+              <div><dt>Quién autoriza</dt><dd>Un agrónomo de la Federación, como identidad humana con MFA y una sesión de máximo 10 minutos. Nunca el piloto ni una función.</dd></div>
+              <div><dt>Cambio de modo</dt><dd>Del área a la precisión solo por <code>crop_alert_raised</code> seguido de <code>focus_confirmed</code>.</dd></div>
+            </dl>
+          </article>
+
+          <article class="card adr-card reveal">
+            <header><h3>ADR-003 · Terraform, estado remoto y módulo patrón</h3><span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Aceptado</span></span></header>
+            <dl>
+              <div><dt>Decisión</dt><dd>Terraform como herramienta. Un estado en S3 por ambiente, cifrado, versionado y con bloqueo nativo (<code>use_lockfile</code>), con una llave de estado por dominio.</dd></div>
+              <div><dt>Repositorios</dt><dd>Módulos reutilizables en un repositorio público, consumidos por etiqueta SemVer. Pilas raíz, variables y pipelines en un repositorio privado.</dd></div>
+              <div><dt>Módulo patrón</dt><dd>La ingesta de telemetría es el único módulo patrón del Epic 6.</dd></div>
+              <div><dt>Sin secretos</dt><dd>La integración continua entra a AWS por federación OIDC de GitHub; no existe ninguna llave estática.</dd></div>
+            </dl>
+          </article>
+
+          <article class="card adr-card reveal" data-delay="1">
+            <header><h3>ADR-004 · Orquestación de capacidades del dron</h3><span class="ap-badge ap-badge--in-preparation"><img src="icons/clock.svg" class="ap-badge__icon" alt=""><span>Propuesto</span></span></header>
+            <dl>
+              <div><dt>Decisión</dt><dd>El <strong>orquestador de capacidades del dron, orientado a eventos</strong>: un bus personalizado con una regla por tipo de misión, una cola con reintentos y cola de fallos por función, y la máquina de estados de la misión en DynamoDB como fuente de verdad.</dd></div>
+              <div><dt>Qué no se usa</dt><dd>Un motor central de flujos como Step Functions. Cobraría cada transición, incluidas las esperas de días entre el vuelo y la verificación, y duplicaría el dueño del estado del caso.</dd></div>
+              <div><dt>Cuándo reconsiderarlo</dt><dd>Si una capacidad necesita varios pasos automáticos con compensación. Eso exigiría un ADR nuevo que reemplace a este.</dd></div>
+            </dl>
+          </article>
+        </div>
+        <p class="note reveal" style="margin-top: var(--ap-space-4)">Los ADR viven en el repositorio privado <code>aroma-pacifico-architecture</code>. Esta vitrina los resume; no los cita en forma textual.</p>
+      </div>
+    </section>
+
+    <!-- 5. Conectividad -->
+    <section class="section section--subtle" id="conectividad" aria-labelledby="con-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Conectividad y operación sin señal</span>
+            <h2 id="con-title">Cuando no hay señal, el nodo guarda y reenvía.</h2>
+          </div>
+          <p>«Sin señal, el dispositivo hace store-and-forward. El buffer local no retiene más de 24 horas.» Mueve el control para ver qué se conserva y qué se descarta por retención.</p>
+        </div>
+
+        <div class="signal-panel reveal">
+          <div class="card">
+            <div class="slider-row">
+              <label for="offline-hours"><span>Horas sin señal</span><output id="offline-out" for="offline-hours" data-offline-out>6 h</output></label>
+              <input id="offline-hours" type="range" min="0" max="36" step="1" value="6" data-offline>
+              <span class="note">Cadencia de diseño: 6 lecturas al día en el nodo de cultivo y 24 en el de secado (máximo 30 por finca).</span>
+            </div>
+            <div class="buffer-bar" aria-hidden="true"><i class="ok" data-bar-ok></i><i class="lost" data-bar-lost></i></div>
+            <div class="meter-grid" aria-live="polite">
+              <div class="metric"><span>Cultivo: guardadas</span><strong data-crop-kept>1</strong></div>
+              <div class="metric"><span>Secado: guardadas</span><strong data-dry-kept>6</strong></div>
+              <div class="metric"><span>Cultivo: descartadas</span><strong data-crop-lost>0</strong></div>
+              <div class="metric"><span>Secado: descartadas</span><strong data-dry-lost>0</strong></div>
+            </div>
+            <div class="ap-alert ap-alert--notice" style="margin-top: var(--ap-space-4)" data-signal-alert role="status">
+              <img src="icons/clock.svg" class="ap-alert__icon" alt="">
+              <div class="ap-alert__content">
+                <div class="ap-alert__title" data-signal-title>Dentro del buffer</div>
+                <div class="ap-alert__message" data-signal-text>Al volver la señal, el nodo drena las lecturas de la más antigua a la más nueva, con su marca de tiempo original.</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 style="margin-bottom: var(--ap-space-3)">Qué ocurre, paso a paso</h3>
+            <ol class="steps">
+              <li><div><b>El nodo publica en vivo</b>MQTT sobre TLS con certificado X.509 al punto de ingesta regional, por LTE con SIM multired. El objetivo de diseño para una alerta en vivo es menos de 5 minutos desde la lectura.</div></li>
+              <li><div><b>Sin señal, el buffer retiene hasta 24 horas</b>Una lectura que cumple 24 horas sin confirmación se descarta y suma a un contador de descartes por nodo.</div></li>
+              <li><div><b>Al volver, drena de la más antigua a la más nueva</b>Entra por el mismo tópico, la misma regla y el mismo almacén. La clave del almacén hace el drenado idempotente.</div></li>
+              <li><div><b>La alerta se emite al drenar</b>Dentro de las 24 horas que fija el enunciado, y se mide desde la marca de tiempo original para no confundirla con una alerta en vivo.</div></li>
+              <li><div><b>Fuera de cobertura</b>El mismo nodo, con módulo celular y satelital: las lecturas esperan al siguiente contacto con el satélite, sin radiobase nueva ni visita semanal.</div></li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="grid grid-3" style="margin-top: var(--ap-space-6)">
+          <article class="card reveal">
+            <h3>Centros de acopio</h3>
+            <p>Un solo patrón de LAN para los tres centros: siete zonas con VLAN propia, una red inalámbrica por zona de clientes. Las zonas de personal usan WPA3-Enterprise validado por RADIUS en el firewall del centro, así que el centro trabaja aunque su WAN esté caída.</p>
+          </article>
+          <article class="card reveal" data-delay="1">
+            <h3>Enlace a la nube</h3>
+            <p>Una conexión VPN sitio a sitio con dos túneles IKEv2 hacia un Transit Gateway, enrutamiento estático y respaldo celular. De los 100 Mbps del enlace se planean 90 Mbps para la hora pico de cosecha.</p>
+          </article>
+          <article class="card reveal" data-delay="2">
+            <h3>Apps y puerto</h3>
+            <p>Las apps de caficultor, transportador y logística guardan un buzón de salida cifrado y solo liberan un evento cuando la plataforma lo confirma. En el puerto no hay equipo de la Federación: el transportador registra la entrega.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Drones -->
+    <section class="section" id="drones" aria-labelledby="dro-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Drones e inferencia orientada a eventos</span>
+            <h2 id="dro-title">Cinco servicios, cuatro funciones, ningún cómputo esperando.</h2>
+          </div>
+          <p>El modo combinado reparte los cinco servicios obligatorios entre el modo área y el modo precisión. Cuatro funciones de inferencia se activan por eventos y terminan al persistir su resultado.</p>
+        </div>
+
+        <h3 class="reveal">Los cinco servicios del modo combinado</h3>
+        <div class="services reveal">
+          <div class="service service--area"><b>Delimitar el lote</b>Modo área · polígono del lote y zonas de exclusión</div>
+          <div class="service service--precision"><b>Confirmar la alerta</b>Modo precisión · foco de la alerta del sensor</div>
+          <div class="service service--precision"><b>Fumigar</b>Modo precisión · solo con autorización humana</div>
+          <div class="service service--precision"><b>Verificar</b>Modo precisión · el mismo lote tras fumigar</div>
+          <div class="service service--area"><b>Estimar la cosecha</b>Modo área · sacos por finca, una vez por cosecha</div>
+        </div>
+
+        <h3 class="reveal">El orquestador de capacidades (ADR-004)</h3>
+        <p class="reveal">Bus, colas y estado hacen el trabajo de un orquestador sin mantener un flujo abierto mientras un caso espera. Elige una función para ver su recorrido.</p>
+        <div class="flow reveal" aria-label="Recorrido de un evento" data-flow>
+          <div class="flow-node" data-node="0"><b>1. Tabla de misiones</b>La misión pasa a <code>record_persisted</code></div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node" data-node="1"><b>2. EventBridge Pipe</b>Lee el stream y emite <code>mission_record_persisted</code></div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node" data-node="2"><b>3. Bus personalizado</b>Una regla por tipo de misión</div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node" data-node="3"><b>4. Cola SQS</b>Una por función, con reintentos y cola de fallos</div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node" data-node="4"><b>5. Función Lambda</b>Lee el objeto persistido</div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node" data-node="5"><b>6. Amazon Bedrock</b>Inferencia en <code>us-east-1</code></div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node" data-node="6"><b>7. Expediente</b>Escritura condicional del resultado</div>
+        </div>
+
+        <div class="tabs seg reveal" role="tablist" aria-label="Funciones de inferencia" data-tabs></div>
+        <div class="tabpanel reveal" role="tabpanel" tabindex="0" data-tabpanel></div>
+
+        <div class="grid grid-3" style="margin-top: var(--ap-space-5)">
+          <div class="ap-alert ap-alert--critical reveal">
+            <img src="icons/alert-triangle.svg" class="ap-alert__icon" alt="">
+            <div class="ap-alert__content">
+              <div class="ap-alert__title">Ninguna función autoriza</div>
+              <div class="ap-alert__message">La autorización de fumigación es una identidad humana. Ningún disparador, cola o función puede mover una orden a <code>authorized</code>.</div>
+            </div>
+          </div>
+          <div class="ap-alert ap-alert--notice reveal">
+            <img src="icons/clock.svg" class="ap-alert__icon" alt="">
+            <div class="ap-alert__content">
+              <div class="ap-alert__title">Si una invocación falla</div>
+              <div class="ap-alert__message">El objeto de origen permanece y el estado del caso no cambia. El evento espera en su cola de fallos para ser reprocesado.</div>
+            </div>
+          </div>
+          <div class="ap-alert ap-alert--resolved reveal">
+            <img src="icons/shield-check.svg" class="ap-alert__icon" alt="">
+            <div class="ap-alert__content">
+              <div class="ap-alert__title">Qué sale del país</div>
+              <div class="ap-alert__message">Todo se almacena y procesa en <code>us-east-1</code>. Al modelo solo llegan imágenes ya filtradas y lecturas que abren una alerta.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. IaC -->
+    <section class="section section--subtle" id="iac" aria-labelledby="iac-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Infraestructura como código</span>
+            <h2 id="iac-title">Módulos versionados, pilas por dominio y un plan que se puede ejecutar.</h2>
+          </div>
+          <p>Todo el trabajo se entrega solo hasta <code>terraform plan</code>: no se aplica, no se despliega y no se crea ningún recurso real. La evidencia del plan sale de un emulador de AWS.</p>
+        </div>
+
+        <h3 class="reveal">Módulos de referencia</h3>
+        <p class="reveal">Viven en el repositorio público <a href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules">aroma-pacifico-terraform-modules</a>. Una etiqueta SemVer cubre todo el repositorio, y las pilas fijan una etiqueta, nunca una rama.</p>
+        <div class="module-list reveal">
+          <div class="module"><div><code>state-backend</code><small>Estado remoto de un ambiente · D02</small></div><span class="tag">v0.3.0</span></div>
+          <div class="module"><div><code>network</code><small>VPC, ocho niveles, endpoints · D04</small></div><span class="tag">v0.1.0</span></div>
+          <div class="module"><div><code>collection-center-association</code><small>Un centro de acopio por ejecución · D05</small></div><span class="tag">v0.4.0</span></div>
+          <div class="module"><div><code>security</code><small>Línea base: llaves, roles, MFA · D06</small></div><span class="tag">v0.1.0</span></div>
+          <div class="module"><div><code>firewall-rules</code><small>Reglas permanentes con vigencia · D07</small></div><span class="tag">v0.3.0</span></div>
+          <div class="module"><div><code>farm</code><small>Una finca patrón: cosa IoT y certificado · D08</small></div><span class="tag">v0.2.0</span></div>
+          <div class="module"><div><code>telemetry-ingestion</code><small>Regla de tópico, tabla, cola de errores · D09</small></div><span class="tag">v0.4.0</span></div>
+          <div class="module"><div><code>inference-functions</code><small>Función, cola, cola de fallos · D10</small></div><span class="tag">v0.1.0</span></div>
+        </div>
+        <p class="note reveal" style="margin-top: var(--ap-space-3)">La etiqueta de cada módulo es la primera en la que aparece. La etiqueta vigente del repositorio es <code>v0.4.0</code>. La pila de estado fija <code>v0.3.0</code>; la pila de red fija <code>v0.3.0</code> para la red y <code>v0.4.0</code> para la asociación del centro.</p>
+
+        <h3 class="reveal" style="margin-top: var(--ap-space-6)">Pilas raíz del repositorio privado</h3>
+        <div class="grid grid-4 reveal">
+          <div class="card"><h4><code>state-backend</code></h4><p>Bucket y llave de estado por ambiente. Caja D02.</p></div>
+          <div class="card"><h4><code>network</code></h4><p>Red, asociación de un centro y reglas. Cajas D04, D05 y D07.</p></div>
+          <div class="card"><h4><code>security</code></h4><p>Línea base de seguridad. Caja D06.</p></div>
+          <div class="card"><h4><code>workload</code></h4><p>Finca, ingesta y función de inferencia. Cajas D08 a D10.</p></div>
+        </div>
+
+        <h3 class="reveal" style="margin-top: var(--ap-space-6)">Plan por ambiente</h3>
+        <p class="reveal">Elige un ambiente para ver el resultado del plan contra el emulador, y un mes para ver el costo de nube que estima el documento de costos.</p>
+        <div class="card reveal">
+          <div style="display:flex; flex-wrap:wrap; gap: var(--ap-space-5)">
+            <div><span class="seg-label" id="env-label">Ambiente</span>
+              <div class="seg" role="group" aria-labelledby="env-label" data-env>
+                <button type="button" aria-pressed="true" data-env-value="qa">qa</button>
+                <button type="button" aria-pressed="false" data-env-value="pdn">pdn</button>
+              </div></div>
+            <div><span class="seg-label" id="month-label">Mes de referencia</span>
+              <div class="seg" role="group" aria-labelledby="month-label" data-month>
+                <button type="button" aria-pressed="true" data-month-value="normal">Mes normal</button>
+                <button type="button" aria-pressed="false" data-month-value="harvest">Mes de cosecha</button>
+              </div></div>
+          </div>
+          <div class="env-panel" style="margin-top: var(--ap-space-4)" aria-live="polite">
+            <div>
+              <h4 style="margin-bottom: var(--ap-space-2)">Plan de la pila de red (<span data-env-name>qa</span>)</h4>
+              <pre class="plan" tabindex="0"><span data-plan-line>Plan: <span class="hl">163 to add</span>, 0 to change, 0 to destroy.</span>
+<span data-plan-note># ejemplo qa: sin asociación de centro de acopio</span>
+# resultado del plan, nunca aplicado</pre>
+              <p class="note" style="margin-top: var(--ap-space-2)" data-plan-text>Ambiente <strong>qa</strong>: 163 recursos por crear, 0 por cambiar y 0 por destruir.</p>
+            </div>
+            <div>
+              <h4 style="margin-bottom: var(--ap-space-2)">Costo mensual de nube (documento A23)</h4>
+              <div class="metric"><span data-cost-label>Factura mensual de AWS, mes normal</span><strong data-cost-value>US$ 558,94</strong></div>
+              <p class="note" style="margin-top: var(--ap-space-2)">Es el total de todas las cuentas y no se divide por ambiente. Infracost calcula el impacto por pila en CI, pero sin su token el flujo informa «estimación no disponible» y no inventa una cifra: por eso no se muestra un costo por ambiente.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="reveal" style="margin-top: var(--ap-space-6)">CI/CD y evidencia de plan</h3>
+        <div class="pipeline reveal">
+          <div class="card"><h4>Infrastructure CI</h4><p>Revisa secretos, luego <code>fmt</code>, <code>init</code>, <code>validate</code>, <code>tflint</code>, Trivy y <code>terraform test</code> en cada pila.</p></div>
+          <div class="card"><h4>Floci plan</h4><p>Plan especulativo de cada pila contra el emulador Floci, fijado por digest. Sin credenciales reales.</p></div>
+          <div class="card"><h4>Infracost</h4><p>Costo antes, después y diferencia por pila con la CLI v2. Sin token, informa que no hay estimación.</p></div>
+          <div class="card"><h4>CD promotion</h4><p>Promoción <code>dev</code>, <code>qa</code>, <code>pdn</code> con aprobación obligatoria en <code>pdn</code>, ventana de cosecha y registro de quién aprobó. No tiene paso de apply.</p></div>
+        </div>
+        <p class="note reveal" style="margin-top: var(--ap-space-3)">El pipeline falla si algún archivo de workflow o script contiene un comando de Terraform que cambie estado, de modo que el límite de solo plan lo hace cumplir el pipeline y no solo la costumbre.</p>
+
+        <h3 class="reveal" style="margin-top: var(--ap-space-6)">28 reglas vinculantes</h3>
+        <p class="reveal">Las reglas <code>pc-iac-001</code> a <code>pc-iac-028</code> son normativas para todo el código Terraform. Despliega un grupo para ver sus reglas.</p>
+        <div class="rule-groups reveal">
+          <details class="rule-group"><summary>Estructura y nombres <span class="tag">5</span></summary><ul>
+            <li>001 · Estructura obligatoria de los módulos</li><li>002 · Variables obligatorias y declaración</li><li>003 · Nomenclatura</li><li>004 · Etiquetas obligatorias</li><li>007 · Salidas de los módulos</li></ul></details>
+          <details class="rule-group"><summary>Providers, versiones y consumo <span class="tag">4</span></summary><ul>
+            <li>005 · Configuración y alias de providers</li><li>006 · Versiones y estabilidad</li><li>013 · Orden en las llamadas a módulos</li><li>015 · Consumo remoto y versionado de módulos</li></ul></details>
+          <details class="rule-group"><summary>Lógica y datos <span class="tag">7</span></summary><ul>
+            <li>009 · Tipos, conversiones y lógica en locals</li><li>010 · <code>for_each</code> y control de recursos</li><li>011 · Data sources</li><li>012 · Estructuras de datos en locals</li><li>014 · Bloques dinámicos y splat</li><li>021 · Centralización de configuración en locals</li><li>024 · Trazabilidad de configuración compleja</li></ul></details>
+          <details class="rule-group"><summary>Estado, dominios y secretos <span class="tag">6</span></summary><ul>
+            <li>008 · Estado remoto y backend</li><li>016 · Secretos y datos sensibles</li><li>017 · Comunicación entre dominios por data sources</li><li>019 · Uso restringido de <code>terraform_remote_state</code></li><li>022 · Separación por dominio</li><li>025 · Gobernanza procesada en la raíz</li></ul></details>
+          <details class="rule-group"><summary>Módulos y ejemplos <span class="tag">2</span></summary><ul>
+            <li>023 · Responsabilidad funcional única</li><li>026 · Patrón de transformación en <code>sample/</code></li></ul></details>
+          <details class="rule-group"><summary>Seguridad, pruebas y costo <span class="tag">4</span></summary><ul>
+            <li>018 · Pruebas y validación</li><li>020 · Gobernanza de seguridad y endurecimiento</li><li>027 · Estimación de costo con Infracost en CI/CD</li><li>028 · Emulación de AWS con Floci para evidencia de plan</li></ul></details>
+        </div>
+
+        <h3 class="reveal" style="margin-top: var(--ap-space-6)">Plan de 100 horas por rol</h3>
+        <p class="reveal">Solo cuentan las 13 tareas B01 a B13 del Epic 6. Suman 98 horas y dejan 2 de reserva; la ruta crítica termina en la hora 38 de 50 disponibles.</p>
+        <div class="card reveal">
+          <div class="role-bars" data-roles></div>
+          <p class="note" style="margin-top: var(--ap-space-3)">Reparto del plan: ninguna tarea supera 10 horas, y ninguna persona pasa de 5 horas al día ni de 25 por semana. Roles: SR1 y SR2 (senior), JR1 y JR2 (junior).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Costo -->
+    <section class="section" id="costo" aria-labelledby="cos-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Costo del piloto</span>
+            <h2 id="cos-title">El gasto está en el campo y en el aire, no en la nube.</h2>
+          </div>
+          <p>Cifras en dólares de noviembre de 2026 con una tasa de planeación de 4.100 COP por dólar. Son estimaciones de planeación del documento de costos, no mediciones.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="seg" role="group" aria-label="Mes de referencia del costo" data-cost-month style="margin-bottom: var(--ap-space-4)">
+            <button type="button" aria-pressed="true" data-cm="normal">Mes normal</button>
+            <button type="button" aria-pressed="false" data-cm="harvest">Mes de cosecha</button>
+            <button type="button" aria-pressed="false" data-cm="annual">Anualizado</button>
+          </div>
+          <div class="cost-bars" data-cost-bars aria-live="polite"></div>
+          <div class="total-line"><span data-cost-total-label>Total mensual, mes normal</span><output data-cost-total>US$ 2.707,27</output></div>
+        </div>
+
+        <div class="grid grid-3" style="margin-top: var(--ap-space-5)">
+          <div class="metric reveal"><span>Inversión inicial (CAPEX)</span><strong>US$ 82.550</strong></div>
+          <div class="metric reveal"><span>Techo mensual de nube, mes normal / cosecha</span><strong>US$ 650 / 700</strong></div>
+          <div class="metric reveal"><span>Ahorro neto anual por decisiones de diseño</span><strong>US$ 47.532,88</strong></div>
+        </div>
+        <p class="note reveal" style="margin-top: var(--ap-space-3)">Además del ahorro operativo, las decisiones de diseño evitan US$ 230.000 de inversión inicial. Las cifras de inferencia de un mes de cosecha suman US$ 5,207 en 108.270 invocaciones y 420 llamadas al modelo.</p>
+      </div>
+    </section>
+
+    <!-- 9. Observabilidad -->
+    <section class="section section--dark" id="observabilidad" aria-labelledby="obs-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Observabilidad</span>
+            <h2 id="obs-title">Dos SLO, cada uno con su indicador.</h2>
+          </div>
+          <p>Ambos son por eventos: un SLI es la proporción de eventos buenos sobre eventos válidos, en una ventana móvil de 28 días. El presupuesto de error es lo que queda por fuera del objetivo.</p>
+        </div>
+
+        <div class="grid grid-2">
+          <article class="card slo-card reveal">
+            <span class="tag">SLO 1 · Entrega de la alerta de cultivo</span>
+            <div class="slo-big" style="color: var(--ap-color-text-inverse)">95 %</div>
+            <p><strong>Evento bueno:</strong> el primer recibo, por push o SMS, llega a más tardar 300 segundos después de la lectura fuera de rango. La alerta debe emitirse con ruta de entrega disponible.</p>
+            <p class="note">Ventana: 28 días móviles. Un atribuidor registra el salto que excedió su presupuesto.</p>
+          </article>
+          <article class="card slo-card reveal" data-delay="1">
+            <span class="tag">SLO 2 · Disponibilidad de la consulta del saco</span>
+            <div class="slo-big" style="color: var(--ap-color-text-inverse)">99,5 %</div>
+            <p><strong>Evento bueno:</strong> una solicitud <code>GET</code> o <code>HEAD</code> a <code>/s/&lt;código&gt;</code> que responde 200 o 404. Son malos los 5XX y los 429. Se mide en el borde, desde los registros de CloudFront.</p>
+            <p class="note">Ventana: 28 días móviles. Una sonda sintética consulta un código reservado cada 5 minutos.</p>
+          </article>
+        </div>
+
+        <div class="card reveal" style="margin-top: var(--ap-space-5)">
+          <h3 style="margin-bottom: var(--ap-space-3)">Calculadora del presupuesto de error</h3>
+          <div class="calc">
+            <div class="ap-field">
+              <label class="ap-field__label" for="valid-events">Eventos válidos en la ventana</label>
+              <div class="ap-field__control"><input class="ap-input ap-input--numeric" id="valid-events" type="number" min="1" max="10000000" step="1" value="1000" inputmode="numeric" data-valid-events></div>
+              <span class="ap-field__hint" style="color: var(--ap-color-brand-parchment-100)">Fórmula: (1 − objetivo) × eventos válidos.</span>
+            </div>
+            <div class="grid grid-2" aria-live="polite">
+              <div class="metric" style="color: var(--ap-color-text-primary)"><span>Presupuesto SLO 1 (5 %)</span><strong data-budget-1>50</strong><span>eventos malos permitidos</span></div>
+              <div class="metric" style="color: var(--ap-color-text-primary)"><span>Presupuesto SLO 2 (0,5 %)</span><strong data-budget-2>5</strong><span>eventos malos permitidos</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap reveal" style="margin-top: var(--ap-space-5); background: var(--ap-color-surface-default); color: var(--ap-color-text-primary)" tabindex="0" role="region" aria-label="Alertas de consumo de presupuesto">
+          <table>
+            <caption>Alertas de consumo del presupuesto (ventana larga y corta)</caption>
+            <thead><tr><th>Ritmo</th><th>Ventanas</th><th class="num">Factor</th><th class="num">Mínimo de eventos malos SLO 1</th><th class="num">Mínimo SLO 2</th></tr></thead>
+            <tbody>
+              <tr><td>Rápido</td><td>1 hora y 5 minutos</td><td class="num">14,4</td><td class="num">2</td><td class="num">10</td></tr>
+              <tr><td>Sostenido</td><td>6 horas y 30 minutos</td><td class="num">6</td><td class="num">3</td><td class="num">20</td></tr>
+              <tr><td>Lento</td><td>24 horas y 2 horas</td><td class="num">3</td><td class="num">3</td><td class="num">20</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note reveal" style="margin-top: var(--ap-space-3)">Cuando se agota el presupuesto de un SLO, el siguiente cambio a producción de esa ruta debe ser una corrección o llevar el acuerdo del dueño del SLO. Nada de esto está desplegado: son definiciones que el código de infraestructura aplicaría.</p>
+      </div>
+    </section>
+
+    <!-- 10. Sistema de diseño -->
+    <section class="section" id="diseno" aria-labelledby="dis-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Sistema de diseño</span>
+            <h2 id="dis-title">Esta página está construida con sus propios componentes.</h2>
+          </div>
+          <p>El sistema de diseño de las tres aplicaciones (caficultor, transportador y consulta de saco) se aplica aquí tal cual: tokens, componentes, marca e iconos copiados sin cambios. Los ejemplos de abajo son los componentes reales.</p>
+        </div>
+
+        <div class="ds-grid">
+          <div class="ds-stack reveal">
+            <h3>Marca</h3>
+            <div class="brand-tiles">
+              <div class="brand-tile"><img src="brand/logo.svg" alt="Logo a todo color"></div>
+              <div class="brand-tile brand-tile--dark"><img src="brand/logo-negative.svg" alt="Logo en negativo sobre fondo oscuro"></div>
+              <div class="brand-tile brand-tile--mono"><img src="brand/logo-mono.svg" alt="Logo en una tinta"></div>
+            </div>
+
+            <h3>Paleta</h3>
+            <div class="swatches">
+              <div class="swatch"><i style="background: var(--ap-color-brand-primary-900)"></i><span>Primario 900<code>#0A3A41</code></span></div>
+              <div class="swatch"><i style="background: var(--ap-color-brand-primary-700)"></i><span>Primario 700<code>#0E4C55</code></span></div>
+              <div class="swatch"><i style="background: var(--ap-color-brand-coffee-700)"></i><span>Café 700<code>#6B4226</code></span></div>
+              <div class="swatch"><i style="background: var(--ap-color-brand-parchment-400)"></i><span>Pergamino 400<code>#C8963E</code></span></div>
+              <div class="swatch"><i style="background: var(--ap-color-neutral-50)"></i><span>Neutro 50<code>#F6F2EC</code></span></div>
+              <div class="swatch"><i style="background: var(--ap-color-neutral-900)"></i><span>Neutro 900<code>#1A1714</code></span></div>
+            </div>
+            <p class="note">48 pares de color verificados, 0 fallas. Los textos cumplen 7:1 (AAA) en el modo al aire libre y los bordes 3:1. Esta página usa los mismos pares, así que cumple AA como mínimo.</p>
+
+            <h3>Botones y campos</h3>
+            <div class="ds-row">
+              <button class="ap-button ap-button--primary" type="button"><img src="icons/check-circle.svg" width="18" height="18" alt="" class="ap-button__icon">Registrar</button>
+              <button class="ap-button ap-button--secondary" type="button">Cancelar</button>
+              <button class="ap-button ap-button--danger" type="button">Rechazar</button>
+              <button class="ap-button" type="button" disabled>No disponible</button>
+            </div>
+            <div class="ap-field">
+              <label class="ap-field__label" for="ds-code">Código del saco <span class="ap-field__label-meta">QR</span></label>
+              <div class="ap-field__control"><input class="ap-input ap-input--code" id="ds-code" value="AP-HUI-2026-0492" readonly></div>
+            </div>
+            <div class="ap-field">
+              <label class="ap-field__label" for="ds-weight">Peso en báscula <span class="ap-field__label-meta">Tolerancia ±2 kg</span></label>
+              <div class="ap-field__control"><input class="ap-input ap-input--numeric" id="ds-weight" value="60,4" readonly><span class="ap-field__suffix">kg</span></div>
+            </div>
+          </div>
+
+          <div class="ds-stack reveal" data-delay="1">
+            <h3>Estados del saco</h3>
+            <div class="ds-row">
+              <span class="ap-badge ap-badge--in-preparation"><img src="icons/clock.svg" class="ap-badge__icon" alt=""><span>En preparación</span></span>
+              <span class="ap-badge ap-badge--in-transit"><img src="icons/truck.svg" class="ap-badge__icon" alt=""><span>En viaje</span></span>
+              <span class="ap-badge ap-badge--accepted"><img src="icons/check-circle.svg" class="ap-badge__icon" alt=""><span>Aceptado</span></span>
+              <span class="ap-badge ap-badge--rejected"><img src="icons/x-circle.svg" class="ap-badge__icon" alt=""><span>Rechazado</span></span>
+            </div>
+
+            <h3>Tarjeta de saco</h3>
+            <div class="ap-sack-card">
+              <div class="ap-sack-card__header">
+                <div class="ap-sack-card__code-wrap">
+                  <span class="ap-sack-card__label">Saco de 60 kg</span>
+                  <span class="ap-sack-card__code">AP-CAU-2026-8F3A</span>
+                </div>
+                <span class="ap-badge ap-badge--in-transit"><img src="icons/truck.svg" class="ap-badge__icon" alt=""><span>En viaje</span></span>
+              </div>
+              <div class="ap-sack-card__body">
+                <div class="ap-sack-card__metric"><span class="ap-sack-card__metric-label">Peso en báscula</span><div><span class="ap-sack-card__metric-value">60,2</span> <span class="ap-sack-card__metric-unit">kg</span></div></div>
+                <div class="ap-sack-card__metric"><span class="ap-sack-card__metric-label">Humedad de secado</span><div><span class="ap-sack-card__metric-value">11,4</span> <span class="ap-sack-card__metric-unit">%</span></div></div>
+                <div class="ap-sack-card__metric"><span class="ap-sack-card__metric-label">Procedencia</span><div style="font-weight: 700; margin-top: 4px">Cauca</div></div>
+              </div>
+              <div class="ap-sack-card__footer"><span>Lote de secado: L-2026-08</span><span>Empacado: 2026-10-24</span></div>
+            </div>
+            <p class="note">Datos de ejemplo del sistema de diseño, no son datos reales de ningún saco ni productor.</p>
+
+            <h3>Alertas de cultivo</h3>
+            <div class="ap-alert ap-alert--critical">
+              <img src="icons/alert-triangle.svg" class="ap-alert__icon" alt="">
+              <div class="ap-alert__content">
+                <div class="ap-alert__title">Crítica: foco de plaga</div>
+                <div class="ap-alert__message">Umbral superado. Misión de dron solicitada para confirmar el foco.</div>
+                <div class="ap-alert__timestamps"><span class="ap-alert__timestamp-item"><img src="icons/clock.svg" width="14" height="14" alt=""><span>Medido: hoy 06:15</span></span><span class="ap-alert__timestamp-item"><span>Recibido: hoy 06:18</span></span></div>
+              </div>
+            </div>
+            <div class="ap-alert ap-alert--caution">
+              <img src="icons/alert-triangle.svg" class="ap-alert__icon" alt="">
+              <div class="ap-alert__content">
+                <div class="ap-alert__title">Precaución: humedad alta en el secadero</div>
+                <div class="ap-alert__message">Lectura de una ventana sin señal, entregada al drenar el buffer.</div>
+                <div class="ap-alert__timestamps"><span class="ap-alert__timestamp-item"><img src="icons/clock.svg" width="14" height="14" alt=""><span>Medido: ayer 21:30</span></span><span class="ap-alert__timestamp-item"><span>Recibido: hoy 08:05</span></span></div>
+              </div>
+            </div>
+            <div class="ap-alert ap-alert--resolved">
+              <img src="icons/check-circle.svg" class="ap-alert__icon" alt="">
+              <div class="ap-alert__content"><div class="ap-alert__title">Resuelta</div><div class="ap-alert__message">La variable volvió al rango y la inspección quedó verificada.</div></div>
+            </div>
+            <div class="ap-alert ap-alert--no-data">
+              <img src="icons/clock.svg" class="ap-alert__icon" alt="">
+              <div class="ap-alert__content"><div class="ap-alert__title">Sin datos</div><div class="ap-alert__message">El nodo lleva más de 24 horas en silencio.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. Evidencia -->
+    <section class="section section--subtle" id="evidencia" aria-labelledby="evi-title">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Evidencia</span>
+            <h2 id="evi-title">Dónde está cada cosa.</h2>
+          </div>
+          <p>Solo el repositorio de módulos de Terraform es público y se enlaza aquí. Los demás son privados y se nombran, sin enlace.</p>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card repo reveal"><div><code>aroma-pacifico-terraform-modules</code><p class="note" style="margin:0">Módulos de referencia versionados, con pruebas y ejemplos.</p></div><a class="ap-button ap-button--primary" href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules">Abrir en GitHub</a></div>
+          <div class="card repo reveal"><div><code>aroma-pacifico-architecture</code><p class="note" style="margin:0">Enunciado, log de decisiones, ADR, documentos de diseño, plan de 100 horas, observabilidad y costos.</p></div><span class="tag">privado</span></div>
+          <div class="card repo reveal"><div><code>aroma-pacifico-diagrams</code><p class="note" style="margin:0">Fuentes Draw.io y exportaciones SVG y PNG de los 22 diagramas.</p></div><span class="tag">privado</span></div>
+          <div class="card repo reveal"><div><code>aroma-pacifico-infrastructure</code><p class="note" style="margin:0">Pilas raíz de Terraform, variables por ambiente y workflows de solo plan.</p></div><span class="tag">privado</span></div>
+          <div class="card repo reveal"><div><code>aroma-pacifico-design-system</code><p class="note" style="margin:0">Tokens, componentes, marca e iconos de las tres aplicaciones.</p></div><span class="tag">privado</span></div>
+          <div class="card repo reveal"><div><code>aroma-pacifico-presentation</code><p class="note" style="margin:0">Presentación y guion de la sustentación.</p></div><span class="tag">privado</span></div>
+          <div class="card repo reveal"><div><code>aroma-pacifico-roadmap</code><p class="note" style="margin:0">Backlog del piloto: tareas A01 a A25, B01 a B13 y G01.</p></div><span class="tag">privado</span></div>
+          <div class="card repo reveal"><div><code>aroma-pacifico-ai-agents</code><p class="note" style="margin:0">Reglas canónicas, estándares y reglas pc-iac.</p></div><span class="tag">privado</span></div>
+        </div>
+        <p class="note reveal" style="margin-top: var(--ap-space-4)">Esta vitrina no contiene identificadores de cuenta, ARN, nombres de host, correos, tokens ni nombres de personas: el trabajo se atribuye solo a roles. Las cifras de costo y de recuperación son objetivos de diseño o aritmética sobre las cifras del caso; ninguna es una medición.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div>
+        <img src="brand/logo-negative.svg" alt="Aroma Pacífico">
+        <p>Vitrina técnica del piloto de trazabilidad de café 2026 en Cauca, Huila y Tolima. Proyecto académico de DevOps: solo diseño y planes, sin despliegue.</p>
+      </div>
+      <p><a href="#top">Volver al inicio</a></p>
+    </div>
+  </footer>
+
+  <dialog class="lightbox" data-lightbox aria-labelledby="lb-title">
+    <div class="lb-head">
+      <div><small data-lb-cat>Diagrama</small><h2 id="lb-title" data-lb-title>Diagrama</h2></div>
+      <button type="button" data-lb-close aria-label="Cerrar el visor">Cerrar</button>
+    </div>
+    <div class="lb-bar" role="toolbar" aria-label="Controles del visor">
+      <button type="button" data-lb-prev aria-label="Diagrama anterior">‹ Anterior</button>
+      <button type="button" data-lb-next aria-label="Diagrama siguiente">Siguiente ›</button>
+      <button type="button" data-lb-out aria-label="Alejar">−</button>
+      <output data-lb-zoom aria-live="polite">100 %</output>
+      <button type="button" data-lb-in aria-label="Acercar">+</button>
+      <button type="button" data-lb-fit>Ajustar</button>
+      <button type="button" data-lb-svg aria-pressed="false">Cargar SVG vectorial</button>
+      <span class="lb-hint">Arrastra para mover · teclas + − 0 y flechas</span>
+    </div>
+    <div class="lb-viewport" data-lb-viewport tabindex="0" aria-label="Lienzo del diagrama, desplazable">
+      <img data-lb-img alt="" src="">
+      <div class="lb-status" data-lb-status role="status" hidden></div>
+    </div>
+    <div class="lb-foot">
+      <p data-lb-caption></p>
+      <p><span data-lb-boxes></span> · <a data-lb-open href="#" target="_blank" rel="noopener">Abrir el SVG</a> · <a data-lb-download href="#" download>Descargar el PNG</a></p>
+    </div>
+  </dialog>
+
+  <script src="diagrams.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
