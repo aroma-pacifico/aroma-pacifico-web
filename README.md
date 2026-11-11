@@ -18,12 +18,25 @@ aroma-pacifico-web/
 |-- diagrams.js             catalog of the 22 diagrams with captions and boxes
 |-- DIAGRAM_INVENTORY.md    one row per diagram with its source and box IDs
 |-- assets/diagrams/        per diagram: sanitized SVG, full PNG, WebP view (1600 px) and WebP thumbnail (720 px)
+|   `-- index.json          slug list for deep links: slug, title, category, IaC boxes
 |-- tokens/ components/     copied unchanged from aroma-pacifico-design-system
 |-- brand/ icons/           copied unchanged from aroma-pacifico-design-system
 |-- scripts/
 |   |-- sync-diagrams.py    copies and sanitizes the diagrams from the diagrams repository
+|   |-- diagram-index.js    builds and checks assets/diagrams/index.json from diagrams.js
 |   `-- publication-scan.sh scan that blocks identifiers, ARNs, hosts, emails and stray URLs
 `-- .github/workflows/      pages.yml (deploy) and pr-conventions.yml
+```
+
+## Diagram deep links
+
+Every diagram opens from a link of the form `<site>/#diagrama/<slug>`, where `<slug>` is the file stem under `assets/diagrams/` (for example `complete-architecture` or `network-no-signal-sequence`). When the page loads or the hash changes to such a link, the page scrolls to the explorer and opens that diagram in the viewer at full resolution with zoom. While the viewer is open the hash names the open diagram, so the address can be shared; the "Copiar enlace" button copies it. Closing the viewer, or pressing Back, clears the hash and closes the viewer. An unknown slug opens the explorer and shows a short notice.
+
+Slugs are stable: never rename an existing file under `assets/diagrams/`. The full list is `assets/diagrams/index.json`, generated from `diagrams.js`:
+
+```bash
+node scripts/diagram-index.js          # write assets/diagrams/index.json
+node scripts/diagram-index.js --check  # fail if it is stale or an asset is missing
 ```
 
 ## Run locally

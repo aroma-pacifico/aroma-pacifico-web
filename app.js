@@ -397,6 +397,70 @@
   boxSelect.addEventListener('change', () => { box = boxSelect.value; renderGallery(); });
   renderGallery();
 
+  /* ---------- Deep links: #diagrama/<slug> opens that diagram in the viewer ---------- */
+  /* Contract: <site>#diagrama/<slug>, where <slug> is the file stem under assets/diagrams/.
+     While the viewer is open the hash names the open diagram; closing it or pressing Back clears the hash. */
+  const HASH_PREFIX = '#diagrama/';
+  const notice = qs('[data-deeplink-notice]');
+  const noticeMessage = qs('[data-deeplink-message]');
+  const explorer = qs('#arquitectura');
+  let ownEntry = false;
+
+  const hashSlug = () => {
+    if (!location.hash.startsWith(HASH_PREFIX)) return null;
+    try { return decodeURIComponent(location.hash.slice(HASH_PREFIX.length)).replace(/\/+$/, ''); } catch (error) { return ''; }
+  };
+  const baseUrl = () => location.pathname + location.search;
+  const deepLink = (id) => `${location.origin}${location.pathname}${HASH_PREFIX}${id}`;
+  const setHash = (id, mode) => {
+    if (hashSlug() === id) return;
+    if (mode === 'push') { history.pushState(null, '', `${baseUrl()}${HASH_PREFIX}${id}`); ownEntry = true; }
+    else history.replaceState(null, '', `${baseUrl()}${HASH_PREFIX}${id}`);
+  };
+  const clearHash = () => {
+    const slug = hashSlug();
+    if (!diagrams.some((item) => item.id === slug)) { ownEntry = false; return; }
+    if (ownEntry) history.back();
+    else history.replaceState(null, '', baseUrl());
+    ownEntry = false;
+  };
+  const hideNotice = () => { notice.hidden = true; };
+  const showNotice = (slug) => {
+    const shown = slug.length > 60 ? `${slug.slice(0, 60)}...` : slug;
+    noticeMessage.textContent = shown
+      ? `No hay ningún diagrama llamado «${shown}». Elige uno de la galería o del visor.`
+      : 'El enlace no indica ningún diagrama. Elige uno de la galería.';
+    notice.hidden = false;
+  };
+  const scrollToExplorer = () => explorer.scrollIntoView({ behavior: 'instant', block: 'start' });
+
+  /* Applies the current hash: open a known slug, flag an unknown one, close the viewer when the hash left. */
+  const applyHash = (initial = false) => {
+    const slug = hashSlug();
+    if (slug === null) {
+      hideNotice();
+      if (lightbox.open) closeLightbox();
+      return;
+    }
+    const known = diagrams.some((item) => item.id === slug);
+    if (!known) {
+      if (lightbox.open) closeLightbox();
+      scrollToExplorer();
+      showNotice(slug);
+      return;
+    }
+    if (initial) {
+      /* A cold load has no earlier entry of ours: restore the clean URL, then push the deep link, so Back closes the viewer. */
+      history.replaceState(null, '', baseUrl());
+      scrollToExplorer();
+      openDiagram(slug, qs(`[data-open-diagram="${slug}"]`), 'cold');
+      return;
+    }
+    scrollToExplorer();
+    ownEntry = false;
+    openDiagram(slug, qs(`[data-open-diagram="${slug}"]`), 'external');
+  };
+
   /* ---------- Lightbox: zoom buttons, pinch, drag, swipe and keys ---------- */
   const lightbox = qs('[data-lightbox]');
   const viewport = qs('[data-lb-viewport]');
@@ -467,14 +531,18 @@
     qs('[data-lb-download]').setAttribute('download', `${item.id}.png`);
     setSource('view');
     requestAnimationFrame(() => requestAnimationFrame(fit));
+    if (lightbox.open) setHash(item.id, 'replace');
   };
 
-  const openDiagram = (id, trigger) => {
+  const openDiagram = (id, trigger, fromHash = '') => {
     list = (trigger && trigger.closest('.featured')) ? diagrams : visible.length ? visible : diagrams;
     if (list.findIndex((item) => item.id === id) < 0) list = diagrams;
     opener = trigger;
-    if (!lightbox.open) lightbox.showModal();
+    const wasOpen = lightbox.open;
+    if (!wasOpen) lightbox.showModal();
     document.body.classList.add('modal-open');
+    hideNotice();
+    if (!wasOpen && fromHash !== 'external') setHash(id, 'push');
     show(list.findIndex((item) => item.id === id));
     viewport.focus();
   };
@@ -487,6 +555,7 @@
   lightbox.addEventListener('close', () => {
     document.body.classList.remove('modal-open');
     image.removeAttribute('src');
+    clearHash();
     if (opener && document.contains(opener)) opener.focus();
   });
   lightbox.addEventListener('click', (event) => { if (event.target === lightbox) closeLightbox(); });
@@ -558,4 +627,36 @@
   viewport.addEventListener('pointerup', endPointer);
   viewport.addEventListener('pointercancel', endPointer);
   window.addEventListener('resize', () => { if (lightbox.open) fit(); });
+
+  /* ---------- Copy link ---------- */
+  const copyButton = qs('[data-lb-copy]');
+  const copyStatus = qs('[data-lb-copy-status]');
+  let copyTimer = 0;
+  const copyText = async (text) => {
+    if (navigator.clipboard && window.isSecureContext) {
+      try { await navigator.clipboard.writeText(text); return true; } catch (error) { /* fall back below */ }
+    }
+    const field = document.createElement('textarea');
+    field.value = text;
+    field.setAttribute('readonly', '');
+    field.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+    lightbox.appendChild(field);
+    field.select();
+    let done = false;
+    try { done = document.execCommand('copy'); } catch (error) { done = false; }
+    field.remove();
+    return done;
+  };
+  copyButton.addEventListener('click', async () => {
+    const link = deepLink(current().id);
+    const done = await copyText(link);
+    copyStatus.textContent = done ? 'Enlace copiado' : `No se pudo copiar. Copia este enlace: ${link}`;
+    clearTimeout(copyTimer);
+    copyTimer = setTimeout(() => { copyStatus.textContent = ''; }, done ? 2500 : 8000);
+  });
+
+  /* ---------- Deep link events ---------- */
+  window.addEventListener('hashchange', () => applyHash(false));
+  /* The viewer needs the final layout to fit the image; wait for the first frame after load. */
+  if (hashSlug() !== null) requestAnimationFrame(() => applyHash(true));
 })();
