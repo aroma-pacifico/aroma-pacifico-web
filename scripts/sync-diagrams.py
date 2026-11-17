@@ -42,6 +42,9 @@ CATALOG = [
     ("flows", "sack-states"),
     ("pipelines", "ingestion-and-flight-objects"),
     ("pipelines", "platform-pipeline"),
+    ("pipelines", "iac-ci-sequence"),
+    ("pipelines", "iac-provisioning-sequence"),
+    ("pipelines", "iac-teardown-and-rollback-sequence"),
     ("legacy", "legacy-2020"),
     ("data-paths", "telemetry"),
     ("data-paths", "transporter-position"),
@@ -53,6 +56,8 @@ REWORDS = [
     (re.compile(r"ar" r"n:aws:bedrock:us-east-1::foundation-model/"), "foundation-model/"),
     # A token audience host name; the site names the AWS STS audience instead.
     (re.compile(r"sts\." r"amazon" r"aws\.com"), "AWS STS audience"),
+    # Abbreviated modules repository URL in sequence diagrams; expand to the full allowlisted repo URL.
+    (re.compile(r"https://" r"github\.com/\.\.\./"), "https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules/"),
 ]
 
 

@@ -216,6 +216,42 @@
     ]
   },
   {
+    "slug": "pipelines-iac-ci-sequence",
+    "title": "Secuencia de CI de infraestructura como código",
+    "category": "pipelines",
+    "boxes": [
+      "D01",
+      "D11",
+      "D13"
+    ]
+  },
+  {
+    "slug": "pipelines-iac-provisioning-sequence",
+    "title": "Secuencia de aprovisionamiento y promoción de IaC",
+    "category": "pipelines",
+    "boxes": [
+      "D01",
+      "D02",
+      "D04",
+      "D06",
+      "D12",
+      "D13"
+    ]
+  },
+  {
+    "slug": "pipelines-iac-teardown-and-rollback-sequence",
+    "title": "Secuencia de desmantelamiento y reversión de IaC",
+    "category": "pipelines",
+    "boxes": [
+      "D01",
+      "D02",
+      "D04",
+      "D06",
+      "D12",
+      "D13"
+    ]
+  },
+  {
     "slug": "legacy-2020",
     "title": "Legado 2020: conservar, retirar, reemplazar",
     "category": "legacy",
