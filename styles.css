@@ -472,3 +472,9 @@ th code, .swatch code { font-size: 13px; }
 @media (min-width: 600px) and (max-width: 1380px) {
   .site-nav.open { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--ap-space-1); }
 }
+
+/* Deep links: notice for an unknown slug and the copy-link status in the viewer. */
+.deeplink-notice { margin-bottom: var(--ap-space-5); }
+.deeplink-notice[hidden] { display: none; }
+.lb-copy-status { font-size: 14px; font-weight: 600; color: var(--ap-color-text-secondary); }
+.lb-copy-status:empty { display: none; }

@@ -1,6 +1,6 @@
 # Diagram inventory
 
-All 22 diagrams of `aroma-pacifico-diagrams` are published in the explorer of this site. The SVG is the vector publication export, the PNG is the preview, a 720 px WebP thumbnail serves the gallery cards and a 1600 px WebP view opens first in the lightbox. Files live in `assets/diagrams/`, named `<id>.svg`, `<id>.png`, `thumbs/<id>.webp` and `view/<id>.webp`.
+All 25 diagrams of `aroma-pacifico-diagrams` are published in the explorer of this site. The SVG is the vector publication export, the PNG is the preview, a 720 px WebP thumbnail serves the gallery cards and a 1600 px WebP view opens first in the lightbox. Files live in `assets/diagrams/`, named `<id>.svg`, `<id>.png`, `thumbs/<id>.webp` and `view/<id>.webp`.
 
 Each row keeps the source file of the diagrams repository, the IaC boxes D01 to D13 that the diagram badges (a dash means the diagram carries no box), and the byte size of the published files. The captions shown on the site are in `diagrams.js`.
 
@@ -26,6 +26,9 @@ Sanitization of the SVG copies: the embedded draw.io source (`content` attribute
 | `flows-sack-states` | flows | Sack Lifecycle State Machine | D04, D05, D06 | `flows/sack-states.drawio` | 3333 x 1442 | 5953 KB / 1675 KB |
 | `pipelines-ingestion-and-flight-objects` | pipelines | Ingestion and Flight-Object Pipelines | D08, D09, D10 | `pipelines/ingestion-and-flight-objects.drawio` | 2613 x 1292 | 4473 KB / 1111 KB |
 | `pipelines-platform-pipeline` | pipelines | Platform CI/CD Deployment Pipeline | D01, D02, D03, D04, D05, D06, D08, D10, D11, D12, D13 | `pipelines/platform-pipeline.drawio` | 2613 x 1152 | 4134 KB / 982 KB |
+| `pipelines-iac-ci-sequence` | pipelines | IaC CI and Module Release Sequence | D01, D11, D13 | `pipelines/iac-ci-sequence.drawio` | 2353 x 3965 | 4854 KB / 1624 KB |
+| `pipelines-iac-provisioning-sequence` | pipelines | IaC CD Provisioning Sequence | D01, D02, D04, D06, D12, D13 | `pipelines/iac-provisioning-sequence.drawio` | 2353 x 3651 | 4809 KB / 1545 KB |
+| `pipelines-iac-teardown-and-rollback-sequence` | pipelines | IaC Teardown and Rollback Sequence | D01, D02, D04, D06, D12, D13 | `pipelines/iac-teardown-and-rollback-sequence.drawio` | 2353 x 2871 | 3566 KB / 1228 KB |
 | `legacy-2020` | legacy | 2020 Legacy Mapping (Keep/Retire/Replace) | D01, D03, D04, D05, D06, D08, D09, D10 | `legacy/legacy-2020.drawio` | 3153 x 2527 | 7703 KB / 1512 KB |
 | `data-paths-telemetry` | data-paths | Telemetry Data Path | - | `data-paths/telemetry.drawio` | 2883 x 972 | 1257 KB / 377 KB |
 | `data-paths-transporter-position` | data-paths | Transporter Position Data Path | - | `data-paths/transporter-position.drawio` | 2822 x 912 | 1229 KB / 345 KB |

@@ -123,9 +123,14 @@
         <div class="section-head reveal">
           <div>
             <span class="eyebrow">Explorador de arquitectura</span>
-            <h2 id="arq-title">22 diagramas, un solo modelo.</h2>
+            <h2 id="arq-title">25 diagramas, un solo modelo.</h2>
           </div>
           <p>Cada diagrama del repositorio de diagramas está aquí, en SVG vectorial y en vista previa PNG. Cada uno indica las cajas D01 a D13 que el código de infraestructura implementa.</p>
+        </div>
+
+        <div class="ap-alert ap-alert--notice deeplink-notice" data-deeplink-notice role="status" hidden>
+          <img src="icons/alert-triangle.svg" class="ap-alert__icon" alt="">
+          <div class="ap-alert__content"><div class="ap-alert__title">Ese diagrama no existe</div><div class="ap-alert__message" data-deeplink-message></div></div>
         </div>
 
         <article class="featured reveal" aria-labelledby="featured-title">
@@ -2330,6 +2335,31 @@
 </tr>
 </tbody></table></div>
 <p class="note reveal">La promoción a producción son dos ejecuciones del mismo flujo. La ejecución 1 (el solicitante) planea <code>dev</code>, <code>qa</code> y <code>pdn</code>, estima el costo y termina con la revisión: destrucciones y reemplazos primero, luego el plan, la diferencia de costo y la huella SHA-256 del plan. La ejecución 2 la lanza una persona distinta de la lista de aprobadores, con la huella de la primera, y un script verifica que el plan es exactamente el revisado, que la ventana de cambios permite el cambio y que aprobador y solicitante no coinciden; solo entonces escribe el registro de aprobación. Producción no cambia entre las 05:00 y las 18:00, hora de Colombia, en un día de la semana de cosecha, salvo bajo una referencia de incidente.</p>
+<h4 class="reveal" style="margin-top: var(--ap-space-6)">Diagramas de secuencia de los pipelines</h4>
+<p class="reveal">Interacciones paso a paso de los flujos de integración, aprovisionamiento y reversión de infraestructura como código, con sus compuertas y salvaguardas:</p>
+<div class="grid grid-3 reveal" style="margin-top: var(--ap-space-4)">
+  <div class="card">
+    <h4>Secuencia de CI</h4>
+    <p>Compuertas por rama en GitHub Actions: escaneo de secretos, validación por matriz, plan contra Floci, impacto de costo con Infracost y etiquetado inmutable de módulos.</p>
+    <div style="margin-top: var(--ap-space-4)">
+      <a class="ap-button ap-button--secondary" href="#diagrama/pipelines-iac-ci-sequence" data-open-diagram="pipelines-iac-ci-sequence">Ver diagrama (CI)</a>
+    </div>
+  </div>
+  <div class="card">
+    <h4>Aprovisionamiento y promoción</h4>
+    <p>Promoción dev, qa y pdn en orden de dependencias: guardia de solo plan, plan dev y qa contra Floci, ventana de cosecha y aprobación de producción en dos pasos.</p>
+    <div style="margin-top: var(--ap-space-4)">
+      <a class="ap-button ap-button--secondary" href="#diagrama/pipelines-iac-provisioning-sequence" data-open-diagram="pipelines-iac-provisioning-sequence">Ver diagrama (CD)</a>
+    </div>
+  </div>
+  <div class="card">
+    <h4>Desmantelamiento y reversión</h4>
+    <p>Reversión por revert y nueva promoción en menos de dos horas, salvaguardas de retención de cinco años y desmantelamiento controlado en orden inverso.</p>
+    <div style="margin-top: var(--ap-space-4)">
+      <a class="ap-button ap-button--secondary" href="#diagrama/pipelines-iac-teardown-and-rollback-sequence" data-open-diagram="pipelines-iac-teardown-and-rollback-sequence">Ver diagrama (Reversión)</a>
+    </div>
+  </div>
+</div>
 <h3 id="iac-plan" class="reveal" style="margin-top: var(--ap-space-6)">Plan por ambiente</h3>
 <p class="reveal">Elige un ambiente para ver el resultado de los planes contra el emulador, pila por pila, con las cifras que documenta el repositorio de infraestructura.</p>
 <div class="card reveal">
@@ -2530,7 +2560,7 @@
         <div class="grid grid-2">
           <div class="card repo reveal"><div><code>aroma-pacifico-terraform-modules</code><p class="note" style="margin:0">Módulos de referencia versionados, con pruebas y ejemplos.</p></div><a class="ap-button ap-button--primary" href="https://github.com/aroma-pacifico/aroma-pacifico-terraform-modules">Abrir en GitHub</a></div>
           <div class="card repo reveal"><div><strong>Arquitectura y decisiones</strong><p class="note" style="margin:0">Enunciado, log de decisiones, ADR, documentos de diseño, plan de 100 horas, observabilidad y costos.</p></div></div>
-          <div class="card repo reveal"><div><strong>Diagramas</strong><p class="note" style="margin:0">Fuentes Draw.io y exportaciones SVG y PNG de los 22 diagramas.</p></div></div>
+          <div class="card repo reveal"><div><strong>Diagramas</strong><p class="note" style="margin:0">Fuentes Draw.io y exportaciones SVG y PNG de los 25 diagramas.</p></div></div>
           <div class="card repo reveal"><div><strong>Infraestructura</strong><p class="note" style="margin:0">Pilas raíz de Terraform, variables por ambiente y workflows de solo plan.</p></div></div>
           <div class="card repo reveal"><div><strong>Sistema de diseño</strong><p class="note" style="margin:0">Tokens, componentes, marca e iconos de las tres aplicaciones.</p></div></div>
           <div class="card repo reveal"><div><strong>Comunicación del proyecto</strong><p class="note" style="margin:0">Materiales para comunicar el proyecto y sus resultados.</p></div></div>
@@ -2566,6 +2596,8 @@
       <button type="button" data-lb-fit>Ajustar</button>
       <button type="button" data-lb-png aria-pressed="false">Ver PNG completo</button>
       <button type="button" data-lb-svg aria-pressed="false">Ver SVG vectorial</button>
+      <button type="button" data-lb-copy>Copiar enlace</button>
+      <span class="lb-copy-status" data-lb-copy-status role="status" aria-live="polite"></span>
       <span class="lb-hint">Pellizca o usa + y − para acercar · arrastra o desliza para moverte · PgUp y PgDn cambian de diagrama</span>
     </div>
     <div class="lb-viewport" data-lb-viewport tabindex="0" aria-label="Lienzo del diagrama, desplazable">

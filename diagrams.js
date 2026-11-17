@@ -148,6 +148,27 @@ window.AP_DIAGRAMS = [
     source: 'pipelines/platform-pipeline.drawio', doc: 'automation-and-pipelines.md, secciones 3 a 5, 8 y 10'
   },
   {
+    id: 'pipelines-iac-ci-sequence', category: 'pipelines', size: [2353, 3965],
+    title: 'Secuencia de CI de infraestructura como código',
+    caption: 'Compuertas por rama en GitHub Actions: escaneo de secretos, validación por matriz, plan contra Floci, impacto de costo con Infracost y etiquetado inmutable de módulos.',
+    boxes: ['D01','D11','D13'],
+    source: 'pipelines/iac-ci-sequence.drawio', doc: 'automation-and-pipelines.md, sección 4.2; pc-iac-015, pc-iac-016, pc-iac-018, pc-iac-027 y pc-iac-028'
+  },
+  {
+    id: 'pipelines-iac-provisioning-sequence', category: 'pipelines', size: [2353, 3651],
+    title: 'Secuencia de aprovisionamiento y promoción de IaC',
+    caption: 'Promoción dev, qa y pdn en orden de dependencias: guardia de solo plan, plan dev y qa contra Floci, ventana de cosecha y aprobación de producción en dos pasos.',
+    boxes: ['D01','D02','D04','D06','D12','D13'],
+    source: 'pipelines/iac-provisioning-sequence.drawio', doc: 'automation-and-pipelines.md, secciones 3 a 5, 8 y 9; cd-pipeline.md, secciones 1 a 5'
+  },
+  {
+    id: 'pipelines-iac-teardown-and-rollback-sequence', category: 'pipelines', size: [2353, 2871],
+    title: 'Secuencia de desmantelamiento y reversión de IaC',
+    caption: 'Reversión por revert y nueva promoción en menos de dos horas, salvaguardas de retención de cinco años y desmantelamiento controlado en orden inverso.',
+    boxes: ['D01','D02','D04','D06','D12','D13'],
+    source: 'pipelines/iac-teardown-and-rollback-sequence.drawio', doc: 'automation-and-pipelines.md, secciones 10 y 11; cd-pipeline.md, sección 7'
+  },
+  {
     id: 'legacy-2020', category: 'legacy', size: [3153, 2527],
     title: 'Legado 2020: conservar, retirar, reemplazar',
     caption: 'Cada elemento del piloto de 2020 frente a su decisión de 2026 y a la caja de IaC que lo implementa.',
