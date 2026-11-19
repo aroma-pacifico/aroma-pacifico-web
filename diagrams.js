@@ -22,175 +22,175 @@ window.AP_BOXES = {
 
 window.AP_DIAGRAMS = [
   {
-    id: 'complete-architecture', category: 'complete', size: [2924, 2409],
+    id: 'complete-architecture', category: 'complete', size: [2425, 1935],
     title: 'Arquitectura completa (ejecución)',
     caption: 'Arquitectura de punta a punta: borde y nube, aislamiento por cuentas, enrutamiento de red y las cajas D01 a D13 que el código implementa.',
     boxes: ['D01','D02','D03','D04','D05','D06','D07','D08','D09','D10','D11','D12','D13'],
     source: 'complete/architecture.drawio (página 1)', doc: 'architecture.md, secciones 4, 7, 11 y 14'
   },
   {
-    id: 'complete-architecture-iac', category: 'complete', size: [2933, 1157],
+    id: 'complete-architecture-iac', category: 'complete', size: [2381, 900],
     title: 'Arquitectura completa (trazabilidad IaC)',
     caption: 'Mapa de las cajas D01 a D13 del Epic 6 y del plan revisable con promoción por ambientes.',
     boxes: ['D01','D02','D03','D04','D05','D06','D07','D08','D09','D10','D11','D12','D13'],
     source: 'complete/architecture.drawio (página 2)', doc: 'architecture.md, sección 14; automation-and-pipelines.md, secciones 3 a 5'
   },
   {
-    id: 'accounts-landing-zone', category: 'accounts', size: [2373, 2207],
+    id: 'accounts-landing-zone', category: 'accounts', size: [2423, 1828],
     title: 'Landing zone, controles y auditoría',
     caption: 'Organización AWS con cinco cuentas miembro, políticas de control de servicio y de etiquetas desde la raíz, presupuestos y auditoría de cinco años.',
     boxes: ['D02','D03','D04','D06','D09'],
     source: 'accounts/landing-zone.drawio', doc: 'landing-zone.md, secciones 3 a 7'
   },
   {
-    id: 'network-addressing-plan', category: 'network', size: [2753, 2026],
+    id: 'network-addressing-plan', category: 'network', size: [1803, 1264],
     title: 'Plan de direccionamiento',
     caption: 'Partición RFC 1918 entre los centros, la nube AWS y el espacio de Azure sin desplegar, con los niveles de subred y la escala de 200 a 1.000 fincas sin rediseño.',
     boxes: ['D04','D05'],
     source: 'network/addressing-plan.drawio', doc: 'addressing-plan.md, secciones 2 a 5'
   },
   {
-    id: 'network-collection-center', category: 'network', size: [2394, 1621],
+    id: 'network-collection-center', category: 'network', size: [1923, 1315],
     title: 'Patrón de red del centro de acopio',
-    caption: 'LAN estándar de los tres centros: siete zonas segmentadas, firewall perimetral y dos túneles IPsec hacia el Transit Gateway.',
+    caption: 'LAN estándar de los tres centros: siete zonas segmentadas, firewall perimetral y enlace IPsec con respaldo celular hacia el Transit Gateway.',
     boxes: ['D04','D05','D07'],
     source: 'network/collection-center.drawio', doc: 'collection-center-network.md, secciones 2 a 6'
   },
   {
-    id: 'network-connectivity', category: 'network', size: [3653, 2272],
+    id: 'network-connectivity', category: 'network', size: [2012, 1167],
     title: 'Conectividad de punta a punta',
-    caption: 'Los siete flujos que conectan nodos de finca, beneficiadero, estación de tierra del dron, transportador, centro de acopio y puerto con la nube.',
+    caption: 'Rutas de conectividad desde nodos de finca, beneficiadero, operador de dron, transportador, centro de acopio y puerto hasta AWS us-east-1, con búfer sin señal y alerta en cinco pasos.',
     boxes: ['D04','D05','D06','D07','D08','D09','D10'],
     source: 'network/connectivity.drawio', doc: 'connectivity.md, secciones 2 a 11'
   },
   {
-    id: 'network-no-signal-sequence', category: 'network', size: [3746, 2277],
+    id: 'network-no-signal-sequence', category: 'network', size: [2047, 1194],
     title: 'Operación sin señal y alerta de cultivo',
     caption: 'Almacenar y reenviar: buffer local de hasta 24 horas, drenado primero lo vivo, deduplicación idempotente y presupuesto de latencia de siete saltos bajo 300 segundos.',
     boxes: ['D09','D10'],
     source: 'network/no-signal-sequence.drawio', doc: 'connectivity.md, secciones 4.3, 6, 7 y 8'
   },
   {
-    id: 'security-firewall-policy', category: 'security', size: [2693, 1603],
+    id: 'security-firewall-policy', category: 'security', size: [2113, 1215],
     title: 'Política de firewall perimetral y en la nube',
     caption: 'Defensa en capas: reglas del firewall de cada centro, grupos de seguridad, políticas de endpoints y límite de tasa con AWS WAF.',
     boxes: ['D04','D05','D07'],
     source: 'security/firewall-policy.drawio', doc: 'firewall-policy.md, secciones 3 a 6'
   },
   {
-    id: 'security-identity-and-access', category: 'security', size: [3413, 1782],
+    id: 'security-identity-and-access', category: 'security', size: [2003, 1307],
     title: 'Identidad y acceso',
-    caption: 'Cinco niveles: operadores humanos, certificados de borde, pools de Cognito, roles IAM de mínimo privilegio y ocho llaves KMS administradas por el cliente.',
+    caption: 'Cinco niveles: identidades, directorios (Identity Center, Cognito e IoT Core), puntos de entrada, roles de ejecución y diez almacenes cifrados con una llave KMS por clase de datos.',
     boxes: ['D02','D06','D08','D09'],
     source: 'security/identity-and-access.drawio', doc: 'security-and-identity.md, secciones 2 a 7 y 10'
   },
   {
-    id: 'security-revocation-sequence', category: 'security', size: [3713, 2657],
+    id: 'security-revocation-sequence', category: 'security', size: [1905, 1411],
     title: 'Revocación de credenciales',
     caption: 'Secuencia de revocación inmediata: certificado retirado en IoT Core, tokens de Cognito invalidados y sesiones cerradas para cada tipo de actor.',
     boxes: ['D06','D08'],
     source: 'security/revocation-sequence.drawio', doc: 'security-and-identity.md, sección 10'
   },
   {
-    id: 'flows-drone-fumigation-sequence', category: 'flows', size: [4247, 5262],
+    id: 'flows-drone-fumigation-sequence', category: 'flows', size: [1905, 1492],
     title: 'Secuencia de fumigación con dron',
-    caption: 'De la alerta de plaga al cierre del caso en ocho compuertas, con la autorización del agrónomo con MFA y el registro de vuelo persistido.',
+    caption: 'De la alerta de cultivo al cierre del caso en cinco fases: vuelo de confirmación offline, autorización del agrónomo con MFA reciente, fumigación, verificación y registro persistido (ADR-002).',
     boxes: ['D04','D06','D08','D09','D10'],
     source: 'flows/drone-fumigation-sequence.drawio', doc: 'drone-service.md, secciones 3 a 6 y 10'
   },
   {
-    id: 'flows-drone-state-machines', category: 'flows', size: [4132, 1607],
+    id: 'flows-drone-state-machines', category: 'flows', size: [1993, 1125],
     title: 'Máquinas de estado del dron',
-    caption: 'Los dos modelos de estado que gobiernan la misión de vuelo y la orden de fumigación, con transiciones protegidas por guardas.',
-    boxes: ['D06','D09','D10'],
+    caption: 'Las tres máquinas de estado que gobiernan el caso de plaga, la orden de fumigación y la misión de vuelo, con actores y compuertas ADR-002.',
+    boxes: ['D06','D10'],
     source: 'flows/drone-state-machines.drawio', doc: 'drone-service.md, sección 5'
   },
   {
-    id: 'flows-farm-monitoring-sequence', category: 'flows', size: [3154, 3027],
+    id: 'flows-farm-monitoring-sequence', category: 'flows', size: [1903, 1392],
     title: 'Monitoreo de finca y alertas',
-    caption: 'Desde la medición del sensor hasta la notificación al caficultor: ingesta por dos tópicos, evaluación de umbrales y deduplicación por episodio.',
+    caption: 'Desde la medición del sensor hasta la notificación al caficultor: acción doble en la regla IoT, evaluación de umbrales, deduplicación por episodio y SLA menor a 5 minutos.',
     boxes: ['D06','D08','D09','D10'],
     source: 'flows/farm-monitoring-sequence.drawio', doc: 'farm-monitoring.md, secciones 3 a 7'
   },
   {
-    id: 'flows-inference-functions', category: 'flows', size: [2753, 2332],
+    id: 'flows-inference-functions', category: 'flows', size: [1973, 1101],
     title: 'Funciones de inferencia orientadas a eventos',
-    caption: 'El orquestador de capacidades del dron (ADR-004): bus personalizado, una regla por tipo de misión, una cola y una cola de fallos por función, y el estado en DynamoDB.',
+    caption: 'Cuatro disparadores, una cola con DLQ por función (confirmación, verificación, estimación y umbrales), invocación a Bedrock Nova Pro y escritura de resultados y alertas.',
     boxes: ['D06','D09','D10'],
     source: 'flows/inference-functions.drawio', doc: 'inference-functions.md, secciones 2 a 6 y 10; adr-004'
   },
   {
-    id: 'flows-sack-and-trip-sequence', category: 'flows', size: [3453, 3757],
+    id: 'flows-sack-and-trip-sequence', category: 'flows', size: [1903, 1532],
     title: 'Custodia de saco y viaje',
     caption: 'Registro del saco, traspasos de custodia entre tramos del viaje y verificación del comprador por código QR sin autenticación.',
     boxes: ['D04','D05','D06','D07'],
     source: 'flows/sack-and-trip-sequence.drawio', doc: 'sack-and-trip.md, secciones 2, 4, 5 y 7'
   },
   {
-    id: 'flows-sack-states', category: 'flows', size: [3333, 1442],
+    id: 'flows-sack-states', category: 'flows', size: [1938, 890],
     title: 'Estados del saco',
-    caption: 'Los siete estados del saco de 60 kg, desde el beneficiadero hasta la entrega en el puerto, y sus ocho transiciones.',
+    caption: 'Los siete estados del saco de 60 kg, desde la finca hasta la entrega en el puerto, y sus ocho transiciones.',
     boxes: ['D04','D05','D06'],
     source: 'flows/sack-states.drawio', doc: 'sack-and-trip.md, sección 3'
   },
   {
-    id: 'pipelines-ingestion-and-flight-objects', category: 'pipelines', size: [2613, 1292],
+    id: 'pipelines-ingestion-and-flight-objects', category: 'pipelines', size: [1863, 986],
     title: 'Ingesta de telemetría y objetos de vuelo',
     caption: 'Dos canales en paralelo: la ingesta de telemetría y la recepción de objetos de vuelo con URL prefirmadas, SHA-256 y cuarentena.',
     boxes: ['D08','D09','D10'],
     source: 'pipelines/ingestion-and-flight-objects.drawio', doc: 'automation-and-pipelines.md, secciones 6 y 7'
   },
   {
-    id: 'pipelines-platform-pipeline', category: 'pipelines', size: [2613, 1152],
+    id: 'pipelines-platform-pipeline', category: 'pipelines', size: [1903, 754],
     title: 'Pipeline CI/CD de la plataforma',
     caption: 'GitHub Actions: compuertas por rama, plan revisable, promoción dev, qa y pdn, aprobación y ventana de congelamiento de la semana de cosecha.',
     boxes: ['D01','D02','D03','D04','D05','D06','D08','D10','D11','D12','D13'],
     source: 'pipelines/platform-pipeline.drawio', doc: 'automation-and-pipelines.md, secciones 3 a 5, 8 y 10'
   },
   {
-    id: 'pipelines-iac-ci-sequence', category: 'pipelines', size: [2353, 3965],
+    id: 'pipelines-iac-ci-sequence', category: 'pipelines', size: [1863, 1760],
     title: 'Secuencia de CI de infraestructura como código',
     caption: 'Compuertas por rama en GitHub Actions: escaneo de secretos, validación por matriz, plan contra Floci, impacto de costo con Infracost y etiquetado inmutable de módulos.',
     boxes: ['D01','D11','D13'],
     source: 'pipelines/iac-ci-sequence.drawio', doc: 'automation-and-pipelines.md, sección 4.2; pc-iac-015, pc-iac-016, pc-iac-018, pc-iac-027 y pc-iac-028'
   },
   {
-    id: 'pipelines-iac-provisioning-sequence', category: 'pipelines', size: [2353, 3651],
+    id: 'pipelines-iac-provisioning-sequence', category: 'pipelines', size: [1863, 1870],
     title: 'Secuencia de aprovisionamiento y promoción de IaC',
     caption: 'Promoción dev, qa y pdn en orden de dependencias: guardia de solo plan, plan dev y qa contra Floci, ventana de cosecha y aprobación de producción en dos pasos.',
-    boxes: ['D01','D02','D04','D06','D12','D13'],
+    boxes: ['D01','D02','D04','D05','D06','D10','D12','D13'],
     source: 'pipelines/iac-provisioning-sequence.drawio', doc: 'automation-and-pipelines.md, secciones 3 a 5, 8 y 9; cd-pipeline.md, secciones 1 a 5'
   },
   {
-    id: 'pipelines-iac-teardown-and-rollback-sequence', category: 'pipelines', size: [2353, 2871],
+    id: 'pipelines-iac-teardown-and-rollback-sequence', category: 'pipelines', size: [1863, 1520],
     title: 'Secuencia de desmantelamiento y reversión de IaC',
     caption: 'Reversión por revert y nueva promoción en menos de dos horas, salvaguardas de retención de cinco años y desmantelamiento controlado en orden inverso.',
-    boxes: ['D01','D02','D04','D06','D12','D13'],
+    boxes: ['D01','D02','D04','D05','D06','D09','D10','D12'],
     source: 'pipelines/iac-teardown-and-rollback-sequence.drawio', doc: 'automation-and-pipelines.md, secciones 10 y 11; cd-pipeline.md, sección 7'
   },
   {
-    id: 'legacy-2020', category: 'legacy', size: [3153, 2527],
+    id: 'legacy-2020', category: 'legacy', size: [2033, 1444],
     title: 'Legado 2020: conservar, retirar, reemplazar',
     caption: 'Cada elemento del piloto de 2020 frente a su decisión de 2026 y a la caja de IaC que lo implementa.',
     boxes: ['D01','D03','D04','D05','D06','D08','D09','D10'],
     source: 'legacy/legacy-2020.drawio', doc: 'legacy-2020.md, secciones 2 a 4'
   },
   {
-    id: 'data-paths-telemetry', category: 'data-paths', size: [2883, 972],
+    id: 'data-paths-telemetry', category: 'data-paths', size: [1823, 705],
     title: 'Ruta de datos: telemetría',
     caption: 'Lecturas de cultivo y secado por MQTT sobre TLS hasta AWS IoT Core, almacenamiento en DynamoDB y evaluación de alertas.',
     boxes: [],
     source: 'data-paths/telemetry.drawio', doc: 'connectivity.md, sección 4'
   },
   {
-    id: 'data-paths-transporter-position', category: 'data-paths', size: [2822, 912],
+    id: 'data-paths-transporter-position', category: 'data-paths', size: [1823, 675],
     title: 'Ruta de datos: posición del transportador',
-    caption: 'Posición GNSS, buzón de salida cifrado en el teléfono y carga por red móvil durante el viaje por tierra hasta el puerto.',
+    caption: 'Posición GNSS y eventos de custodia en el buzón cifrado del teléfono (mínimo 7 días), cargados por red móvil o Wi-Fi del centro hacia la API.',
     boxes: [],
     source: 'data-paths/transporter-position.drawio', doc: 'connectivity.md, sección 7'
   },
   {
-    id: 'data-paths-drone-objects', category: 'data-paths', size: [2893, 1222],
+    id: 'data-paths-drone-objects', category: 'data-paths', size: [1863, 848],
     title: 'Ruta de datos: objetos del dron',
     caption: 'Paquete de misión, URL prefirmadas de S3, verificación de checksum, filtro de personas en el equipo y cuarentena.',
     boxes: [],
