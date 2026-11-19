@@ -43,7 +43,7 @@
         entries.forEach((entry) => {
           if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
         });
-      }, { threshold: 0.08 });
+      }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
       qsa('.reveal').forEach((element) => revealObserver.observe(element));
     }
   } else {
