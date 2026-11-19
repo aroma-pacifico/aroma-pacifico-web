@@ -80,7 +80,7 @@ window.AP_DIAGRAMS = [
   {
     id: 'security-identity-and-access', category: 'security', size: [2003, 1307],
     title: 'Identidad y acceso',
-    caption: 'Cinco niveles: identidades, directorios (Identity Center, Cognito e IoT Core), puntos de entrada, roles de ejecución y diez almacenes cifrados con una llave KMS por clase de datos.',
+    caption: 'Cinco niveles: identidades, directorios (Identity Center, Cognito, IoT Core y el proveedor OIDC de GitHub), puntos de entrada, roles de ejecución y diez almacenes cifrados con una llave KMS por clase de datos.',
     boxes: ['D02','D06','D08','D09'],
     source: 'security/identity-and-access.drawio', doc: 'security-and-identity.md, secciones 2 a 7 y 10'
   },
@@ -94,7 +94,7 @@ window.AP_DIAGRAMS = [
   {
     id: 'flows-drone-fumigation-sequence', category: 'flows', size: [1905, 1492],
     title: 'Secuencia de fumigación con dron',
-    caption: 'De la alerta de cultivo al cierre del caso en cinco fases: vuelo de confirmación offline, autorización del agrónomo con MFA reciente, fumigación, verificación y registro persistido (ADR-002).',
+    caption: 'Cinco fases desde la alerta de cultivo hasta el cierre del caso: alerta, vuelo de confirmación offline, autorización del agrónomo con MFA reciente (ADR-002), vuelo de fumigación offline y, por último, verificación y cierre.',
     boxes: ['D04','D06','D08','D09','D10'],
     source: 'flows/drone-fumigation-sequence.drawio', doc: 'drone-service.md, secciones 3 a 6 y 10'
   },
